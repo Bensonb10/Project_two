@@ -8,5 +8,14 @@ module.exports = function(sequelize, DataTypes) {
 		picture: DataTypes.STRING
 
 	});
+  
+	EmployeeTable.associate = function(models) {
+		EmployeeTable.hasMany(models.AvailTable, {
+			foreignKey: 'EmployeeTableId', sourceKey: 'AvailTableId'
+		});
+		EmployeeTable.hasMany(models.ScheduleTable, {
+			foreignKey: 'EmployeeTableId', sourceKey: 'ScheduleTableId'
+		});
+	};
 	return EmployeeTable;
 };
