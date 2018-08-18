@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS scheduler;
+CREATE DATABASE scheduler;
+

@@ -1,0 +1,37 @@
+/* ////////////////////////////////   custom CSS /////////////////////////////////////////// */
+
+
+/* write your css from here */
+
+.dashboard-notifications li a {
+    background: #f1efef;
+    line-height: 1 !important;
+    height: auto !important;
+    display: flex;
+    margin-bottom: 10px;
+    padding: 12px 25px;
+    cursor: pointer;
+}
+
+.dashboard-notifications li a .material-icons {
+    float: left;
+    padding-right: 10px;
+    font-size: 22px;
+    height: 37px;
+    line-height: 37px;
+}
+
+.dashboard-notifications li a .noti-message {
+    float: right;
+    margin: 3px 0 0 0;
+    font-weight: normal;
+    line-height: 1.4rem;
+    font-size: 1rem;
+    color: #464646;
+}
+
+.dashboard-notifications li a .noti-message>span {
+    display: block;
+    font-size: 12px;
+    opacity: 0.8;
+}
