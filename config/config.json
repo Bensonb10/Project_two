@@ -3,13 +3,13 @@
     "username": "root",
     "password": "root",
     "database": "scheduler",
-    "port": 8889,
+    "port": 3306,
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "root",
+    "password": null,
     "database": "scheduler",
     "host": "localhost",
     "dialect": "mysql",
