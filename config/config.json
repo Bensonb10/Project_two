@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "project_two",
+    "database": "scheduler",
     "port": 8889,
     "host": "localhost",
     "dialect": "mysql"
@@ -10,7 +10,7 @@
   "test": {
     "username": "root",
     "password": "root",
-    "database": "project_two",
+    "database": "scheduler",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false
