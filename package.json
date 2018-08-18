@@ -19,10 +19,15 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "express-validator": "^5.3.0",
 =======
     "ion-rangeslider": "^2.2.0",
 >>>>>>> e9029bccf48a3508ee517a318702748f041d9b81
+=======
+    "ion-rangeslider": "^2.2.0",
+    "moment": "^2.22.2",
+>>>>>>> ccced4c67767670a09b781fd31583538bb32c4f2
     "mysql2": "^1.5.3",
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",

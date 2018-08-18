@@ -2,13 +2,8 @@
   "development": {
     "username": "root",
     "password": "root",
-<<<<<<< HEAD
     "database": "project_two",
     "port": 3306,
-=======
-    "database": "scheduler",
-    "port": 8889,
->>>>>>> e9029bccf48a3508ee517a318702748f041d9b81
     "host": "localhost",
     "dialect": "mysql"
   },
