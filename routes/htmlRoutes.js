@@ -22,6 +22,11 @@ module.exports = function(app) {
 		res.send('hello');
 	});
 
+	app.get('/hello', function(req, res){
+		var context = { title: 'My New Post', body: 'This is my first post!' };
+		res.render('index', context);
+	});
+
 	// Render 404 page for any unmatched routes
 	app.get('*', function(req, res) {
 		res.render('404');
