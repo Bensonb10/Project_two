@@ -1,7 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
 	var EmployeeTable = sequelize.define('EmployeeTable', {
 
-		name: DataTypes.STRING,
+		firstName: DataTypes.STRING,
+		lastName: DataTypes.STRING,
 		isAdmin: DataTypes.BOOLEAN,
 		email: DataTypes.STRING,
 		phone: DataTypes.STRING,
@@ -9,13 +10,15 @@ module.exports = function(sequelize, DataTypes) {
 
 	});
   
-	// EmployeeTable.associate = function(models) {
-	// 	EmployeeTable.hasMany(models.AvailTable, {
-	// 		foreignKey: 'EmployeeTableId', sourceKey: 'AvailTableId'
-	// 	});
-	// 	EmployeeTable.hasMany(models.ScheduleTable, {
-	// 		foreignKey: 'EmployeeTableId', sourceKey: 'ScheduleTableId'
-	// 	});
-	// };
+	EmployeeTable.associate = function(models) {
+		EmployeeTable.hasMany(models.AvailTable, {
+			foreignKey: 'EmployeeTableId',// sourceKey: 'id', 
+			onDelete: 'cascade'
+		});
+		EmployeeTable.hasMany(models.ScheduleTable, {
+			foreignKey: 'EmployeeTableId',// sourceKey: 'id',
+			onDelete: 'cascade'
+		});
+	};
 	return EmployeeTable;
 };
