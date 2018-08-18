@@ -5,12 +5,12 @@ module.exports = function(sequelize, DataTypes) {
 		endTime: DataTypes.TIME,
 		avail: DataTypes.BOOLEAN
 	});
-	AvailTable.associate = function(models) {
-		AvailTable.belongsTo(models.EmployeeTable, {
-			foreignKey: {
-				allowNull: false
-			}
-		});
-	};
+	// AvailTable.associate = function(models) {
+	// 	AvailTable.belongsTo(models.EmployeeTable, {
+	// 		foreignKey: {
+	// 			allowNull: false
+	// 		}
+	// 	});
+	// };
 	return AvailTable;
 };

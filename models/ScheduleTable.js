@@ -4,12 +4,12 @@ module.exports = function(sequelize, DataTypes) {
 		start: DataTypes.TIME,
 		end: DataTypes.TIME
 	});
-	ScheduleTable.associate = function(models) {
-		ScheduleTable.belongsTo(models.EmployeeTable, {
-			foreignKey: {
-				allowNull: false
-			}
-		});
-	};
+	// ScheduleTable.associate = function(models) {
+	// 	ScheduleTable.belongsTo(models.EmployeeTable, {
+	// 		foreignKey: {
+	// 			allowNull: false
+	// 		}
+	// 	});
+	// };
 	return ScheduleTable;
 };
