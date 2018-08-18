@@ -2,15 +2,15 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "project_two",
-    "port": 8889,
+    "database": "scheduler",
+    "port": 3306,
     "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "project_two",
+    "database": "scheduler",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false
