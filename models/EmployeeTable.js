@@ -1,12 +1,32 @@
 module.exports = function(sequelize, DataTypes) {
 	var EmployeeTable = sequelize.define('EmployeeTable', {
 
-		firstName: DataTypes.STRING,
-		lastName: DataTypes.STRING,
-		isAdmin: DataTypes.BOOLEAN,
-		email: DataTypes.STRING,
-		phone: DataTypes.STRING,
-		picture: DataTypes.STRING
+		firstName: {
+			type: DataTypes.STRING
+		},
+		lastName: {
+			type: DataTypes.STRING
+		},
+		isAdmin: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: false
+		},
+		email: {
+			type: DataTypes.STRING
+		},
+		phone: {
+			type: DataTypes.STRING
+		},
+		picture: {
+			type: DataTypes.STRING
+		},
+		password: {
+			type: DataTypes.STRING
+		},
+		googleId: {
+			type: DataTypes.STRING,
+			defaultValue: null
+		}
 
 	});
   
