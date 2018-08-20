@@ -38,4 +38,8 @@ module.exports = function (app) {
 	// app.get('*', function (req, res) {
 	// 	res.render('404');
 	// });
+
+	app.get('/create', function (req, res){
+		res.render('create');
+	});
 };
