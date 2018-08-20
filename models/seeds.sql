@@ -6,7 +6,7 @@ INSERT INTO EmployeeTables(firstName, lastName, isAdmin, email, phone, picture, 
 ('Robin', 'Zhao', true, 'zhaorobin@google.com', '281-456-1873', null, '$2a$10$l337eDANev4CXcX4rqEVJeQJjopOvmZCyt5VgtOnLsz2L6FFNwfs6', null),
 ('Stephen', 'Bomans', true, 'bomansstephen@google.com', '832-456-1234', null, '$2a$10$JCQ9yqQdKpIxaN9LFwA3KOaYcUreeV2Sb6JiTTFwTL7ulzZNKDuOi', null),
 ('Mohammed', 'Chawla', true, 'chawlamohammed@google.com', '281-789-8546', null, '$2a$10$Xo4le9ZuWNtZsZ3XGEe6ve2URrFNwZIM6cXQEkJ1S8SgSbH1cHQLS', null),
-('Benjamin', 'Benson', true, 'bensonbenjamin@google.com', '832-847-8452', null, '$2a$10$8O2RpZX2rnpX80irVZpJRO4Iz7tTCNFxGYWJecs4O4hYJWIy.iguW', null);
+('Benjamin', 'Benson', true, 'bensonb10@gmail.com', '832-847-8452', null, '$2a$10$8O2RpZX2rnpX80irVZpJRO4Iz7tTCNFxGYWJecs4O4hYJWIyiguW', null);
 
 INSERT INTO AvailTables(date, startTime, endTime, avail, EmployeeTableId) VALUES 
 ("08202018", "0900", "1200", true, "1"), 

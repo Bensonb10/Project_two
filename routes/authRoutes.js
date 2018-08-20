@@ -3,18 +3,18 @@ const LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 const passport = require('passport');
 
-module.exports = function (app) {    
+module.exports = function (app) {
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
     passport.deserializeUser(function (id, done) {
         db.EmployeeTable.findById(id).then(function (user) {
-            if(user){
+            if (user) {
                 done(null, user.get());
             } else {
                 done(user.errors, null);
             }
-            
+
         });
     });
 
