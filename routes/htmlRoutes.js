@@ -19,7 +19,13 @@ module.exports = function (app) {
 		// 		examples: dbExamples
 		// 	});
 		// });
-		res.render('index');
+
+		db.EmployeeTable.findAll({}).then(function(data){
+			var hbsObj = {
+				employee: data
+			};
+			res.render('index', hbsObj);
+		});
 	});
 
 	// app.get('/auth/register', checkAuthentication, (req, res) => {
