@@ -13,10 +13,10 @@ module.exports = function (app) {
 	});
 
 	app.get('/auth/register', (req, res) => {
-		res.render('register')
+		res.render('register');
 	});
 	app.get('/auth/login', (req, res) => {
-		res.render('login')
+		res.render('login');
 	});
 
 	// Load example page and pass in an example by id
