@@ -2,26 +2,46 @@ module.exports = function(sequelize, DataTypes) {
 	var EmployeeTable = sequelize.define('EmployeeTable', {
 
 		firstName: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
 		},
 		lastName: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
 		},
 		isAdmin: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false
 		},
 		email: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			unique: true,
+			validate: {
+				isEmail: {
+					msg: 'Not Valid Email'
+				},
+				notEmpty: true
+			}
 		},
 		phone: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
 		},
 		picture: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
 		},
 		password: {
-			type: DataTypes.STRING
+			type: DataTypes.STRING,
+			allowNull: false
 		},
 		googleId: {
 			type: DataTypes.STRING,
@@ -32,13 +52,16 @@ module.exports = function(sequelize, DataTypes) {
   
 	EmployeeTable.associate = function(models) {
 		EmployeeTable.hasMany(models.AvailTable, {
-			foreignKey: 'EmployeeTableId',// sourceKey: 'id', 
-			onDelete: 'cascade'
+			foreignKey: 'EmployeeTable', 
+			sourceKey: 'AvailTable'
 		});
 		EmployeeTable.hasMany(models.ScheduleTable, {
-			foreignKey: 'EmployeeTableId',// sourceKey: 'id',
-			onDelete: 'cascade'
+			foreignKey: 'EmployeeTable', 
+			sourceKey: 'ScheduleTable'
 		});
 	};
+
+	EmployeeTable.sync();
+
 	return EmployeeTable;
 };
