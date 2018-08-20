@@ -33,7 +33,11 @@ module.exports = function(app) {
 	//posting user data to Employee table
 		db.EmployeeTable.create({
 			firstName: req.body.firstName,
+<<<<<<< HEAD
 			lastName : req.body.lastName,
+=======
+			lastName: req.body.lastName,
+>>>>>>> 1f3a040957b50a6ede920fdce6199d685687df7e
 			isAdmin: req.body.isAdmin,
 			email: req.body.email,
 			phone: req.body.phone,

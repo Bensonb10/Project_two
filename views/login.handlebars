@@ -1,0 +1,58 @@
+<!--Page Body-->
+<main class="page-body">
+    <!--start section-->
+    <section class="section">
+        <!-- start row -->
+        <div class="row m-b-0">
+            <!-- start column -->
+            <div class="col s12 m6">
+                <h3 class="header">Sign in</h3>
+                <!--start card-->
+                <div class="card m-b-10">
+                    <!--card content-->
+                    <div class="card-content">
+                        <!-- admin approval card -->
+                        <div id="admin-approval-card">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{#if success_msg}}
+                                    <div class="alert alert-success">{{success_msg}}</div>
+                                    {{/if}} {{#if error_msg}}
+                                    <div class="alert alert-danger">{{error_msg}}</div>
+                                    {{/if}} {{#if errors}} {{#each errors}}
+                                    <div class="alert alert-danger">{{this.msg}}</div>
+                                    {{/each}} {{/if}}
+
+                                </div>
+                            </div>
+                            <form action="/auth/login" method="post">
+                                <div>
+                                    <label>Email:</label>
+                                    <input type="text" name="email" />
+                                </div>
+                                <div>
+                                    <label>Password:</label>
+                                    <input type="password" name="password" />
+                                </div>
+                                <div>
+                                    <input type="submit" value="Log In" />
+                                </div>
+
+                                <a href="/auth/google">Sign In with Google</a>
+                            </form>
+                        </div>
+                    </div>
+                    <!--end card content-->
+                </div>
+                <!--end card content-->
+            </div>
+            <!-- end column -->
+
+    </section>
+    <!--end section-->
+
+</main>
+<!--End page body-->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
