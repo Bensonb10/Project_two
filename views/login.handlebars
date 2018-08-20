@@ -13,28 +13,22 @@
                     <div class="card-content">
                         <!-- admin approval card -->
                         <div id="admin-approval-card">
-                                <div class="row">
-      <div class="col-lg-12">
-        {{#if success_msg}}
-        <div class="alert alert-success">{{success_msg}}</div>
-        {{/if}} 
-        {{#if error_msg}}
-        <div class="alert alert-danger">{{error_msg}}</div>
-        {{/if}} 
-        {{#if errors}}
-        {{#each errors}}
-        <div class="alert alert-danger">{{this.msg}}</div>
-        {{/each}}
-        {{/if}} 
-        
-        {{{body}}}
-      
-      </div>
-    </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    {{#if success_msg}}
+                                    <div class="alert alert-success">{{success_msg}}</div>
+                                    {{/if}} {{#if error_msg}}
+                                    <div class="alert alert-danger">{{error_msg}}</div>
+                                    {{/if}} {{#if errors}} {{#each errors}}
+                                    <div class="alert alert-danger">{{this.msg}}</div>
+                                    {{/each}} {{/if}}
+
+                                </div>
+                            </div>
                             <form action="/auth/login" method="post">
                                 <div>
                                     <label>Email:</label>
-                                    <input type="text" name="username" />
+                                    <input type="text" name="email" />
                                 </div>
                                 <div>
                                     <label>Password:</label>
