@@ -1,14 +1,48 @@
-const passport = require('passport');
 const db = require('../models');
-var bcrypt = require('bcryptjs');
 const LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcryptjs');
+const passport = require('passport');
 
-module.exports = function (app) {
-    // GET: /auth/login
-    // Login Page
-    app.get('/auth/login', (req, res) => {
-        res.render('login')
+module.exports = function (app) {    
+    passport.serializeUser(function (user, done) {
+        done(null, user.id);
     });
+    passport.deserializeUser(function (id, done) {
+        db.EmployeeTable.findById(id).then(function (user) {
+            if(user){
+                done(null, user.get());
+            } else {
+                done(user.errors, null);
+            }
+            
+        });
+    });
+
+    // Local login
+    // When user.get() logs in, passport will check the form for an name attr of email and password
+    passport.use(new LocalStrategy({
+        usernameField: 'email'
+    },
+        function (email, password, done) {
+            db.EmployeeTable.findOne({
+                where: {
+                    email: email
+                }
+            }).then((user) => {
+                if (!user) {
+                    return done(null, false, { message: 'Incorrect User' });
+                };
+
+                bcrypt.compare(password, user.password, function (err, isMatch) {
+                    if (err) throw err;
+                    if (isMatch) {
+                        return done(null, user.get());
+                    } else {
+                        return done(null, false, { message: 'Invalid password' });
+                    }
+                });
+            })
+        }));
 
     // GET: /auth/logout
     // Logout User and redirect to Login Page
@@ -36,15 +70,6 @@ module.exports = function (app) {
     app.get('/auth/google/redirect', passport.authenticate('google', { failureRedirect: '/auth/login' }), (req, res) => {
         res.send(req.user);
         res.redirect('/schedule');
-    });
-
-    passport.serializeUser(function (user, done) {
-        done(null, user.id);
-    });
-    passport.deserializeUser(function (id, done) {
-        db.EmployeeTable.findById(id).then(function (user) {
-            done(null, user);
-        });
     });
 
     // POST: /auth/register
@@ -110,34 +135,15 @@ module.exports = function (app) {
                     });
                 }
             });
-
-            // Local login
-            // When user logs in, passport will check the form for an name attr of email and password
-            passport.use(new LocalStrategy({
-                usernameField: 'email'
-            },
-                function (req, email, password, done) {
-                    db.EmployeeTable.findOne({
-                        where: {
-                            email: email
-                        }
-                    }).then((user) => {
-                        if (!user) { return done(null, false, { message: 'Something went wrong with your login' }); }
-                        return done(null, user.get());
-                    })
-                }));
-
-
-
-            // POST: /auth/login
-            //  
-            app.post('/auth/login', passport.authenticate('local', {
-                successRedirect: '/',
-                failureRedirect: '/auth/login',
-                failureFlash: true
-            }), (req, res) => {
-                res.redirect('/');
-            });
         };
     });
+
+    // POST: /auth/login
+    app.post('/auth/login', passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/auth/login',
+        failureFlash: true
+    }
+    ));
+
 };
