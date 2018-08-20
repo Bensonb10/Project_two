@@ -52,12 +52,12 @@ module.exports = function(sequelize, DataTypes) {
   
 	EmployeeTable.associate = function(models) {
 		EmployeeTable.hasMany(models.AvailTable, {
-			foreignKey: 'EmployeeTableId',// sourceKey: 'id', 
-			onDelete: 'cascade'
+			foreignKey: 'EmployeeTable', 
+			sourceKey: 'AvailTable'
 		});
 		EmployeeTable.hasMany(models.ScheduleTable, {
-			foreignKey: 'EmployeeTableId',// sourceKey: 'id',
-			onDelete: 'cascade'
+			foreignKey: 'EmployeeTable', 
+			sourceKey: 'ScheduleTable'
 		});
 	};
 
