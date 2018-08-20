@@ -1,8 +1,26 @@
 module.exports = function(sequelize, DataTypes) {
 	var ScheduleTable = sequelize.define('ScheduleTable', {
-		date: DataTypes.STRING,
-		start: DataTypes.STRING,
-		end: DataTypes.STRING
+		date: {
+			type: DataTypes.STRING,
+			validate: {
+				isDate: {
+					msg: 'YYYY-MM-DD'
+				},
+				notEmpty: true
+			}
+		},
+		start: {
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
+		},
+		end: {
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
+		}
 	});
 	ScheduleTable.associate = function(models) {
 		ScheduleTable.belongsTo(models.EmployeeTable, {
