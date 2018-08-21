@@ -35,3 +35,12 @@
     font-size: 12px;
     opacity: 0.8;
 }
+
+.collapsible-body{
+    padding-left:0;
+    padding-right:0;
+}
+
+.sched-view .collection-item .row{
+    margin-bottom: 0;
+}
