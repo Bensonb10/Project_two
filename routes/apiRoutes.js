@@ -2,11 +2,11 @@ var db = require('../models');
 
 module.exports = function(app) {
 	// Get request to get all employees
-	// app.get('/api/examples', function(req, res) {
-	// 	db.Example.findAll({}).then(function(dbExamples) {
-	// 		res.json(dbExamples);
-	// 	});
-	// });
+	app.get('/api/employees', function(req, res) {
+		db.EmployeeTable.findAll({}).then(function(dbEmployeeTable) {
+			res.json(dbEmployeeTable);
+		});
+	});
 
 	
 	//post request to post user data to database
@@ -76,6 +76,23 @@ module.exports = function(app) {
 	app.delete('/api/schedule/:id', function(req, res) {
 		db.ScheduleTable.destroy({ where: { id: req.params.id } }).then(function(dbExample) {
 			res.json(dbExample);
+		});
+	});
+
+	app.put('/api/schedule/:id', function(req, res) {
+		db.ScheduleTable.update(
+			{
+				start: req.body.start,
+				end: req.body.end,
+			},
+			{
+				where: {
+					id: req.body.id
+				}
+			}
+		).then(function(schedData) {
+			console.log(schedData);
+			res.json(schedData);
 		});
 	});
 

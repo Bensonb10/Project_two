@@ -1,4 +1,5 @@
 sliderModify('Push', '11:00', '16:00', '2018-08-18', '#range_16');
+
 sliderStatic('Push', '09:00', '16:00', '2018-08-18', '#range_17');
 
 function sliderModify(empId, timeIn, timeOut, shiftDate, elementId) {
