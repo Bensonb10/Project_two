@@ -62,26 +62,33 @@ module.exports = function (app) {
 	// db.EmployeeTable.findAll({include: "AvailTable"})
 
 	app.get('/create', function (req, res){
-		var hbsObj = {
-			employees: [{
-				id: 1,
-				firstName: "David",
-				lastName: "Tran",
-				avail: false
-			},
-			{
-				id: 2,
-				firstName: "Michael",
-				lastName: "Pushkin",
-				avail: true
-			},
-			{
-				id: 3,
-				firstName: "Benjamin",
-				lastName: "Benson",
-				avail: true
-			}]
-		}
-		res.render('create', hbsObj);
+		// var hbsObj = {
+		// 	employees: [{
+		// 		id: 1,
+		// 		firstName: "David",
+		// 		lastName: "Tran",
+		// 		avail: false
+		// 	},
+		// 	{
+		// 		id: 2,
+		// 		firstName: "Michael",
+		// 		lastName: "Pushkin",
+		// 		avail: true
+		// 	},
+		// 	{
+		// 		id: 3,
+		// 		firstName: "Benjamin",
+		// 		lastName: "Benson",
+		// 		avail: true
+		// 	}]
+		// }
+		db.EmployeeTable.findAll({include: db.AvailTable}).then((dbresult) => {
+			let hbsObj = {employees: dbresult}
+			// console.log(dbresult)
+			// console.log("--------------------------")
+			console.log(hbsObj.employees[0].AvailTables[0].avail)
+			res.render('create', hbsObj)
+		})
+		// res.render('create', hbsObj);
 	});
 };

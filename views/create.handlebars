@@ -31,7 +31,7 @@
                                                                 <i class="material-icons white-text right">arrow_drop_down</i>
                                                             </a>
                                                             <ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                                                {{#if employees}} {{#each employees}} {{#if this.avail}}
+                                                                {{#if employees}} {{#each employees}}
                                                                 <li>
                                                                     <div class="row valign-wrapper">
                                                                         <div class="col s4">
@@ -41,12 +41,18 @@
                                                                             {{this.firstName}} {{this.lastName}}
                                                                         </div>
                                                                         <div class="col s3">
-                                                                            [4hrs]
+                                                                            {{#each this.AvailTables}} 
+                                                                            {{#if this.avail}}
+                                                                            true
+                                                                            {{else}}
+                                                                            false
+                                                                            {{/if}}
+                                                                            {{/each}}
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                                {{/if}}{{/each}} {{/if}}
-
+                                                                {{/each}} {{/if}}
+{{!-- console.log(hbsObj.employees[0].AvailTables[0].avail) --}}
                                                                 <li>
                                                                     <div class="row valign-wrapper">
                                                                         <div class="col s4">
