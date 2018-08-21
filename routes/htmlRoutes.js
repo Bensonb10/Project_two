@@ -11,6 +11,7 @@ module.exports = function (app) {
 		}
 	}
 
+	// GET: /
 	// Load index page
 	app.get('/', checkAuthentication, function (req, res) {
 		db.ScheduleTable.findAll({}).then((data) => {
@@ -21,19 +22,14 @@ module.exports = function (app) {
 		});
 	});
 
-	app.get('/schedule', function(req, res){
-		db.ScheduleTable.findAll({}).then((data)=>{
-			var hbsObj = {
-				shifts: data
-			};
-			res.render('index', hbsObj);
-		});
-	});
-
+	// GET: /auth/register
+	// Load Reigster page if user is autheticated
 	app.get('/auth/register', checkAuthentication, (req, res) => {
 		res.render('register');
 	});
 
+	// GET: /auth/login
+	// Load Login
 	app.get('/auth/login', (req, res) => {
 		res.render('login');
 	});
@@ -48,7 +44,9 @@ module.exports = function (app) {
 	// 	res.render('404');
 	// });
 
-	app.get('/create', function (req, res){
+	// GET: /create
+	// Load Create page if user is autheticated
+	app.get('/create', checkAuthentication, (req, res) => {
 		db.EmployeeTable.findAll({include: db.AvailTable}).then((dbresult) => {
 			let hbsObj = {employees: dbresult}
 			// console.log(dbresult)
