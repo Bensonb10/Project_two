@@ -19,18 +19,24 @@ module.exports = function (app) {
 		// 		examples: dbExamples
 		// 	});
 		// });
-		res.render('index');
+
+		db.EmployeeTable.findAll({}).then(function(data){
+			var hbsObj = {
+				employee: data
+			};
+			res.render('index', hbsObj);
+		});
 	});
 
 	// app.get('/auth/register', checkAuthentication, (req, res) => {
 	// 	res.render('register')
 	// });
 	app.get('/auth/register', (req, res) => {
-		res.render('register')
+		res.render('register');
 	});
 
 	app.get('/auth/login', (req, res) => {
-		res.render('login')
+		res.render('login');
 	});
 
 	// Load example page and pass in an example by id

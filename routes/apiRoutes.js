@@ -2,11 +2,11 @@ var db = require('../models');
 
 module.exports = function(app) {
 	// Get request to get all employees
-	// app.get('/api/examples', function(req, res) {
-	// 	db.Example.findAll({}).then(function(dbExamples) {
-	// 		res.json(dbExamples);
-	// 	});
-	// });
+	app.get('/api/employees', function(req, res) {
+		db.EmployeeTable.findAll({}).then(function(dbEmployeeTable) {
+			res.json(dbEmployeeTable);
+		});
+	});
 
 	
 	//post request to post user data to database
@@ -14,7 +14,8 @@ module.exports = function(app) {
 
 	//posting user data to Employee table
 		db.EmployeeTable.create({
-			name: req.body.name,
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
 			isAdmin: req.body.isAdmin,
 			email: req.body.email,
 			phone: req.body.phone,

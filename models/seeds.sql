@@ -9,22 +9,22 @@ INSERT INTO EmployeeTables(firstName, lastName, isAdmin, email, phone, picture, 
 ('Benjamin', 'Benson', true, 'bensonbenjamin@gmail.com', '832-847-8452', null, '$2a$10$8O2RpZX2rnpX80irVZpJRO4Iz7tTCNFxGYWJecs4O4hYJWIy.iguW', null);
 
 INSERT INTO AvailTables(date, startTime, endTime, avail, EmployeeTableId) VALUES 
-("08202018", "0900", "1200", true, "1"), 
-("08202018", "1200", "1500", true, "2"), 
-("08202018", "1600", "2000", true, "3"),
-("08202018", null, null, false, "4"),
-("08202018", null, null, false, "5"),
-("08202018", null, null, false, "6"),
-("08212018", null, null, false, "1"),
-("08212018", "1200", "2100", true, "2"),
-("08212018", null, null, false, "3"),
-("08212018", null, null, false, "4"),
-("08212018", null, null, false, "5"),
-("08212018", "0900", "1300", true, "6");
+("2018-08-20", "0900", "1200", true, "1"), 
+("2018-08-20", "1200", "1500", true, "2"), 
+("2018-08-20", "1600", "2000", true, "3"),
+("2018-08-20", null, null, false, "4"),
+("2018-08-20", null, null, false, "5"),
+("2018-08-20", null, null, false, "6"),
+("2018-08-21", null, null, false, "1"),
+("2018-08-21", "1200", "2100", true, "2"),
+("2018-08-21", null, null, false, "3"),
+("2018-08-21", null, null, false, "4"),
+("2018-08-21", null, null, false, "5"),
+("2018-08-21", "0900", "1300", true, "6");
 
 INSERT INTO ScheduleTables(date, start, end, EmployeeTableId) VALUES
-("08202018", "0900" , "1600", null), 
-("08202018", "1200" , "1500", null), 
-("08202018", "1600" , "2000", null), 
-("08212018", "1200" , "2100", null), 
-("08212018", "0900" , "1200", null); 
+("2018-08-20", "0900" , "1600", null), 
+("2018-08-20", "1200" , "1500", null), 
+("2018-08-20", "1600" , "2000", null), 
+("2018-08-21", "1200" , "2100", null), 
+("2018-08-21", "0900" , "1200", null); 
