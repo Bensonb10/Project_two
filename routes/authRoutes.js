@@ -20,8 +20,8 @@ module.exports = function (app) {
 
     // Local login
     // When user.get() logs in, passport will check the form for an name attr of email and password
-    passport.use(new LocalStrategy({
-        usernameField: 'email'
+    passport.use('local-signin', new LocalStrategy({
+        usernameField: 'email',
     },
         function (email, password, done) {
             db.EmployeeTable.findOne({
@@ -30,6 +30,7 @@ module.exports = function (app) {
                 }
             }).then((user) => {
                 if (!user) {
+                    console.log('wrong user')
                     return done(null, false, { message: 'Incorrect User' });
                 };
 
@@ -38,6 +39,7 @@ module.exports = function (app) {
                     if (isMatch) {
                         return done(null, user.get());
                     } else {
+                        console.log('wrong pw')
                         return done(null, false, { message: 'Invalid password' });
                     }
                 });
@@ -87,12 +89,8 @@ module.exports = function (app) {
         console.log(`Name: ${firstName} ${lastName} Email: ${email} Phone: ${phone} Thumbnail: ${thumbnail} Password: ${password}/${password2}`)
 
         // Using express-validator to validate the name attr of the form: name, email, phone, password, password2
-        req.checkBody('firstName', 'First name is required').notEmpty();
-        req.checkBody('lastName', 'Last name is required').notEmpty();
-        req.checkBody('email', 'Email is required').notEmpty();
         req.checkBody('email', 'Email is not valid').isEmail();
-        req.checkBody('phone', 'Phone number is required').notEmpty();
-        req.checkBody('password', 'Password is required').notEmpty();
+        req.checkBody('phone', 'Phone number is not valid').isMobilePhone("any");
         req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
         var errors = req.validationErrors();
@@ -111,7 +109,8 @@ module.exports = function (app) {
                 }
             }).then((user) => {
                 if (user) {
-                    return done(null, false, { message: 'Email address is already taken' })
+                    req.flash('error', 'Email is already taken')
+                    res.redirect('/auth/register')
                 } else {
                     // Create a hash password using bcrypt
                     bcrypt.genSalt(10, function (err, salt) {
@@ -128,8 +127,8 @@ module.exports = function (app) {
                                 picture: thumbnail,
                                 password: password
                             }).then((dbEmployee) => {
-                                req.flash('success_msg', 'You are registered and can now login');
-                                res.redirect('/auth/login');
+                                req.flash('success_msg', 'Employee has been created');
+                                res.redirect('/auth/register');
                             })
                         });
                     });
@@ -139,7 +138,7 @@ module.exports = function (app) {
     });
 
     // POST: /auth/login
-    app.post('/auth/login', passport.authenticate('local', {
+    app.post('/auth/login', passport.authenticate('local-signin', {
         successRedirect: '/',
         failureRedirect: '/auth/login',
         failureFlash: true

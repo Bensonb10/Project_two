@@ -7,7 +7,7 @@ module.exports = function (app) {
 			//req.isAuthenticated() will return true if user is logged in
 			next();
 		} else{
-			res.render("login", {error_msg: "You have to be sign in."});
+			res.render("login", {error: "You have to be sign in."});
 		}
 	}
 
@@ -59,7 +59,29 @@ module.exports = function (app) {
 	// 	res.render('404');
 	// });
 
+	// db.EmployeeTable.findAll({include: "AvailTable"})
+
 	app.get('/create', function (req, res){
-		res.render('create');
+		var hbsObj = {
+			employees: [{
+				id: 1,
+				firstName: "David",
+				lastName: "Tran",
+				avail: false
+			},
+			{
+				id: 2,
+				firstName: "Michael",
+				lastName: "Pushkin",
+				avail: true
+			},
+			{
+				id: 3,
+				firstName: "Benjamin",
+				lastName: "Benson",
+				avail: true
+			}]
+		}
+		res.render('create', hbsObj);
 	});
 };

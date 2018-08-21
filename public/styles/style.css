@@ -50,3 +50,6 @@
     padding-right: 2px;
 }
 
+.flash-message {
+    padding: 0px !important; 
+}
