@@ -3,10 +3,10 @@ require('dotenv').config();
 var express = require('express');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
-const passportSetup = require('./config/passport-setup');
 const keys = require('./config/keys');
-const cookieSession = require('cookie-session');
+const expressSession = require('express-session');
 const passport = require('passport');
+const passportSetup = require('./config/passport-setup')(passport);
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 var db = require('./models');
@@ -18,13 +18,14 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(expressSession({
+	secret: keys.session.cookieKey,
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(cookieSession({
-	maxAge: 24 * 60 * 60 * 1000,
-	keys: [keys.session.cookieKey]
-}));
 app.use(expressValidator({
 	errorFormatter: function (param, msg, value) {
 		var namespace = param.split('.')

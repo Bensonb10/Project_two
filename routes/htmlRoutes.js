@@ -1,22 +1,42 @@
 var db = require('../models');
 
 module.exports = function (app) {
+	// Checks incoming request to see if user is logged in. If not it will redirect to login handlebars with a message
+	function checkAuthentication(req,res,next){
+		if(req.isAuthenticated()){
+			//req.isAuthenticated() will return true if user is logged in
+			next();
+		} else{
+			res.render("login", {error_msg: "You have to be sign in."});
+		}
+	}
+
 	// Load index page
-	app.get('/', function (req, res) {
+	app.get('/', checkAuthentication, function (req, res) {
 		// db.Example.findAll({}).then(function(dbExamples) {
 		// 	res.render('index', {
 		// 		msg: 'Welcome!',
 		// 		examples: dbExamples
 		// 	});
 		// });
-		res.render('index');
+
+		db.EmployeeTable.findAll({}).then(function(data){
+			var hbsObj = {
+				employee: data
+			};
+			res.render('index', hbsObj);
+		});
 	});
 
+	// app.get('/auth/register', checkAuthentication, (req, res) => {
+	// 	res.render('register')
+	// });
 	app.get('/auth/register', (req, res) => {
-		res.render('register')
+		res.render('register');
 	});
+
 	app.get('/auth/login', (req, res) => {
-		res.render('login')
+		res.render('login');
 	});
 
 	// Load example page and pass in an example by id

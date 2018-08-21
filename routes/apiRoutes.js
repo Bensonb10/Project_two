@@ -14,7 +14,8 @@ module.exports = function(app) {
 
 	//posting user data to Employee table
 		db.EmployeeTable.create({
-			name: req.body.name,
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
 			isAdmin: req.body.isAdmin,
 			email: req.body.email,
 			phone: req.body.phone,
