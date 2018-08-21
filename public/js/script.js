@@ -1,13 +1,3 @@
-// write your script from here
-// $("#range_16").ionRangeSlider({
-//     grid: true,
-//     type: 'double',
-//     min: 18,
-//     max: 70,
-//     from: 30,
-//     prefix: "Age ",
-//     max_postfix: "+"
-// });
 sliderModify('Push', '11:00', '16:00', '2018-08-18', '#range_16');
 sliderStatic('Push', '09:00', '16:00', '2018-08-18', '#range_17');
 
@@ -60,3 +50,14 @@ function sliderStatic(empId, timeIn, timeOut, shiftDate, elementId) {
 		}
 	});
 }
+
+function makeSlider(){
+	$.get('/schedule', function(data){
+		for(var i = 0; i < data.length; i++){
+			console.log(data[i]);
+		}
+		
+	})
+}
+
+makeSlider();

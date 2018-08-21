@@ -21,10 +21,18 @@ module.exports = function (app) {
 		// });
 
 		db.EmployeeTable.findAll({}).then(function(data){
-			var hbsObj = {
-				employee: data
-			};
-			res.render('index', hbsObj);
+			
+			res.render('index', {
+				msg: 'Welcome!',
+				data: data
+			});
+		});
+	});
+
+	app.get('/schedule', function(req, res){
+		db.ScheduleTable.findAll({}).then((data)=>{
+			// var json = JSON.parse(data);
+			res.render('index', {shift: data});
 		});
 	});
 
