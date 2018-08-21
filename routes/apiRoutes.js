@@ -79,5 +79,22 @@ module.exports = function(app) {
 		});
 	});
 
+	app.put('/api/schedule/:id', function(req, res) {
+		db.ScheduleTable.update(
+			{
+				start: req.body.start,
+				end: req.body.end,
+			},
+			{
+				where: {
+					id: req.body.id
+				}
+			}
+		).then(function(schedData) {
+			console.log(schedData);
+			res.json(schedData);
+		});
+	});
+
 
 };
