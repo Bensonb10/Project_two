@@ -54,12 +54,12 @@ app.use(function (req, res, next) {
 
 // Handlebars
 app.engine(
-	'handlebars',
-	exphbs({
+	'handlebars', exphbs({
 		defaultLayout: 'main'
 	})
 );
 app.set('view engine', 'handlebars');
+
 
 // Routes
 require('./routes/apiRoutes')(app);

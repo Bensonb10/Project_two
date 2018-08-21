@@ -1,20 +1,4 @@
-
-
-// write your script from here
-// $("#range_16").ionRangeSlider({
-//     grid: true,
-//     type: 'double',
-//     min: 18,
-//     max: 70,
-//     from: 30,
-//     prefix: "Age ",
-//     max_postfix: "+"
-// });
-sliderModify('Push', '11:00', '16:00', '2018-08-18', '#range_16');
-
-sliderStatic('Push', '09:00', '16:00', '2018-08-18', '#range_17');
-
-function sliderModify(empId, timeIn, timeOut, shiftDate, elementId) {
+function sliderModify(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
 
 	var $range = $(elementId);
@@ -38,10 +22,14 @@ function sliderModify(empId, timeIn, timeOut, shiftDate, elementId) {
 	});
 }
 
-function sliderStatic(empId, timeIn, timeOut, shiftDate, elementId) {
+function sliderStatic(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
 
-	var $range = $(elementId);
+	var input = `#range_${elementId}`;
+
+	shiftDate = moment(shiftDate, 'MMDDYYYY').format('YYYY-MM-DD');
+
+	var $range = $(input);
 	var start = moment(`${shiftDate} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${shiftDate} 22:00`, 'YYYY-MM-DD HH:mm');
 	let startFrom = moment(`${shiftDate} ${timeIn}`, 'YYYY-MM-DD HH:mm');
@@ -63,3 +51,15 @@ function sliderStatic(empId, timeIn, timeOut, shiftDate, elementId) {
 		}
 	});
 }
+
+function makeSlider() {
+	$.get('/api/schedule', function (data) {
+		for (var val in data) {
+			var s = data[val];
+			sliderStatic(s.start, s.end, s.date, s.id);
+		}
+	});
+}
+
+makeSlider();
+

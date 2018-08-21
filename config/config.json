@@ -3,7 +3,11 @@
     "username": "root",
     "password": "root",
     "database": "scheduler",
+<<<<<<< HEAD
     "port": 3306,
+=======
+    "port": 8889,
+>>>>>>> b7adac896a2a3be93d4edf1aff1ae7ef7183c98a
     "host": "localhost",
     "dialect": "mysql"
   },
