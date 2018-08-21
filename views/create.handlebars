@@ -41,18 +41,11 @@
                                                                             {{this.firstName}} {{this.lastName}}
                                                                         </div>
                                                                         <div class="col s3">
-                                                                            {{#each this.AvailTables}} 
-                                                                            {{#if this.avail}}
-                                                                            true
-                                                                            {{else}}
-                                                                            false
-                                                                            {{/if}}
-                                                                            {{/each}}
+                                                                            {{#each this.AvailTables}} {{#if this.avail}} true {{/if}} {{/each}}
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                                {{/each}} {{/if}}
-{{!-- console.log(hbsObj.employees[0].AvailTables[0].avail) --}}
+                                                                {{/each}} {{/if}} {{!-- console.log(hbsObj.employees[0].AvailTables[0].avail) --}}
                                                                 <li>
                                                                     <div class="row valign-wrapper">
                                                                         <div class="col s4">

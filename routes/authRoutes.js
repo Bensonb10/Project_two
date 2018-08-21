@@ -49,9 +49,11 @@ module.exports = function (app) {
     // GET: /auth/logout
     // Logout User and redirect to Login Page
     app.get('/auth/logout', function (req, res) {
-        req.logout();
-        req.flash('success_msg', 'You have logged out');
-        res.redirect('/auth/login');
+        if (req.isAuthenticated()) {
+            req.logout();
+            req.flash('success_msg', 'You have logged out');
+            res.redirect('/auth/login');
+        }
     });
 
     // GET: /auth/google

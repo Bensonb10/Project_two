@@ -28,25 +28,12 @@ module.exports = function (app) {
 		});
 	});
 
-	// app.get('/auth/register', checkAuthentication, (req, res) => {
-	// 	res.render('register')
-	// });
-	app.get('/auth/register', (req, res) => {
+	app.get('/auth/register', checkAuthentication, (req, res) => {
 		res.render('register');
 	});
 
 	app.get('/auth/login', (req, res) => {
 		res.render('login');
-	});
-
-	// Load example page and pass in an example by id
-	app.get('/example/:id', function (req, res) {
-		// db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
-		// 	res.render('example', {
-		// 		example: dbExample
-		// 	});
-		// });
-		res.send('hello');
 	});
 
 	app.get('/hello', function (req, res) {
@@ -59,29 +46,7 @@ module.exports = function (app) {
 	// 	res.render('404');
 	// });
 
-	// db.EmployeeTable.findAll({include: "AvailTable"})
-
 	app.get('/create', function (req, res){
-		// var hbsObj = {
-		// 	employees: [{
-		// 		id: 1,
-		// 		firstName: "David",
-		// 		lastName: "Tran",
-		// 		avail: false
-		// 	},
-		// 	{
-		// 		id: 2,
-		// 		firstName: "Michael",
-		// 		lastName: "Pushkin",
-		// 		avail: true
-		// 	},
-		// 	{
-		// 		id: 3,
-		// 		firstName: "Benjamin",
-		// 		lastName: "Benson",
-		// 		avail: true
-		// 	}]
-		// }
 		db.EmployeeTable.findAll({include: db.AvailTable}).then((dbresult) => {
 			let hbsObj = {employees: dbresult}
 			// console.log(dbresult)
@@ -89,6 +54,5 @@ module.exports = function (app) {
 			console.log(hbsObj.employees[0].AvailTables[0].avail)
 			res.render('create', hbsObj)
 		})
-		// res.render('create', hbsObj);
 	});
 };
