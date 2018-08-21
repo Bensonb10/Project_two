@@ -61,7 +61,14 @@ module.exports = function (app) {
 	// 	res.render('404');
 	// });
 
-	app.get('/create', function (req, res){
-		res.render('create');
+	app.get('/create', function (req, res) {
+		db.EmployeeTable.findAll({ include: db.AvailTable }).then((dbresult) => {
+			let hbsObj = { employees: dbresult };
+			// console.log(dbresult)
+			// console.log("--------------------------")
+			console.log(hbsObj.employees[0].AvailTables[0].avail)
+			res.render('create', hbsObj)
+		})
+		// res.render('create', hbsObj);
 	});
 };
