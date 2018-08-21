@@ -13,24 +13,33 @@
                     <div class="card-content">
                         <!-- admin approval card -->
                         <div id="admin-approval-card">
-                                <div class="row">
-      <div class="col-lg-12">
-        {{#if success_msg}}
-        <div class="alert alert-success">{{success_msg}}</div>
-        {{/if}} 
-        {{#if error_msg}}
-        <div class="alert alert-danger">{{error_msg}}</div>
-        {{/if}} 
-        {{#if errors}}
-        {{#each errors}}
-        <div class="alert alert-danger">{{this.msg}}</div>
-        {{/each}}
-        {{/if}} 
-        
-        {{{body}}}
-      
-      </div>
-    </div>
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    {{#if success_msg}}
+                                    <div class="card green lighten-4">
+                                        <div class="card-content white-text">
+                                            <p><i class="material-icons">check</i>{{success_msg}}</p>
+                                        </div>
+                                        </div>
+                                    {{/if}} 
+                                    {{#if error_msg}}
+                                    <div class="card red lighten-3">
+                                        <div class="card-content white-text">
+                                            <p><i class="material-icons">warning</i>{{error_msg}}</p>
+                                        </div>
+                                        </div>
+                                    {{/if}} 
+                                    {{#if errors}} 
+                                    {{#each errors}}
+                                    <div class="card red lighten-3">
+                                        <div class="card-content white-text">
+                                            <p><i class="material-icons">warning</i>{{this.msg}}</p>
+                                        </div>
+                                        </div>
+                                    {{/each}} 
+                                    {{/if}}
+                                </div>
+                            </div>
                             <form action="/auth/register" method="post">
                                 <div>
                                     <label>First Name:</label>
