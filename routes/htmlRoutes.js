@@ -13,26 +13,20 @@ module.exports = function (app) {
 
 	// Load index page
 	app.get('/', checkAuthentication, function (req, res) {
-		// db.Example.findAll({}).then(function(dbExamples) {
-		// 	res.render('index', {
-		// 		msg: 'Welcome!',
-		// 		examples: dbExamples
-		// 	});
-		// });
-
-		db.EmployeeTable.findAll({}).then(function(data){
-			
-			res.render('index', {
-				msg: 'Welcome!',
-				data: data
-			});
+		db.ScheduleTable.findAll({}).then((data) => {
+			var hbsObj = {
+				shifts: data
+			};
+			res.render('index', hbsObj);
 		});
 	});
 
 	app.get('/schedule', function(req, res){
 		db.ScheduleTable.findAll({}).then((data)=>{
-			// var json = JSON.parse(data);
-			res.render('index', {shift: data});
+			var hbsObj = {
+				shifts: data
+			};
+			res.render('index', hbsObj);
 		});
 	});
 

@@ -8,6 +8,12 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/api/schedule', function(req, res){
+		db.ScheduleTable.findAll({}).then(function(dbScheduleTable) {
+			res.json(dbScheduleTable);
+		});
+	});
+
 	
 	//post request to post user data to database
 	app.post('/api/employees', function(req, res) {

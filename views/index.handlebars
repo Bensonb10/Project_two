@@ -82,14 +82,16 @@
           <div class="card-content">
             <!-- This weeks schedule display -->
             <div id="current-weeks-schedule" style="height:600px">
-              <input id="range_16" />
+              <input name="16" />
               <input id="range_17" />
 
               <ol>
                 {{#each shifts}}
-                  {{date}}
+                  <input id="range_{{id}}"/>
                 {{/each}}
               </ol>
+
+              {{title}} {{body}}
 
               <div class="range-slider">
                 <input type="text" class="js-range-slider" value="" />
