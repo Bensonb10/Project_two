@@ -7,7 +7,7 @@ $(window).on('load', function() { $("#prepage-loader").delay(400).fadeOut('slow'
 
 // write inside all jquery function
 $(function() {
-    $('.datepicker').datepicker();
+    
 
     /* Initialization variable for global use */
 

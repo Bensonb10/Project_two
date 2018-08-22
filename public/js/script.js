@@ -63,3 +63,32 @@ function sliderStatic(empId, timeIn, timeOut, shiftDate, elementId) {
 		}
 	});
 }
+
+function modifyAccordion(date) {
+	//take the date value from the date picker and turn it into a moment object
+	let weekDay = moment(date);
+
+	$('.sched-ul li.day-header').each(function(){
+		let wdReadable = weekDay.format('dddd: MMM Do');
+		let unixDay = weekDay.format('X');
+
+		$(this).find('.header-text').text(wdReadable);
+		$(this).data('id', unixDay);
+
+		console.log(wdReadable)
+		weekDay.add(1,'d');
+	});
+
+	$('.sched-ul li.day-header').first().addClass('active');
+	$('.sched-ul li.day-header.active .collapsible-header').addClass('active');
+	$('.sched-ul li.day-header.active .collapsible-body').attr('style','display: block;');
+
+}
+
+$('.datepicker').datepicker({
+	onClose: function() {
+		let date = $('.datepicker').val();
+
+		modifyAccordion(date);
+	}
+});
