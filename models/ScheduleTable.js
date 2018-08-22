@@ -9,6 +9,12 @@ module.exports = function(sequelize, DataTypes) {
 				notEmpty: true
 			}
 		},
+		dayOfWeek: {
+			type: DataTypes.STRING,
+			validate: {
+				notEmpty: true
+			}
+		},
 		start: {
 			type: DataTypes.STRING,
 			validate: {
@@ -20,6 +26,11 @@ module.exports = function(sequelize, DataTypes) {
 			validate: {
 				notEmpty: true
 			}
+		},
+		open: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: '1'
+
 		}
 	});
 	ScheduleTable.associate = function(models) {

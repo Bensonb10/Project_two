@@ -7,7 +7,7 @@ module.exports = function (app) {
 			//req.isAuthenticated() will return true if user is logged in
 			next();
 		} else{
-			res.render("login", {error_msg: "You have to be sign in."});
+			res.render('login', {error_msg: 'You have to be sign in.'});
 		}
 	}
 
@@ -17,6 +17,9 @@ module.exports = function (app) {
 			var hbsObj = {
 				shifts: data
 			};
+
+			console.log(data.ScheduleTable);
+
 			res.render('index', hbsObj);
 		});
 	});
@@ -66,9 +69,9 @@ module.exports = function (app) {
 			let hbsObj = { employees: dbresult };
 			// console.log(dbresult)
 			// console.log("--------------------------")
-			console.log(hbsObj.employees[0].AvailTables[0].avail)
-			res.render('create', hbsObj)
-		})
+			console.log(hbsObj.employees[0].AvailTables[0].avail);
+			res.render('create', hbsObj);
+		});
 		// res.render('create', hbsObj);
 	});
 };

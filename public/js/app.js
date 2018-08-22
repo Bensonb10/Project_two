@@ -296,5 +296,25 @@ $(function() {
 	// initialize ledt sidebar
 	$('.index-mobile-collapse').sideNav();
 
+	$('.delete-shift').on('click', function(event){
+		var id = $(this).data('del-id');
+
+		$.ajax({
+			method: 'DELETE',
+			url: '/api/schedule/' + id
+		}).then(location.reload());
+	});
+
+	function makeSlider() {
+		$.get('/api/schedule', function (data) {
+			for (var val in data) {
+				var s = data[val];
+				sliderStatic(s.start, s.end, s.date, s.id);
+			}
+		});
+	}
+
+	makeSlider();
+
 
 }); // end of document ready

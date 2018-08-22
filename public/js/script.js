@@ -26,9 +26,6 @@ function sliderStatic(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
 
 	var input = `#range_${elementId}`;
-
-	shiftDate = moment(shiftDate, 'MMDDYYYY').format('YYYY-MM-DD');
-
 	var $range = $(input);
 	var start = moment(`${shiftDate} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${shiftDate} 22:00`, 'YYYY-MM-DD HH:mm');
@@ -52,14 +49,14 @@ function sliderStatic(timeIn, timeOut, shiftDate, elementId) {
 	});
 }
 
-function makeSlider() {
-	$.get('/api/schedule', function (data) {
-		for (var val in data) {
-			var s = data[val];
-			sliderStatic(s.start, s.end, s.date, s.id);
-		}
-	});
-}
+// function makeSlider() {
+// 	$.get('/api/schedule', function (data) {
+// 		for (var val in data) {
+// 			var s = data[val];
+// 			sliderStatic(s.start, s.end, s.date, s.id);
+// 		}
+// 	});
+// }
 
-makeSlider();
+// makeSlider();
 
