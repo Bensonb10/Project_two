@@ -6,91 +6,129 @@
         <div class="row m-b-0">
             <!-- start column -->
             <div class="col m12">
-                <h3 class="header">Create Schedule</h3>
-                <input type="text" class="datepicker">
+                <h3 class="header">Create schedule for week starting: <input type="text" class="datepicker center" style="width: 140px;"></h3>
 
-                <div class="row sched-view">
-                    <div class="col s12">
-                        <ul class="collapsible" data-collapsible="accordion">
-                            <li class="active">
-                                <div class="collapsible-header active">
-                                    <i class="material-icons">filter_drama</i>Monday</div>
-                                <div class="collapsible-body" style="display: block;">
-                                    <div class="row center">
-                                        <a class="waves-effect waves-light btn btn-rounded blue">
-                                            <i class="material-icons white-text left">add</i>Add Shift</a>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <ul class="collection" style="overflow: visible">
-                                                <li class="collection-item" data-id="1">
-                                                    <div class="row valign-wrapper">
-                                                        <div class="col s3">
-                                                            <!-- Dropdown button -->
-                                                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee
-                                                                <i class="material-icons white-text right">arrow_drop_down</i>
-                                                            </a>
-                                                            <ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                                                {{#if employees}} {{#each employees}}
-                                                                <li>
-                                                                    <div class="row valign-wrapper">
-                                                                        <div class="col s4">
-                                                                            <i class="material-icons medium">face</i>
-                                                                        </div>
-                                                                        <div class="col s5" data-id="{{this.id}}">
-                                                                            {{this.firstName}} {{this.lastName}}
-                                                                        </div>
-                                                                        <div class="col s3">
-                                                                            {{#each this.AvailTables}} {{#if this.avail}} true {{/if}} {{/each}}
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                                {{/each}} {{/if}} {{!-- console.log(hbsObj.employees[0].AvailTables[0].avail) --}}
-                                                                <li>
-                                                                    <div class="row valign-wrapper">
-                                                                        <div class="col s4">
-                                                                            <i class="material-icons medium">face</i>
-                                                                        </div>
-                                                                        <div class="col s5">
-                                                                            Ben B.
-                                                                        </div>
-                                                                        <div class="col s3">
-                                                                            [4hrs]
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                            <!-- Dropdown button structure -->
-                                                        </div>
-                                                        <div class="col s9">
-                                                            <input id="range_16" />
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                            </ul>
+                <div class="row sched-create">
+                    <div class="col s12" id="schedule-container">
+                        <ul class="collapsible sched-ul" data-collapsible="accordion">
+                            <li class="day-header">
+                                <div class="collapsible-header">
+                                    <i class="material-icons">today</i>
+                                    <div class="header-text left">Monday</div>
+                                        <input id="range_monday" />
+                                        <div class="add-btn valign-wrapper" data-day="monday">
+                                            <button class="waves-effect waves-light btn-small bg-theme"><i class="material-icons left icon-white">add</i>add shift</a>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="collapsible-header">
-                                    <i class="material-icons">place</i>Tuesday</div>
                                 <div class="collapsible-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <div class="row shift-item-row">
+        <div class="col s12">
+            <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
+                <li class="collection-item" data-id="1">
+                    <div class="row valign-wrapper">
+                        <div class="col s3">
+                            <!-- Dropdown button -->
+                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                <li>
+                                    <div class="row valign-wrapper">
+                                        <div class="col s4">
+                                            <i class="material-icons medium">face</i>
+                                        </div>
+                                        <div class="col s5">
+                                            Ben B.
+                                        </div>
+                                        <div class="col s3">
+                                            [4hrs]
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- Dropdown button structure -->
+                        </div>
+                        <div class="col s9">
+                            <input id="range_16" />
+                        </div>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
                                 </div>
                             </li>
-                            <li>
+                            <li class="day-header">
                                 <div class="collapsible-header">
-                                    <i class="material-icons">whatshot</i>Wednesday</div>
+                                    <i class="material-icons">today</i>
+                                    <div class="header-text">Tuesday</div>
+                                    <div class="add-btn valign-wrapper">
+                                            <button class="waves-effect waves-light btn-small bg-theme"><i class="material-icons left icon-white">add</i>add shift</a>
+                                        </div>
+                                </div>
                                 <div class="collapsible-body">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    
                                 </div>
                             </li>
+                            <li class="day-header">
+                                <div class="collapsible-header">
+                                    <i class="material-icons">today</i>
+                                    <div class="header-text">Wednesday</div>
+                                    <div class="add-btn valign-wrapper">
+                                            <button class="waves-effect waves-light btn-small bg-theme"><i class="material-icons left icon-white">add</i>add shift</a>
+                                        </div>
+                                </div>
+                                <div class="collapsible-body">
+                                    
+                                </div>
+                            </li>
+                            <li class="day-header">
+                                <div class="collapsible-header">
+                                    <i class="material-icons">today</i>
+                                    <div class="header-text">Thursday</div>
+                                    <div class="add-btn valign-wrapper">
+                                            <button class="waves-effect waves-light btn-small bg-theme"><i class="material-icons left icon-white">add</i>add shift</a>
+                                        </div>
+                                </div>
+                                <div class="collapsible-body">
+                                    
+                                </div>
+                            </li>
+                            <li class="day-header">
+                                <div class="collapsible-header">
+                                    <i class="material-icons">today</i>
+                                    <div class="header-text">Friday</div>
+                                    <div class="add-btn valign-wrapper">
+                                            <button class="waves-effect waves-light btn-small bg-theme"><i class="material-icons left icon-white">add</i>add shift</a>
+                                        </div>
+                                </div>
+                                <div class="collapsible-body">
+                                    
+                                </div>
+                            </li>
+                            <li class="day-header">
+                                <div class="collapsible-header">
+                                    <i class="material-icons">today</i>
+                                    <div class="header-text">Saturday</div>
+                                    <div class="add-btn valign-wrapper">
+                                            <button class="waves-effect waves-light btn-small bg-theme"><i class="material-icons left icon-white">add</i>add shift</a>
+                                        </div>
+                                </div>
+                                <div class="collapsible-body">
+                                    
+                                </div>
+                            </li>
+                            <li class="day-header">
+                                <div class="collapsible-header">
+                                    <i class="material-icons">today</i>
+                                    <div class="header-text">Sunday</div>
+                                    <div class="add-btn valign-wrapper">
+                                            <button class="waves-effect waves-light btn-small bg-theme"><i class="material-icons left icon-white">add</i>add shift</a>
+                                        </div>
+                                </div>
+                                <div class="collapsible-body">
+                                    
+                                </div>
+                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -104,3 +142,38 @@
 
 </main>
 <!--End page body-->
+
+{{!-- Slider code
+    <div class="row">
+        <div class="col s12">
+            <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
+                <li class="collection-item" data-id="1">
+                    <div class="row valign-wrapper">
+                        <div class="col s3">
+                            <!-- Dropdown button -->
+                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                <li>
+                                    <div class="row valign-wrapper">
+                                        <div class="col s4">
+                                            <i class="material-icons medium">face</i>
+                                        </div>
+                                        <div class="col s5">
+                                            Ben B.
+                                        </div>
+                                        <div class="col s3">
+                                            [4hrs]
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- Dropdown button structure -->
+                        </div>
+                        <div class="col s9">
+                            <input id="range_16" />
+                        </div>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+    </div> --}}
