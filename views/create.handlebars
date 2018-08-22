@@ -7,23 +7,51 @@
             <!-- start column -->
             <div class="col m12">
                 <h3 class="header">Create Schedule</h3>
+                <div class="col s10 m10 offset-s1 offset-m1">
+                    {{#if success_msg}}
+                    <div class="card green lighten-4">
+                        <div class="card-content flash-message white-text">
+                            <p>
+                                <i class="material-icons">check</i>{{success_msg}}</p>
+                        </div>
+                    </div>
+                    {{/if}} {{#if error}}
+                    <div class="card red lighten-3">
+                        <div class="card-content flash-message white-text">
+                            <p>
+                                <i class="material-icons">warning</i>{{error}}</p>
+                        </div>
+                    </div>
+                    {{/if}} {{#if errors}} {{#each errors}}
+                    <div class="card red lighten-3">
+                        <div class="card-content flash-message white-text">
+                            <p>
+                                <i class="material-icons">warning</i>{{this.msg}}</p>
+                        </div>
+                    </div>
+                    {{/each}} {{/if}}
+                </div>
+                <h4 class="header center" data-startDate="2018-08-20" data-endDate="2018-08-26">August 20, 2018 - August 26, 2018</h4>
                 <input type="text" class="datepicker">
-
                 <div class="row sched-view">
                     <div class="col s12">
                         <ul class="collapsible" data-collapsible="accordion">
-                            <li class="active">
+                            <li data-date="2018-08-20" class="active">
                                 <div class="collapsible-header active">
                                     <i class="material-icons">filter_drama</i>Monday</div>
                                 <div class="collapsible-body" style="display: block;">
                                     <div class="row center">
-                                        <a class="waves-effect waves-light btn btn-rounded blue">
+                                        <a class="waves-effect waves-light btn btn-rounded blue" href="/create">
                                             <i class="material-icons white-text left">add</i>Add Shift</a>
+                                        <div class="row">
+                                        </div>
                                     </div>
+                                {{#if monday}}{{#each monday}} 
+
                                     <div class="row">
                                         <div class="col s12">
                                             <ul class="collection" style="overflow: visible">
-                                                <li class="collection-item" data-id="1">
+                                                <li class="collection-item" data-id="{{this.id}}">
                                                     <div class="row valign-wrapper">
                                                         <div class="col s3">
                                                             <!-- Dropdown button -->
@@ -31,7 +59,7 @@
                                                                 <i class="material-icons white-text right">arrow_drop_down</i>
                                                             </a>
                                                             <ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                                                {{#if employees}} {{#each employees}}
+                                                                {{!-- {{#if employees}} {{#each employees}}
                                                                 <li>
                                                                     <div class="row valign-wrapper">
                                                                         <div class="col s4">
@@ -41,41 +69,85 @@
                                                                             {{this.firstName}} {{this.lastName}}
                                                                         </div>
                                                                         <div class="col s3">
-                                                                            {{#each this.AvailTables}} {{#if this.avail}} true {{/if}} {{/each}}
+                                                                            {{#each this.AvailTables}} {{#if this.avail}} true {{else}} Hello {{/if}} {{/each}}
                                                                         </div>
                                                                     </div>
                                                                 </li>
-                                                                {{/each}} {{/if}} {{!-- console.log(hbsObj.employees[0].AvailTables[0].avail) --}}
-                                                                <li>
-                                                                    <div class="row valign-wrapper">
-                                                                        <div class="col s4">
-                                                                            <i class="material-icons medium">face</i>
-                                                                        </div>
-                                                                        <div class="col s5">
-                                                                            Ben B.
-                                                                        </div>
-                                                                        <div class="col s3">
-                                                                            [4hrs]
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
+                                                                {{/each}} {{/if}} --}}
                                                             </ul>
-                                                            <!-- Dropdown button structure -->
                                                         </div>
+
+                                                        {{!-- sliderModify({this.start}, {this.end}, {this.date}, range_ + {this.id}) --}}
+                                                        <!-- Sliders -->
                                                         <div class="col s9">
-                                                            <input id="range_16" />
+                                                            <input id="range_{{this.id}}" />
                                                         </div>
+                                                        <!-- -->
                                                     </div>
                                                 </li>
 
                                             </ul>
                                         </div>
                                     </div>
+                                    
+                                    {{/each}}{{/if}}
                                 </div>
                             </li>
                             <li>
                                 <div class="collapsible-header">
                                     <i class="material-icons">place</i>Tuesday</div>
+                                <div class="collapsible-body">
+                                    {{#if tuesday}}{{#each tuesday}} 
+                                {{!-- {{#if this.date = "2018-08-20"}} --}}
+                                {{!-- .parent().parent().data('date') --}}
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <ul class="collection" style="overflow: visible">
+                                                <li class="collection-item" data-id="{{this.id}}">
+                                                    <div class="row valign-wrapper">
+                                                        <div class="col s3">
+                                                            <!-- Dropdown button -->
+                                                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee
+                                                                <i class="material-icons white-text right">arrow_drop_down</i>
+                                                            </a>
+                                                            <ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                                                {{!-- {{#if employees}} {{#each employees}}
+                                                                <li>
+                                                                    <div class="row valign-wrapper">
+                                                                        <div class="col s4">
+                                                                            <i class="material-icons medium">face</i>
+                                                                        </div>
+                                                                        <div class="col s5" data-id="{{this.id}}">
+                                                                            {{this.firstName}} {{this.lastName}}
+                                                                        </div>
+                                                                        <div class="col s3">
+                                                                            {{#each this.AvailTables}} {{#if this.avail}} true {{else}} Hello {{/if}} {{/each}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                {{/each}} {{/if}} --}}
+                                                            </ul>
+                                                        </div>
+
+                                                        {{!-- sliderModify({this.start}, {this.end}, {this.date}, range_ + {this.id}) --}}
+                                                        <!-- Sliders -->
+                                                        <div class="col s9">
+                                                            <input id="range_{{this.id}}" />
+                                                        </div>
+                                                        <!-- -->
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {{!-- {{/if}} --}}
+                                    {{/each}}{{/if}}
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">
+                                    <i class="material-icons">whatshot</i>Wednesday</div>
                                 <div class="collapsible-body">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -84,7 +156,34 @@
                             </li>
                             <li>
                                 <div class="collapsible-header">
-                                    <i class="material-icons">whatshot</i>Wednesday</div>
+                                    <i class="material-icons">place</i>Thursday</div>
+                                <div class="collapsible-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                        ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">
+                                    <i class="material-icons">place</i>Friday</div>
+                                <div class="collapsible-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                        ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">
+                                    <i class="material-icons">place</i>Saturday</div>
+                                <div class="collapsible-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                        ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">
+                                    <i class="material-icons">place</i>Sunday</div>
                                 <div class="collapsible-body">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
