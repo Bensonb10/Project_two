@@ -91,9 +91,10 @@ $('.datepicker').datepicker({
 });
 
 function addModSlider(date, elementId) {
+	console.log('Called a new addModSlider');
 	moment.locale('en-GB');
 
-	var $range = $('range_'+elementId);
+	var $range = $('#range_'+elementId);
 	var start = moment(`${date} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${date} 22:00`, 'YYYY-MM-DD HH:mm');
 	let startFrom = moment(`${date} 12:00`, 'YYYY-MM-DD HH:mm');
@@ -117,14 +118,18 @@ function addModSlider(date, elementId) {
 
 //add button genertates and inserts the slider/employee block
 $('.collapsible-header .add-btn').on('click', function(event){
+	console.log('We fired this event.')
 	event.stopPropagation();
 	let uniqueId = moment().format('x');
 	let scheduleDate = $(this).data('id');
+	let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
 	let elementId = scheduleDate + '-' + uniqueId;
+
+	console.log(ionDate);
 
 	console.log(`${scheduleDate} - ${elementId}`)
 
-	addModSlider(scheduleDate,elementId);
+	
 
 	$(`[data-id=cb-${scheduleDate}`).append(`
 	<div class="row shift-item-row">
@@ -152,7 +157,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
                             <!-- Dropdown button structure -->
                         </div>
                         <div class="col s9">
-                            <input id="range_16" />
+                            <input id="range_${elementId}" />
                         </div>
                     </div>
                 </li>
@@ -161,4 +166,6 @@ $('.collapsible-header .add-btn').on('click', function(event){
         </div>
     </div>
 	`);
+
+	addModSlider(ionDate,elementId);
 });
