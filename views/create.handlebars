@@ -17,7 +17,8 @@
                                     <i class="material-icons">filter_drama</i>Monday</div>
                                 <div class="collapsible-body" style="display: block;">
                                     <div class="row center">
-                                        <a class="waves-effect waves-light btn btn-rounded blue"><i class="material-icons white-text left">add</i>Add Shift</a>
+                                        <a class="waves-effect waves-light btn btn-rounded blue">
+                                            <i class="material-icons white-text left">add</i>Add Shift</a>
                                     </div>
                                     <div class="row">
                                         <div class="col s12">
@@ -26,7 +27,25 @@
                                                     <div class="row valign-wrapper">
                                                         <div class="col s3">
                                                             <!-- Dropdown button -->
-                                                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee
+                                                                <i class="material-icons white-text right">arrow_drop_down</i>
+                                                            </a>
+                                                            <ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                                                {{#if employees}} {{#each employees}}
+                                                                <li>
+                                                                    <div class="row valign-wrapper">
+                                                                        <div class="col s4">
+                                                                            <i class="material-icons medium">face</i>
+                                                                        </div>
+                                                                        <div class="col s5" data-id="{{this.id}}">
+                                                                            {{this.firstName}} {{this.lastName}}
+                                                                        </div>
+                                                                        <div class="col s3">
+                                                                            {{#each this.AvailTables}} {{#if this.avail}} true {{/if}} {{/each}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                {{/each}} {{/if}} {{!-- console.log(hbsObj.employees[0].AvailTables[0].avail) --}}
                                                                 <li>
                                                                     <div class="row valign-wrapper">
                                                                         <div class="col s4">
@@ -48,7 +67,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                
+
                                             </ul>
                                         </div>
                                     </div>
