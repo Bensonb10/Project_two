@@ -34,15 +34,15 @@ module.exports = function(app) {
 	});
 
 	//query for one employee and find all of the start and end times that they are available
-	app.get('/api/avail/:id', function(req, res) {
-		db.AvailTable.findOne({where: {
-			id: req.params.id
-		},
-		include: [db.EmployeeTable, as: {firstName: req.body.firstName}, {lastName: req.body.lastName}]
-		}).then(function(dbAvailTable) {
-			res.json(dbAvailTable);
-		});
-	});
+	// app.get('/api/avail/:id', function(req, res) {
+	// 	db.AvailTable.findOne({where: {
+	// 		id: req.params.id
+	// 	},
+	// 	include: [db.EmployeeTable, as: {firstName: req.body.firstName}, {lastName: req.body.lastName}]
+	// 	}).then(function(dbAvailTable) {
+	// 		res.json(dbAvailTable);
+	// 	});
+	// });
 
 
 
