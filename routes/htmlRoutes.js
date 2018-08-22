@@ -1,4 +1,5 @@
 var db = require('../models');
+var Sequelize = require('sequelize');
 
 module.exports = function (app) {
 	// Checks incoming request to see if user is logged in. If not it will redirect to login handlebars with a message
@@ -6,15 +7,15 @@ module.exports = function (app) {
 		if (req.isAuthenticated()) {
 			//req.isAuthenticated() will return true if user is logged in
 			next();
-		} else {
-			res.render("login", { error: "You have to be sign in." });
+		} else{
+			res.render('login', {error: 'You have to be sign in.'});
 		}
 	}
 
 	// GET: /
 	// Load index page
 	app.get('/', checkAuthentication, function (req, res) {
-		db.ScheduleTable.findAll({}).then((data) => {
+		db.ScheduleTable.findAll({include: db.EmployeeTable}).then((data) => {
 			var hbsObj = {
 				shifts: data
 			};
