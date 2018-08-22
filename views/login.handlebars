@@ -11,42 +11,72 @@
                 <div class="card m-b-10">
                     <!--card content-->
                     <div class="card-content">
-                        <!-- admin approval card -->
-                        <div id="admin-approval-card">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    {{#if success_msg}}
-                                    <div class="alert alert-success">{{success_msg}}</div>
-                                    {{/if}} {{#if error_msg}}
-                                    <div class="alert alert-danger">{{error_msg}}</div>
-                                    {{/if}} {{#if errors}} {{#each errors}}
-                                    <div class="alert alert-danger">{{this.msg}}</div>
-                                    {{/each}} {{/if}}
 
+                        <!--form title-->
+                        <div class="row">
+                            <div class="col s10 m10 offset-s1 offset-m1">
+                                {{#if success_msg}}
+                                <div class="card green lighten-4">
+                                    <div class="card-content flash-message white-text">
+                                        <p>
+                                            <i class="material-icons">check</i>{{success_msg}}</p>
+                                    </div>
                                 </div>
+                                {{/if}} 
+                                {{#if error}}
+                                <div class="card red lighten-3">
+                                    <div class="card-content flash-message white-text">
+                                        <p>
+                                            <i class="material-icons">warning</i>{{error}}</p>
+                                    </div>
+                                </div>
+                                {{/if}} {{#if errors}} {{#each errors}}
+                                <div class="card red lighten-3">
+                                    <div class="card-content flash-message white-text">
+                                        <p>
+                                            <i class="material-icons">warning</i>{{this.msg}}</p>
+                                    </div>
+                                </div>
+                                {{/each}} {{/if}}
                             </div>
-                            <form action="/auth/login" method="post">
-                                <div>
-                                    <label>Email:</label>
-                                    <input type="text" name="email" />
-                                </div>
-                                <div>
-                                    <label>Password:</label>
-                                    <input type="password" name="password" />
-                                </div>
-                                <div>
-                                    <input type="submit" value="Log In" />
-                                </div>
-
-                                <a href="/auth/google">Sign In with Google</a>
-                            </form>
                         </div>
+                        <!--form-->
+                        <form action="/auth/login" method="post">
+                            <div class="input-field">
+                                <i class="material-icons prefix">mail</i>
+                                <input id="email" type="email" name="email" class="validate" autocomplete="off" required>
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-field">
+                                <i class="material-icons prefix">lock</i>
+                                <input id="password" type="password" name="password" class="validate" autocomplete="off" required>
+                                <label for="password">Password</label>
+                            </div>
+                            {{!--
+                            <div class="form-ref-box">
+                                <div class="left">
+                                    <input type="checkbox" id="checkbox1" checked="checked" class="filled-in">
+                                    <label for="checkbox1">Remember me</label>
+                                </div>
+                                <div class="right">
+                                    <span class="form-ref-link">
+                                        <a href="reset.html">Forgot your password?</a>
+                                    </span>
+                                </div>
+                            </div> --}}
+                            <div class="input-field">
+                                <button class="btn btn-action-form btn-block waves-effect waves-light theme-bg" type="submit">Sign in to your account</button>
+                            </div>
+                            <a href="/auth/google">Sign In with Google</a>
+                        </form>
+                        <!--end form-->
                     </div>
-                    <!--end card content-->
                 </div>
                 <!--end card content-->
             </div>
-            <!-- end column -->
+            <!--end card content-->
+        </div>
+        <!-- end column -->
 
     </section>
     <!--end section-->
