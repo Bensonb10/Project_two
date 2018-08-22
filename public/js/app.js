@@ -324,6 +324,12 @@ $(function() {
 		}
 	});
 
+	// $('.collapsible-header').on('click', function(event){
+	// 	let day = $(this).data('day');
+	// 	console.log(day)
+	// })
+
+
 	//add button genertates and inserts the slider/employee block
 	$('.collapsible-header .add-btn').on('click', function (event) {
 		event.stopPropagation();
@@ -331,9 +337,12 @@ $(function() {
 		let scheduleDate = $(this).data('id');
 		let elementId = scheduleDate + '-' + uniqueId;
 
+		let day = $(this).data('day');
+		console.log(day)
+
 		console.log(`${scheduleDate} - ${elementId}`)
 
-		addModSlider(scheduleDate, elementId);
+		addModSlider(scheduleDate, day);
 
 		$(`[data-id=cb-${scheduleDate}`).append(`
 	<div class="row shift-item-row">
