@@ -1,3 +1,4 @@
+
 function sliderModify(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
 
@@ -42,21 +43,12 @@ function sliderStatic(timeIn, timeOut, shiftDate, elementId) {
 		to: startTo.format('x'),
 		from_fixed: true,
 		to_fixed: true,
+		hide_min_max: true,
+		hide_from_to: true,
 		step: 1800000, // 30 minutes in ms
 		prettify: function (num) {
 			return moment(num, 'x').format('h:mm A');
 		}
 	});
 }
-
-// function makeSlider() {
-// 	$.get('/api/schedule', function (data) {
-// 		for (var val in data) {
-// 			var s = data[val];
-// 			sliderStatic(s.start, s.end, s.date, s.id);
-// 		}
-// 	});
-// }
-
-// makeSlider();
 

@@ -1,4 +1,5 @@
 var db = require('../models');
+var Sequelize = require('sequelize');
 
 module.exports = function (app) {
 	// Checks incoming request to see if user is logged in. If not it will redirect to login handlebars with a message
@@ -7,20 +8,17 @@ module.exports = function (app) {
 			//req.isAuthenticated() will return true if user is logged in
 			next();
 		} else{
-			res.render("login", {error: "You have to be sign in."});
+			res.render('login', {error: 'You have to be sign in.'});
 		}
 	}
 
 	// GET: /
 	// Load index page
 	app.get('/', checkAuthentication, function (req, res) {
-		db.ScheduleTable.findAll({}).then((data) => {
+		db.ScheduleTable.findAll({include: db.EmployeeTable}).then((data) => {
 			var hbsObj = {
 				shifts: data
 			};
-
-			console.log(data.ScheduleTable);
-
 			res.render('index', hbsObj);
 		});
 	});
@@ -51,11 +49,11 @@ module.exports = function (app) {
 	// Load Create page if user is autheticated
 	app.get('/create', checkAuthentication, (req, res) => {
 		db.EmployeeTable.findAll({include: db.AvailTable}).then((dbresult) => {
-			let hbsObj = {employees: dbresult}
+			let hbsObj = {employees: dbresult};
 			// console.log(dbresult)
 			// console.log("--------------------------")
-			console.log(hbsObj.employees[0].AvailTables[0].avail)
-			res.render('create', hbsObj)
-		})
+			console.log(hbsObj.employees[0].AvailTables[0].avail);
+			res.render('create', hbsObj);
+		});
 	});
 };
