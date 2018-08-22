@@ -14,6 +14,21 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/api/help', function(req,res){
+		db.EmployeeTable.findAll({
+			include: [{
+				model: db.ScheduleTable
+			},{
+				model: db.AvailTable
+			}]
+		}).then(function(all){
+			var hbsObj = {
+				employees: all
+			};
+			res.render('index', hbsObj);
+		})
+	})
+
 	
 	//post request to post user data to database
 	app.post('/api/employees', function(req, res) {
