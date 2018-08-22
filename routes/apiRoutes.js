@@ -143,27 +143,28 @@ module.exports = function(app) {
 			res.json(dbAvailTable);
 		});
 	});
-	//update schedule for day/week by id
-	app.put('/api/schedule', function(req, res) {
+	
+
+
+
+
+
+	app.put('/api/schedule/:id', function(req, res) {
 		db.ScheduleTable.update(
 			{
 				start: req.body.start,
-				end: req.body.end
+				end: req.body.end,
 			},
 			{
 				where: {
 					id: req.body.id
 				}
 			}
-			).then(function(schedData) {
-				console.log(schedData);
-				res.json(schedData);
+		).then(function(schedData) {
+			console.log(schedData);
+			res.json(schedData);
 		});
 	});
-
-
-
-
 
 
 };

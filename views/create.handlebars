@@ -7,13 +7,14 @@
             <!-- start column -->
             <div class="col m12">
                 <h3 class="header">Create Schedule</h3>
+                <input type="text" class="datepicker">
 
                 <div class="row sched-view">
                     <div class="col s12">
                         <ul class="collapsible" data-collapsible="accordion">
                             <li class="active">
                                 <div class="collapsible-header active">
-                                    <i class="material-icons">filter_drama</i>First</div>
+                                    <i class="material-icons">filter_drama</i>Monday</div>
                                 <div class="collapsible-body" style="display: block;">
                                     <div class="row center">
                                         <a class="waves-effect waves-light btn btn-rounded blue"><i class="material-icons white-text left">add</i>Add Shift</a>
@@ -21,13 +22,23 @@
                                     <div class="row">
                                         <div class="col s12">
                                             <ul class="collection" style="overflow: visible">
-                                                <li class="collection-item">
+                                                <li class="collection-item" data-id="1">
                                                     <div class="row valign-wrapper">
                                                         <div class="col s3">
                                                             <!-- Dropdown button -->
                                                             <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
                                                                 <li>
-                                                                    <i class="material-icons medium">face</i>
+                                                                    <div class="row valign-wrapper">
+                                                                        <div class="col s4">
+                                                                            <i class="material-icons medium">face</i>
+                                                                        </div>
+                                                                        <div class="col s5">
+                                                                            Ben B.
+                                                                        </div>
+                                                                        <div class="col s3">
+                                                                            [4hrs]
+                                                                        </div>
+                                                                    </div>
                                                                 </li>
                                                             </ul>
                                                             <!-- Dropdown button structure -->
@@ -35,20 +46,13 @@
                                                         <div class="col s9">
                                                             <input id="range_16" />
                                                         </div>
+
+                                                        {{#each employees}}
+                                                            {{firstName}}
+                                                        {{/each}}
                                                     </div>
                                                 </li>
-                                                <li class="collection-item">
-                                                   
-                                                <!-- Dropdown button -->
-                                                <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                                    <li><a href="#!">one</a></li>
-                                                    <li><a href="#!">two</a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#!">three</a></li>
-                                                </ul>
-                                                <!-- Dropdown button structure -->
                                                 
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -56,7 +60,7 @@
                             </li>
                             <li>
                                 <div class="collapsible-header">
-                                    <i class="material-icons">place</i>Second</div>
+                                    <i class="material-icons">place</i>Tuesday</div>
                                 <div class="collapsible-body">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -65,7 +69,7 @@
                             </li>
                             <li>
                                 <div class="collapsible-header">
-                                    <i class="material-icons">whatshot</i>Third</div>
+                                    <i class="material-icons">whatshot</i>Wednesday</div>
                                 <div class="collapsible-body">
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -85,6 +89,3 @@
 
 </main>
 <!--End page body-->
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>

@@ -39,11 +39,7 @@
                         dates: 9/1 - 9/5
                       </span>
                       <span>
-                        <ol>
-                        {{#each employee}}
-                        <li>{{firstName}}</li>
-                        {{/each}}
-                        </ol>
+                        
                       </span>
                     </p>
                   </a>
@@ -86,8 +82,15 @@
           <div class="card-content">
             <!-- This weeks schedule display -->
             <div id="current-weeks-schedule" style="height:600px">
-              <input id="range_16" />
-              <input id="range_17" />
+
+              <ol>
+                {{#each shifts}}
+                  <input id="range_{{id}}"/>
+                {{/each}}
+              </ol>
+
+              {{title}} {{body}}
+
               <div class="range-slider">
                 <input type="text" class="js-range-slider" value="" />
               </div>
@@ -110,5 +113,5 @@
 </main>
 <!--End page body-->
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script src="/js/index.js"></script>
