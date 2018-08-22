@@ -1,7 +1,7 @@
 var db = require('../models');
 
 module.exports = function(app) {
-	// Get request to find all employees & their contact info in database (view this whole table)
+	// Get request to get all employees
 	app.get('/api/employees', function(req, res) {
 		db.EmployeeTable.findAll({}).then(function(dbEmployeeTable) {
 			res.json(dbEmployeeTable);
@@ -9,20 +9,40 @@ module.exports = function(app) {
 	});
 
 	//Get request to find all available and unavailable times posted by employees (view whole avail table)
-	app.get('/api/employees', function(req, res) {
+	app.get('/api/avail', function(req, res) {
 		db.AvailTable.findAll({}).then(function(dbAvailTable) {
 			res.json(dbAvailTable);
 		});
 	});
 
 	//Get request to get schedule (all shifts for the day/week)
-	app.get('/api/employees', function(req, res) {
-		db.AvailTable.findAll({}).then(function(dbAvailTable) {
-			res.json(dbAvailTable);
+	app.get('/api/schedule', function(req, res) {
+		db.ScheduleTable.findAll({}).then(function(dbScheduleTable) {
+			res.json(dbScheduleTable);
 		});
 	});
 
+	//query for one employee and find all of the start and end times that they are available
+	app.get('/api/employees/:id', function(req, res) {
+		db.EmployeeTable.findOne({where: {
+			id: req.params.id
+		},
+		include: [db.AvailTable]
+		}).then(function(dbEmployeeTable) {
+			res.json(dbEmployeeTable);
+		});
+	});
 
+	//query for one employee and find all of the start and end times that they are available
+	app.get('/api/avail/:id', function(req, res) {
+		db.AvailTable.findOne({where: {
+			id: req.params.id
+		},
+		include: [db.EmployeeTable, as: {firstName: req.body.firstName}, {lastName: req.body.lastName}]
+		}).then(function(dbAvailTable) {
+			res.json(dbAvailTable);
+		});
+	});
 
 
 
@@ -33,11 +53,7 @@ module.exports = function(app) {
 	//posting user data to Employee table
 		db.EmployeeTable.create({
 			firstName: req.body.firstName,
-<<<<<<< HEAD
-			lastName : req.body.lastName,
-=======
 			lastName: req.body.lastName,
->>>>>>> 1f3a040957b50a6ede920fdce6199d685687df7e
 			isAdmin: req.body.isAdmin,
 			email: req.body.email,
 			phone: req.body.phone,
@@ -73,6 +89,7 @@ module.exports = function(app) {
 			end: req.body.end,
 			EmployeeTableId: req.body.id	
 		}).then(function(dbScheduleTable){
+			console.log(dbScheduleTable.id);
 			res.json(dbScheduleTable);
 		});
 	});
@@ -109,7 +126,9 @@ module.exports = function(app) {
 
 
 
-	
+
+
+
 	//update an employees info by id
 	app.put('/api/employees/:id', function(req, res) {
 		db.EmployeeTable.update({firstName: req.body.firstName},{
@@ -126,9 +145,19 @@ module.exports = function(app) {
 	});
 	//update schedule for day/week by id
 	app.put('/api/schedule', function(req, res) {
-		db.ScheduleTable.update(req.body,{
-			where: {id: req.body.id}}).then(function(dbScheduleTable) {
-			res.json(dbScheduleTable);
+		db.ScheduleTable.update(
+			{
+				start: req.body.start,
+				end: req.body.end
+			},
+			{
+				where: {
+					id: req.body.id
+				}
+			}
+			).then(function(schedData) {
+				console.log(schedData);
+				res.json(schedData);
 		});
 	});
 
