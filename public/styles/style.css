@@ -50,3 +50,29 @@
     padding-right: 2px;
 }
 
+.sched-create .collapsible-header {
+    position: relative;
+}
+
+#schedule-container .collapsible-header .add-btn {
+    position: absolute;
+    right:10px;
+    top:10px;
+}
+
+i.icon-white {
+    color: white;
+    padding:0;
+}
+
+.add-btn button{
+    padding-left:2px;
+}
+
+.add-btn i {
+    margin-right: 5px;
+}
+
+span.character-counter {
+    display: none;
+}
