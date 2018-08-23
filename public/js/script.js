@@ -98,7 +98,7 @@ function addModSlider(date, elementId) {
 	var start = moment(`${date} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${date} 22:00`, 'YYYY-MM-DD HH:mm');
 	let startFrom = moment(`${date} 12:00`, 'YYYY-MM-DD HH:mm');
-	let startTo = moment(`${date} 13:00`, 'YYYY-MM-DD HH:mm');
+	let startTo = moment(`${date} 16:00`, 'YYYY-MM-DD HH:mm');
 
 
 	$range.ionRangeSlider({
@@ -111,7 +111,10 @@ function addModSlider(date, elementId) {
 		step: 1800000, // 30 minutes in ms
 		prettify: function (num) {
 			return moment(num, 'x').format('h:mm A');
-		}
+		},
+		onFinish: function (data) {
+			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
+		},
 	});
 
 }
