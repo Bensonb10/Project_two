@@ -79,16 +79,15 @@ function modifyAccordion(date) {
 	$('.sched-ul li.day-header.active .collapsible-body').attr('style','display: block;');
 }
 
-<<<<<<< HEAD
-$('.datepicker').datepicker({
-	onClose: function() {
-		let date = $('.datepicker').val();
-		let dbDateStart = moment(date).format('YYYY-MM-DD');
-		let dbDateEnd = moment(dbDateStart).add(6,'d').format('YYYY-MM-DD');
+$(‘.datepicker’).datepicker({
+    onClose: function () {
+        let date = $(‘.datepicker’).val();
+        let dbDateStart = moment(date).format(‘YYYY-MM-DD’);
+        let dbDateEnd = moment(dbDateStart).add(6, ‘d’).format(‘YYYY-MM-DD’);
 		console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
-=======
->>>>>>> 27e0ae033ffd1103c646151a6ad1e0678c243caf
-
+		
+        modifyAccordion(date);
+    }});
 
 function addModSlider(date, elementId) {
 	console.log('Called a new addModSlider');
