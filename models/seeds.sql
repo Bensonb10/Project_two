@@ -27,6 +27,6 @@ INSERT INTO AvailTables(dayOfWeek, startTime, endTime, avail, EmployeeTableId) V
 INSERT INTO ScheduleTables(date, dayOfWeek, start, end, EmployeeTableId) VALUES
 ("2018-08-20", "Monday", "09:00" , "16:00", null), 
 ("2018-08-20", "Tuesday", "12:00" , "15:00", null), 
-("2018-08-20", "wednesday", "16:00" , "20:00", null), 
+("2018-08-20", "Wednesday", "16:00" , "20:00", null), 
 ("2018-08-21", "Thursday", "12:00" , "21:00", null), 
-("2018-08-21", "Friday", "09:00", null); 
+("2018-08-21", "Friday", "09:00", "16:00", null); 
