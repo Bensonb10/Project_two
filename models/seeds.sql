@@ -11,18 +11,18 @@ INSERT INTO EmployeeTables(firstName, lastName, isAdmin, email, phone, picture, 
 
 
 INSERT INTO AvailTables(date, dayOfWeek, startTime, endTime, avail, EmployeeTableId) VALUES 
-(null, "Monday", "09:00", "12:00", true, "1"), 
-(null, "Tuesday", "12:00", "15:00", true, "2"), 
-(null, "Wednesday", "16:00", "20:00", true, "3"),
-(null, "Thursday", null, null, false, "4"),
-(null, "Friday", null, null, false, "5"),
-(null, "Saturday", null, null, false, "6"),
-(null, "Sunday", null, null, false, "1"),
-(null, "Monday", "12:00", "21:00", true, "2"),
-(null, "Tuesday", null, null, false, "3"),
-(null, "Wednesday", null, null, false, "4"),
-(null, "Thursday", null, null, false, "5"),
-(null, "Friday", "09:00", "13:00", true, "6");
+(null, "Monday", "09:00", "12:00", false, "1"), 
+(null, "Tuesday", "12:00", "15:00", false, "2"), 
+(null, "Wednesday", "16:00", "20:00", false, "3"),
+(null, "Thursday", null, null, true, "4"),
+(null, "Friday", null, null, true, "5"),
+(null, "Saturday", null, null, true, "6"),
+(null, "Sunday", null, null, true, "1"),
+(null, "Monday", "12:00", "21:00", false, "2"),
+(null, "Tuesday", null, null, true, "3"),
+(null, "Wednesday", null, null, true, "4"),
+(null, "Thursday", null, null, true, "5"),
+(null, "Friday", "09:00", "13:00", false, "6");
 
 INSERT INTO ScheduleTables(date, dayOfWeek, start, end, EmployeeTableId) VALUES
 ("2018-08-27", "Monday", "09:00" , "16:00", 1),
