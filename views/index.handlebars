@@ -1,4 +1,3 @@
-
 <!--Page Body-->
 <main class="page-body">
   <!--start section-->
@@ -39,11 +38,7 @@
                         dates: 9/1 - 9/5
                       </span>
                       <span>
-                        <ol>
-                        {{#each employee}}
-                        <li>{{firstName}}</li>
-                        {{/each}}
-                        </ol>
+                        
                       </span>
                     </p>
                   </a>
@@ -85,12 +80,170 @@
           <!--card content-->
           <div class="card-content">
             <!-- This weeks schedule display -->
-            <div id="current-weeks-schedule" style="height:600px">
-              <input id="range_16" />
-              <input id="range_17" />
-              <div class="range-slider">
-                <input type="text" class="js-range-slider" value="" />
+            <div id="current-weeks-schedule">
+
+
+      <div class="row sched-view">
+        <div class="col s12">
+          <ul class="collapsible" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Sunday</div>
+              <div class="collapsible-body shift-sunday">
+                {{#each shifts}}
+                  {{#isDay dayOfWeek "Sunday"}}
+                    {{#if open}}
+                    <div class="shift-sunday-open">
+                      Open Shift
+                      {{>rangeSlider/range-block}}
+                    </div>
+                    {{/if}}
+                    {{#unless open}}
+                    <div class="shift-sunday-closed">
+                      {{EmployeeTableId}}
+                      {{>rangeSlider/range-block}}
+                    </div>
+                    {{/unless}}
+                  {{/isDay}}
+                {{/each}}
               </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Monday</div>
+              <div class="collapsible-body shift-monday">
+                {{#each shifts}}
+                  {{#isDay dayOfWeek "Monday"}}
+                    {{#if open}}
+                      <div class="shift-monday-open">
+                        Open Shift
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/if}}
+                    {{#unless open}}
+                      <div class="shift-monday-closed">
+                        {{EmployeeTableId}}
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/unless}}
+                  {{/isDay}}
+                {{/each}}
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Tuesday</div>
+              <div class="collapsible-body shift-tuesday">
+                {{#each shifts}}
+                  {{#isDay dayOfWeek "Tuesday"}}
+                    {{#if open}}
+                      <div class="shift-tuesday-open">
+                        Open Shift
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/if}}
+                    {{#unless open}}
+                      <div class="shift-tuesday-closed">
+                        {{EmployeeTableId}}
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/unless}}
+                  {{/isDay}}
+                {{/each}}
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Wednesday</div>
+              <div class="collapsible-body shift-wednesday">
+                {{#each shifts}}
+                  {{#isDay dayOfWeek "Wednesday"}}
+                    {{#if open}}
+                      <div class="shift-wednesday-open">
+                        Open Shift
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/if}}
+                    {{#unless open}}
+                      <div class="shift-wednesday-closed">
+                        {{this.fistName}}
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/unless}}
+                  {{/isDay}}
+                {{/each}}
+                </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Thursday</div>
+              <div class="collapsible-body shift-thursday">
+                {{#each shifts}}
+                  {{#isDay dayOfWeek "Thursday"}}
+                    {{#if open}}
+                      <div class="shift-thursday-open">
+                        Open Shift
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/if}}
+                    {{#unless open}}
+                      <div class="shift-thursday-closed">
+                        {{EmployeeTableId}}
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/unless}}
+                  {{/isDay}}
+                {{/each}}
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Friday</div>
+              <div class="collapsible-body shift-friday">
+                {{#each shifts}}
+                  {{#isDay dayOfWeek "Friday"}}
+                    {{#if open}}
+                      <div class="shift-friday-open">
+                        Open Shift
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/if}}
+                    {{#unless open}}
+                      <div class="shift-friday-closed">
+                        {{EmployeeTableId}}
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/unless}}
+                  {{/isDay}}
+                {{/each}}
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header">
+                <i class="material-icons">place</i>Saturday</div>
+              <div class="collapsible-body shift-saturday">
+                {{#each shifts}}
+                  {{#isDay dayOfWeek "Saturday"}} 
+                    {{#if open}}
+                      <div class="shift-saturday-open">
+                        Open Shift
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/if}}
+                    {{#unless open}}
+                      <div class="shift-saturday-closed">
+                        {{EmployeeTableId}}
+                        {{>rangeSlider/range-block}}
+                      </div>
+                    {{/unless}}
+                  {{/isDay}}
+                {{/each}}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
               <div class="extra-controls">
                 Placeholder for some buttons to change slider behavior
               </div>

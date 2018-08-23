@@ -1,11 +1,5 @@
 
-let shiftsArr = [];
-
-sliderModify('Push', '11:00', '16:00', '2018-08-18', '#range_16');
-
-sliderStatic('Push', '09:00', '16:00', '2018-08-18', '#range_17');
-
-function sliderModify(empId, timeIn, timeOut, shiftDate, elementId) {
+function sliderModify(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
 
 	var $range = $(elementId);
@@ -29,10 +23,11 @@ function sliderModify(empId, timeIn, timeOut, shiftDate, elementId) {
 	});
 }
 
-function sliderStatic(empId, timeIn, timeOut, shiftDate, elementId) {
+function sliderStatic(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
 
-	var $range = $(elementId);
+	var input = `#range_${elementId}`;
+	var $range = $(input);
 	var start = moment(`${shiftDate} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${shiftDate} 22:00`, 'YYYY-MM-DD HH:mm');
 	let startFrom = moment(`${shiftDate} ${timeIn}`, 'YYYY-MM-DD HH:mm');
@@ -48,6 +43,8 @@ function sliderStatic(empId, timeIn, timeOut, shiftDate, elementId) {
 		to: startTo.format('x'),
 		from_fixed: true,
 		to_fixed: true,
+		hide_min_max: true,
+		hide_from_to: true,
 		step: 1800000, // 30 minutes in ms
 		prettify: function (num) {
 			return moment(num, 'x').format('h:mm A');
@@ -82,16 +79,16 @@ function modifyAccordion(date) {
 	$('.sched-ul li.day-header.active .collapsible-body').attr('style','display: block;');
 }
 
+<<<<<<< HEAD
 $('.datepicker').datepicker({
 	onClose: function() {
 		let date = $('.datepicker').val();
 		let dbDateStart = moment(date).format('YYYY-MM-DD');
 		let dbDateEnd = moment(dbDateStart).add(6,'d').format('YYYY-MM-DD');
 		console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
+=======
+>>>>>>> 27e0ae033ffd1103c646151a6ad1e0678c243caf
 
-		modifyAccordion(date);
-	}
-});
 
 function addModSlider(date, elementId) {
 	console.log('Called a new addModSlider');
@@ -104,6 +101,7 @@ function addModSlider(date, elementId) {
 	let startTo = moment(`${date} 16:00`, 'YYYY-MM-DD HH:mm');
 
 
+	
 	$range.ionRangeSlider({
 		type: 'double',
 		grid: true,

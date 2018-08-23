@@ -53,13 +53,15 @@ app.use(function (req, res, next) {
 });
 
 // Handlebars
+var hbsHelpers = require('./public/js/helpers.js');
 app.engine(
-	'handlebars',
-	exphbs({
-		defaultLayout: 'main'
+	'handlebars', exphbs({
+		defaultLayout: 'main',
+		helpers: hbsHelpers
 	})
 );
 app.set('view engine', 'handlebars');
+
 
 // Routes
 require('./routes/apiRoutes')(app);
