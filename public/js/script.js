@@ -137,11 +137,12 @@ function addModSlider(date, elementId) {
 
 			let existCheck = shiftsArr.findIndex(obj => obj.elemId == elementId);
 			console.log(existCheck);
+			let dayOfWeek = moment(elementId, 'X').format('dddd');
 			
 			if (existCheck === -1) {
 				shiftsArr.push({
 					date: moment(elementId, 'X').format('YYYY-MM-DD'),
-					dayOfWeek: moment(elementId, 'X').format('dddd'),
+					dayOfWeek: dayOfWeek,
 					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
 					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
 					employeeTableId: '',
@@ -155,6 +156,27 @@ function addModSlider(date, elementId) {
 
 			console.log(shiftsArr);
 			console.log(availArr);
+
+			console.log(dayOfWeek)
+
+			$.each(availArr[0], function(i, val){
+				$.each(this.AvailTables, function(index,value){
+					console.log(this);
+					if (this.dayOfWeek === dayOfWeek){
+						console.log('do math')
+						let shiftStart = data.from;
+						let shiftEnd = data.to;
+						let euStart = moment(this.startTime, 'HH:mm').format('x');
+						let euEnd = moment(this.endTime, 'HH:mm').format('x');
+							
+						if (shiftStart > euStart) {
+							console.log('greater')
+						} else {
+							console.log('less')
+						}
+					}
+				})
+			});
 		},
 	});
 
