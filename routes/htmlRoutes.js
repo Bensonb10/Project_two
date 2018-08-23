@@ -7,12 +7,20 @@ module.exports = function (app) {
 			//req.isAuthenticated() will return true if user is logged in
 			next();
 		} else{
-			res.render('login', {error: 'You have to be sign in.'});
+			res.render('login', {layout: 'mainlogin', error: 'You have to be sign in.'});
 		}
 	}
-
 	
-	app.get('/', checkAuthentication, function (req, res) {
+	// GET: /auth/login
+	// Load Login
+	app.get('/', (req, res) => {
+		res.render('login', {layout: 'mainlogin'});
+	});
+
+
+	// GET: /
+	// Load index page
+	app.get('/main', checkAuthentication, function (req, res) {
 		db.ScheduleTable.findAll({include: db.EmployeeTable}).then((data) => {
 			var hbsObj = {
 				shifts: data
@@ -26,11 +34,6 @@ module.exports = function (app) {
 		res.render('register');
 	});
 
-	
-	app.get('/auth/login', (req, res) => {
-		res.render('login');
-	});
-
 	app.get('/hello', function (req, res) {
 		var context = { title: 'My New Post', body: 'This is my first post!' };
 		res.render('index', context);
@@ -42,13 +45,22 @@ module.exports = function (app) {
 			let monday = dbResult.filter((x) => x.date === '2018-08-20' && x.avail);
 			// console.log(monday[0].EmployeeTable);
 			let tuesday = dbResult.filter((x) => x.date === '2018-08-21' && x.avail);
+			let wednesday = dbResult.filter((x) => x.date === '2018-08-22' && x.avail);
+			let thursday = dbResult.filter((x) => x.date === '2018-08-23' && x.avail);
+			let friday = dbResult.filter((x) => x.date === '2018-08-24' && x.avail);
+			let saturday = dbResult.filter((x) => x.date === '2018-08-25' && x.avail);
+			let sunday = dbResult.filter((x) => x.date === '2018-08-26' && x.avail);
 			let hbsObj = {
-				monday: monday,
-				tuesday: tuesday
+							monday: monday,
+							tuesday: tuesday,
+							wednesday: wednesday,
+							thursday: thursday,
+							friday: friday,
+							saturday: saturday,
+							sunday: sunday
 			};
 			res.render('create', hbsObj);
-			
-		});
+		})
 	});
 
 	app.post('/create', checkAuthentication, (req, res) => {

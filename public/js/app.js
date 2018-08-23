@@ -8,8 +8,8 @@ $(window).on('load', function() { $('#prepage-loader').delay(400).fadeOut('slow'
 // write inside all jquery function
 $(function() {
 
-	$.get('/api/getAll', function (data) {
-		console.log(data);
+	// $.get('/api/getAll', function (data) {
+	// 	console.log(data);
 
 
 
@@ -29,7 +29,7 @@ $(function() {
 		// })
 			
 		// var shiftDay = moment(dateValue, 'X').format('X');
-	})
+	// })
     
 
 	/* Initialization variable for global use */

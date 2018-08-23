@@ -1,5 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
 	var AvailTable = sequelize.define('AvailTable', {
+		date: {
+			type: DataTypes.STRING,
+			defaultValue: null,
+			validate: {
+				notEmpty: true
+			}
+		},
 		dayOfWeek: {
 			type: DataTypes.STRING,
 			validate: {
