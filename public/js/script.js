@@ -170,14 +170,21 @@ function addModSlider(date, elementId) {
 						let euEnd = moment(this.endTime, 'HH:mm').format('HHmm');
 							
 						console.log(`shiftStart: ${shiftStart}`)
+						console.log(`shiftEnd: ${shiftEnd}`)
 						console.log(`euStart: ${euStart}`)
-
+						console.log(`euEnd: ${euEnd}`)
+						// console.log(moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`));
 						// console.log(moment(shiftStart))
 						// console.log(moment(euStart))
-						if (moment(shiftStart).isBefore(euStart)) {
-							console.log('true')
-						} else {
-							console.log('false')
+						if (moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true || moment(`'${shiftStart}'`).isBetween(`'${euStart}'`,`'${euEnd}'`) === true) {
+							console.log('This employee is unavailable at this time frame')
+						} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isSame(`'${shiftEnd}'`) === true) {
+							console.log('Employee is exactly unavail at this time frame');
+						} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true) {
+							console.log('Emp is unavail equal to beginning of shift to before shift ends');
+						}
+						else {
+							console.log('This employee is able to work')
 						}
 					}
 				})
