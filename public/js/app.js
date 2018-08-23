@@ -11,13 +11,23 @@ $(function() {
 	$.get('/api/getAll', function (data) {
 		console.log(data);
 
-		for(var i = 0; i < data.length; i++){
-			for (var j = 0; j < data[i].ScheduleTables.length; j++){
-				console.log(data[i].ScheduleTables[j].date)
-				console.log(moment(data[i].ScheduleTables[j].date, 'X').format('X'))
-			}
-		}
 
+
+		// $('.day-header').on('click', function(event){
+		// 	var date = $(this).data('id');
+			
+		// 	for(var i = 0; i < data.length; i++){
+		// 		for (var j = 0; j < data[i].ScheduleTables.length; j++){
+		// 			var scheduleDate = parseInt(moment(data[i].ScheduleTables[j].date).format('X'));
+		// 				if(date == scheduleDate){
+
+		// 					$(`[data-id=cb-${scheduleDate}`).append(`<div><p>Hello</p></div>`);
+		// 				}
+					
+		// 		}
+		// 	}
+		// })
+			
 		// var shiftDay = moment(dateValue, 'X').format('X');
 	})
     
