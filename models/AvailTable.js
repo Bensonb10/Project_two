@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
 	var AvailTable = sequelize.define('AvailTable', {
 		date: {
 			type: DataTypes.STRING,
@@ -25,8 +25,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false
 		}
-	});
-	AvailTable.associate = function(models) {
+	}, {
+			timestamps: false
+		});
+	AvailTable.associate = function (models) {
 		AvailTable.belongsTo(models.EmployeeTable, {
 			// foreignKey: {
 			// 	allowNull: false

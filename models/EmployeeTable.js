@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
 	var EmployeeTable = sequelize.define('EmployeeTable', {
 
 		firstName: {
@@ -48,15 +48,17 @@ module.exports = function(sequelize, DataTypes) {
 			defaultValue: null
 		}
 
-	});
-  
-	EmployeeTable.associate = function(models) {
+	}, {
+		timestamps: false
+		});
+
+	EmployeeTable.associate = function (models) {
 		EmployeeTable.hasMany(models.AvailTable, {
-			foreignKey: 'EmployeeTableId' 
+			foreignKey: 'EmployeeTableId'
 			// sourceKey: 'AvailTable'
 		});
 		EmployeeTable.hasMany(models.ScheduleTable, {
-			foreignKey: 'EmployeeTableId' 
+			foreignKey: 'EmployeeTableId'
 			// sourceKey: 'ScheduleTable'
 		});
 	};

@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
 	var ScheduleTable = sequelize.define('ScheduleTable', {
 		date: {
 			type: DataTypes.STRING,
@@ -21,8 +21,10 @@ module.exports = function(sequelize, DataTypes) {
 				notEmpty: true
 			}
 		}
-	});
-	ScheduleTable.associate = function(models) {
+	}, {
+			timestamps: false
+		});
+	ScheduleTable.associate = function (models) {
 		ScheduleTable.belongsTo(models.EmployeeTable, {
 			// foreignKey: {
 			// 	allowNull: false
