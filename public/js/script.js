@@ -68,7 +68,7 @@ function modifyAccordion(date) {
 		$(this).find('.add-btn').attr('data-id', unixDay);
 		$(this).find('.collapsible-body').attr('data-id', 'cb-' + unixDay);
 
-		console.log(wdReadable)
+		console.log(wdReadable);
 		//add 1 day to the date before moving on to the next element
 		weekDay.add(1,'d');
 	});
@@ -79,7 +79,14 @@ function modifyAccordion(date) {
 	$('.sched-ul li.day-header.active .collapsible-body').attr('style','display: block;');
 }
 
-
+$('.datepicker').datepicker({
+	onClose: function () {
+		let date = $('.datepicker').val();
+		let dbDateStart = moment(date).format('YYYY-MM-DD');
+		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
+		console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
+		modifyAccordion(date);
+	}});
 
 function addModSlider(date, elementId) {
 	console.log('Called a new addModSlider');
@@ -113,7 +120,7 @@ function addModSlider(date, elementId) {
 
 //add button genertates and inserts the slider/employee block
 $('.collapsible-header .add-btn').on('click', function(event){
-	console.log('We fired this event.')
+	console.log('We fired this event.');
 	event.stopPropagation();
 	let uniqueId = moment().format('x');
 	let scheduleDate = $(this).data('id');
@@ -122,7 +129,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 	console.log(ionDate);
 
-	console.log(`${scheduleDate} - ${elementId}`)
+	console.log(`${scheduleDate} - ${elementId}`);
 
 	
 
@@ -161,6 +168,8 @@ $('.collapsible-header .add-btn').on('click', function(event){
         </div>
     </div>
 	`);
+
+	
 
 	addModSlider(ionDate,elementId);
 });
