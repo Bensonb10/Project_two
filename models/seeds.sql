@@ -40,3 +40,4 @@ INSERT INTO ScheduleTables(date, dayOfWeek, start, end, EmployeeTableId) VALUES
 ("2018-08-31", "Friday", "09:00" , "16:00", 1),
 -- ("2018-08-31", "Friday", "12:00" , "15:00", 1), 
 -- ("2018-08-31", "Friday", "16:00" , "21:00", 1);
+

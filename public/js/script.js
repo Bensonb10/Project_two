@@ -1,3 +1,5 @@
+let shiftsArr = [];
+
 
 function sliderModify(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
@@ -114,6 +116,26 @@ function addModSlider(date, elementId) {
 		},
 		onFinish: function (data) {
 			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
+
+			let existCheck = shiftsArr.findIndex(obj => obj.elemId == elementId);
+			console.log(existCheck);
+			
+			if (existCheck === -1) {
+				shiftsArr.push({
+					date: moment(elementId, 'X').format('YYYY-MM-DD'),
+					dayOfWeek: moment(elementId, 'X').format('dddd'),
+					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
+					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
+					employeeTableId: '',
+					elemId: elementId
+				});
+			} else {
+				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
+				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
+				shiftsArr[existCheck].employeeTableId = '';
+			}
+
+			console.log(shiftsArr);
 		},
 	});
 
@@ -132,13 +154,11 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 	console.log(`${scheduleDate} - ${elementId}`);
 
-	
-
 	$(`[data-id=cb-${scheduleDate}`).append(`
 	<div class="row shift-item-row">
         <div class="col s12">
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
-                <li class="collection-item" data-id="1">
+                <li class="collection-item" data-id="${elementId}">
                     <div class="row valign-wrapper">
                         <div class="col s3">
                             <!-- Dropdown button -->

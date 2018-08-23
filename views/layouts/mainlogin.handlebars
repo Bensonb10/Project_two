@@ -61,7 +61,7 @@
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
     <!--Control page-->
-    <div id="control-body" class="fixed-sidebar medium-sidebar fixed-nav">
+    <div id="control-body" class="fixed-nav">
       <!-- //////////////////////////////////////////////////////////////////////////// -->
       <!--prepage loader-->
       <div id="prepage-loader">
@@ -90,166 +90,13 @@
       <!--Header-->
       <nav class="page-header z-depth-3">
         <div class="nav-wrapper">
-          <a id="logo-container" href="/" class="brand-logo">MySchedUL</a>
-          <ul class="left">
-            <li class="hide-on-large-only">
-              <a href="javascript:void(0)" id="toggle-left-sidebar" class="hrz-menu waves-effect waves-default">
-                <i class="material-icons">menu</i>
-              </a>
-            </li>
-
-            <!--notifications list-->
-            <li>
-              <a href="javascript:void(0)" class="hrz-menu dropdown-button dropdown-belowOrigin waves-effect waves-default"
-                data-activates='notification-list-dropdown'>
-                <i class="material-icons">notifications</i>
-                <span id="notification-cout">25</span>
-              </a>
-            </li>
-          </ul>
-
-          <!--notifications list dropdown-->
-          <ul id='notification-list-dropdown' class='width-400 dropdown-content'>
-            <li>
-              <a href="#!">
-                <i class="material-icons">email</i>
-                <p class="noti-message">New mail from jhon
-                  <span>15 minutes ago</span>
-                </p>
-              </a>
-            </li>
-
-            <li>
-              <a href="#!">
-                <i class="material-icons">chat</i>
-                <p class="noti-message">New member John joined
-                  <span>25 minutes ago</span>
-                </p>
-              </a>
-            </li>
-
-            <li>
-              <a href="#!">
-                <i class="material-icons">perm_identity</i>
-                <p class="noti-message">New mail from jhon
-                  <span>30 minutes ago</span>
-                </p>
-              </a>
-            </li>
-
-            <li>
-              <a href="#!">
-                <i class="material-icons">chat</i>
-                <p class="noti-message">New member John joined
-                  <span>1 hour ago</span>
-                </p>
-              </a>
-            </li>
-
-            <li>
-              <a href="#!" class="view-all-noti">
-                See All
-              </a>
-            </li>
-
-
-          </ul>
-          <!--notifications app list dropdown-->
-
-          <ul class="right">
-            <!--user account-->
-            <li id="user-account-box">
-              <a href="javascript:void(0)" class="hrz-menu dropdown-button dropdown-belowOrigin dropdown-widthChange waves-effect waves-default"
-                data-activates='user-account-dropdown'>
-                <i class="material-icons">account_circle</i>
-              </a>
-            </li>
-
-          </ul>
-
-          <!--user account dropdown-->
-          <ul id='user-account-dropdown' class='dropdown-content'>
-            <li>
-              <a href="#!">
-                <i class="material-icons">perm_identity</i>My Profile</a>
-            </li>
-            <li>
-              <a href="/auth/logout">
-                <i class="material-icons">power_settings_new</i>Logout</a>
-            </li>
-          </ul>
-          <!--end user account dropdown-->
+          <a id="logo-container" href="/" class="brand-logo hide-on-med-and-down">MySchedUL</a>
         </div>
       </nav>
       <!--End Header-->
       <!-- //////////////////////////////////////////////////////////////////////////// -->
 
-
-      <!-- //////////////////////////////////////////////////////////////////////////// -->
-      <!--Left sidebar-->
-
-      <aside>
-        <!-- overlay -->
-        <div class="left-sidebar-overlay"></div>
-        <div class="left-sidebar z-depth-3">
-          <!-- brand -->
-          <div class="md-logo-container hide-on-large-only theme-bg">
-            <a class="md-brand-logo white-text" href="/main">MySchedUL</a>
-          </div>
-          <!--end brand -->
-          <!--Left sidebar body-->
-          <div class="left-sidebar-body">
-            <!--sidebar menu-->
-            <ul class="leftside-navigation">
-              <li class="navigation">Menu</li>
-              <li>
-                <a href="/main" class="menu waves-effect waves-default active tooltipped" data-position="right" data-delay="50"
-                  data-tooltip="Dashboard">
-                  <i class="material-icons left-icon">dashboard</i>Dashboard</a>
-              </li>
-
-              <li>
-                <a href="javascript:void(0)" class="collapsible-label1 waves-effect waves-default tooltipped" data-position="right"
-                  data-delay="50" data-tooltip="Schedule">
-                  <i class="material-icons left-icon">assignment</i>
-                  <i class="material-icons right-icon">arrow_drop_down</i>Schedule</a>
-                <ul class="collapsible-body">
-                  <li>
-                    <a href="#" class="waves-effect waves-default">Overview</a>
-                  </li>
-                  <li>
-                    <a href="#" class="waves-effect waves-default">Current</a>
-                  </li>
-                  <li>
-                    <a href="/create" class="waves-effect waves-default">Create New</a>
-                  </li>
-                </ul>
-              </li>
-
-              <li>
-                <a href="/auth/register" class="waves-effect waves-default tooltipped" data-position="right" data-delay="50" data-tooltip="Grid">
-                  <i class="material-icons left-icon">group</i>Create new Employee</a>
-              </li>
-
-            </ul>
-            <!--End sidebar menu-->
-          </div>
-
-          <!--End Left sidebar body-->
-
-          <!--Left sidebar footer-->
-          <div class="sidebar-footer">
-            <a href="javascript:void(0)" id="collapsed-left-sidebar" class="toggle-icon-left-sidebar waves-effect waves-default">
-              <i class="right material-icons">keyboard_arrow_left</i>
-            </a>
-          </div>
-          <!--End Left sidebar footer-->
-        </div>
-      </aside>
-      <!--End left sidebar-->
-      <!-- //////////////////////////////////////////////////////////////////////////// -->
-  
-  {{{body}}}
+{{{body}}}
 
   <!--Footer-->
   <footer class="page-footer">
