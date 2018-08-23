@@ -1,3 +1,5 @@
+let shiftsArr = [];
+
 
 function sliderModify(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
@@ -68,7 +70,7 @@ function modifyAccordion(date) {
 		$(this).find('.add-btn').attr('data-id', unixDay);
 		$(this).find('.collapsible-body').attr('data-id', 'cb-' + unixDay);
 
-		console.log(wdReadable)
+		console.log(wdReadable);
 		//add 1 day to the date before moving on to the next element
 		weekDay.add(1,'d');
 	});
@@ -78,16 +80,16 @@ function modifyAccordion(date) {
 	$('.sched-ul li.day-header.active .collapsible-header').addClass('active');
 	$('.sched-ul li.day-header.active .collapsible-body').attr('style','display: block;');
 }
-
+	
 $('.datepicker').datepicker({
-    onClose: function () {
-        let date = $('.datepicker').val();
-        let dbDateStart = moment(date).format('YYYY-MM-DD');
-        let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
+	onClose: function () {
+		let date = $('.datepicker').val();
+		let dbDateStart = moment(date).format('YYYY-MM-DD');
+		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
 		console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
-		
-        modifyAccordion(date);
-    }});
+		modifyAccordion(date);
+	}
+});
 
 function addModSlider(date, elementId) {
 	console.log('Called a new addModSlider');
@@ -114,6 +116,26 @@ function addModSlider(date, elementId) {
 		},
 		onFinish: function (data) {
 			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
+
+			let existCheck = shiftsArr.findIndex(obj => obj.elemId == elementId);
+			console.log(existCheck);
+			
+			if (existCheck === -1) {
+				shiftsArr.push({
+					date: moment(elementId, 'X').format('YYYY-MM-DD'),
+					dayOfWeek: moment(elementId, 'X').format('dddd'),
+					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
+					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
+					employeeTableId: '',
+					elemId: elementId
+				});
+			} else {
+				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
+				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
+				shiftsArr[existCheck].employeeTableId = '';
+			}
+
+			console.log(shiftsArr);
 		},
 	});
 
@@ -121,7 +143,7 @@ function addModSlider(date, elementId) {
 
 //add button genertates and inserts the slider/employee block
 $('.collapsible-header .add-btn').on('click', function(event){
-	console.log('We fired this event.')
+	console.log('We fired this event.');
 	event.stopPropagation();
 	let uniqueId = moment().format('x');
 	let scheduleDate = $(this).data('id');
@@ -130,15 +152,13 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 	console.log(ionDate);
 
-	console.log(`${scheduleDate} - ${elementId}`)
-
-	
+	console.log(`${scheduleDate} - ${elementId}`);
 
 	$(`[data-id=cb-${scheduleDate}`).append(`
 	<div class="row shift-item-row">
         <div class="col s12">
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
-                <li class="collection-item" data-id="1">
+                <li class="collection-item" data-id="${elementId}">
                     <div class="row valign-wrapper">
                         <div class="col s3">
                             <!-- Dropdown button -->
@@ -169,6 +189,8 @@ $('.collapsible-header .add-btn').on('click', function(event){
         </div>
     </div>
 	`);
+
+	
 
 	addModSlider(ionDate,elementId);
 });
