@@ -1,5 +1,5 @@
 let shiftsArr = [];
-
+let availArr = [];
 
 function sliderModify(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
@@ -70,7 +70,7 @@ function modifyAccordion(date) {
 		$(this).find('.add-btn').attr('data-id', unixDay);
 		$(this).find('.collapsible-body').attr('data-id', 'cb-' + unixDay);
 
-		console.log(wdReadable);
+		// console.log(wdReadable);
 		//add 1 day to the date before moving on to the next element
 		weekDay.add(1,'d');
 	});
@@ -86,8 +86,26 @@ $('.datepicker').datepicker({
 		let date = $('.datepicker').val();
 		let dbDateStart = moment(date).format('YYYY-MM-DD');
 		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
-		console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
+		// console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
 		modifyAccordion(date);
+		$.ajax({
+			method: "GET",
+			url: "/api/getAll"
+		}).then((result) => {
+			// console.log("----------------------")
+			// console.log(result);
+			// console.log("----------------------")
+
+			// let monday = result.map((x) => {
+			// 	x.AvailTables.filter((y) => {
+			// 		y.dayOfWeek === "Monday";
+			// 	})
+			// });
+
+			availArr.push(result);
+			// console.log(monday);
+			
+		})
 	}
 });
 
@@ -136,6 +154,7 @@ function addModSlider(date, elementId) {
 			}
 
 			console.log(shiftsArr);
+			console.log(availArr);
 		},
 	});
 
@@ -170,9 +189,6 @@ $('.collapsible-header .add-btn').on('click', function(event){
                                         </div>
                                         <div class="col s5">
                                             Ben B.
-                                        </div>
-                                        <div class="col s3">
-                                            [4hrs]
                                         </div>
                                     </div>
                                 </li>
