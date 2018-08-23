@@ -58,8 +58,7 @@ module.exports = function(sequelize, DataTypes) {
 			// sourceKey: 'AvailTable'
 		});
 		EmployeeTable.hasMany(models.ScheduleTable, {
-			foreignKey: 'EmployeeTableId' 
-			// sourceKey: 'ScheduleTable'
+			foreignKey: 'EmployeeTableId'
 		});
 	};
 

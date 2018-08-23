@@ -83,6 +83,7 @@ $('.datepicker').datepicker({
 	onClose: function () {
 		let date = $('.datepicker').val();
 		let dbDateStart = moment(date).format('YYYY-MM-DD');
+		console.log(dbDateStart);
 		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
 		console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
 		modifyAccordion(date);

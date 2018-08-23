@@ -7,6 +7,19 @@ $(window).on('load', function() { $('#prepage-loader').delay(400).fadeOut('slow'
 
 // write inside all jquery function
 $(function() {
+
+	$.get('/api/getAll', function (data) {
+		console.log(data);
+
+		for(var i = 0; i < data.length; i++){
+			for (var j = 0; j < data[i].ScheduleTables.length; j++){
+				console.log(data[i].ScheduleTables[j].date)
+				console.log(moment(data[i].ScheduleTables[j].date, 'X').format('X'))
+			}
+		}
+
+		// var shiftDay = moment(dateValue, 'X').format('X');
+	})
     
 
 	/* Initialization variable for global use */
@@ -314,9 +327,7 @@ $(function() {
 		});
 	}
 
-	function loadSchedule(){
 		
-	}
 
 	makeSlider();
 
