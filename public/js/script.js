@@ -162,7 +162,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
                     <div class="row valign-wrapper">
                         <div class="col s3">
                             <!-- Dropdown button -->
-                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                            <a class="dropdown-button waves-effect waves-light btn blue data-date="${ionDate}" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right ">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
                                 <li>
                                     <div class="row valign-wrapper">
                                         <div class="col s4">
