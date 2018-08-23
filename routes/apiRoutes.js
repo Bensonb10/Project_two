@@ -25,7 +25,7 @@ module.exports = function(app) {
 			var hbsObj = {
 				employees: all
 			};
-			res.render('index', hbsObj);
+			res.json(all);
 		})
 	})
 
