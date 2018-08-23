@@ -101,7 +101,6 @@ module.exports = function(app) {
 		});
 	});
 			
-<<<<<<< HEAD
 	app.get('/api/getAll', function(req,res){
 		db.EmployeeTable.findAll({
 			include: [{
@@ -116,13 +115,6 @@ module.exports = function(app) {
 			res.json(all);
 		})
 	})
-=======
-
-	
-
-
-	//DELETE ROUTES
->>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
 
 	// Delete an employee by id
 	app.delete('/api/employees/:id', function(req, res) {
