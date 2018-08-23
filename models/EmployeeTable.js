@@ -24,6 +24,7 @@ module.exports = function(sequelize, DataTypes) {
 				isEmail: {
 					msg: 'Not Valid Email'
 				},
+				
 				notEmpty: true
 			}
 		},
@@ -41,6 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		password: {
 			type: DataTypes.STRING,
+			
 			allowNull: false
 		},
 		googleId: {

@@ -82,15 +82,14 @@ function modifyAccordion(date) {
 
 
 function addModSlider(date, elementId) {
+	console.log('Called a new addModSlider');
 	moment.locale('en-GB');
 
-	var selector = "#range_" + elementId;
-
-	var $range = $(selector);
+	var $range = $('#range_'+elementId);
 	var start = moment(`${date} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${date} 22:00`, 'YYYY-MM-DD HH:mm');
 	let startFrom = moment(`${date} 12:00`, 'YYYY-MM-DD HH:mm');
-	let startTo = moment(`${date} 13:00`, 'YYYY-MM-DD HH:mm');
+	let startTo = moment(`${date} 16:00`, 'YYYY-MM-DD HH:mm');
 
 
 	
@@ -104,55 +103,64 @@ function addModSlider(date, elementId) {
 		step: 1800000, // 30 minutes in ms
 		prettify: function (num) {
 			return moment(num, 'x').format('h:mm A');
-		}
+		},
+		onFinish: function (data) {
+			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
+		},
 	});
 
 }
 
-// //add button genertates and inserts the slider/employee block
-// $('.collapsible-header .add-btn').on('click', function(event){
-// 	event.stopPropagation();
-// 	let uniqueId = moment().format('x');
-// 	let scheduleDate = $(this).data('id');
-// 	let elementId = scheduleDate + '-' + uniqueId;
+//add button genertates and inserts the slider/employee block
+$('.collapsible-header .add-btn').on('click', function(event){
+	console.log('We fired this event.')
+	event.stopPropagation();
+	let uniqueId = moment().format('x');
+	let scheduleDate = $(this).data('id');
+	let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
+	let elementId = scheduleDate + '-' + uniqueId;
 
-// 	console.log(`${scheduleDate} - ${elementId}`)
+	console.log(ionDate);
 
-// 	addModSlider(scheduleDate,elementId);
+	console.log(`${scheduleDate} - ${elementId}`)
 
-	// $(`[data-id=cb-${scheduleDate}`).append(`
-	// <div class="row shift-item-row">
-    //     <div class="col s12">
-    //         <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
-    //             <li class="collection-item" data-id="1">
-    //                 <div class="row valign-wrapper">
-    //                     <div class="col s3">
-    //                         <!-- Dropdown button -->
-    //                         <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-    //                             <li>
-    //                                 <div class="row valign-wrapper">
-    //                                     <div class="col s4">
-    //                                         <i class="material-icons medium">face</i>
-    //                                     </div>
-    //                                     <div class="col s5">
-    //                                         Ben B.
-    //                                     </div>
-    //                                     <div class="col s3">
-    //                                         [4hrs]
-    //                                     </div>
-    //                                 </div>
-    //                             </li>
-    //                         </ul>
-    //                         <!-- Dropdown button structure -->
-    //                     </div>
-    //                     <div class="col s9">
-    //                         <input id="range_16" />
-    //                     </div>
-    //                 </div>
-    //             </li>
+	
+
+	$(`[data-id=cb-${scheduleDate}`).append(`
+	<div class="row shift-item-row">
+        <div class="col s12">
+            <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
+                <li class="collection-item" data-id="1">
+                    <div class="row valign-wrapper">
+                        <div class="col s3">
+                            <!-- Dropdown button -->
+                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                <li>
+                                    <div class="row valign-wrapper">
+                                        <div class="col s4">
+                                            <i class="material-icons medium">face</i>
+                                        </div>
+                                        <div class="col s5">
+                                            Ben B.
+                                        </div>
+                                        <div class="col s3">
+                                            [4hrs]
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- Dropdown button structure -->
+                        </div>
+                        <div class="col s9">
+                            <input id="range_${elementId}" />
+                        </div>
+                    </div>
+                </li>
                 
-    //         </ul>
-    //     </div>
-    // </div>
-	// `);
-// });
+            </ul>
+        </div>
+    </div>
+	`);
+
+	addModSlider(ionDate,elementId);
+});
