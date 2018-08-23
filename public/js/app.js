@@ -314,6 +314,7 @@ $(function() {
 		});
 	}
 
+
 	makeSlider();
 
 	$('.datepicker').datepicker({
@@ -322,7 +323,7 @@ $(function() {
 
 			modifyAccordion(date);
 
-			//This query should return an object where all
+			//This query should return an object where all availibiles during 
 			//db.AvailTable.findAll({
 			//	where: {
 			//		date: {[Op.between]: [ startDate , endDate ]
@@ -391,5 +392,11 @@ $(function() {
 
 	
 
+	function loadSchedule(){
+		
+	}
+
+
+	makeSlider();
 
 }); // end of document ready
