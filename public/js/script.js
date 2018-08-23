@@ -121,16 +121,6 @@ function addModSlider(date, elementId) {
 
 //add button genertates and inserts the slider/employee block
 $('.collapsible-header .add-btn').on('click', function(event){
-<<<<<<< HEAD
-	event.stopPropagation();
-	let uniqueId = moment().format('x');
-	let scheduleDate = $(this).data('id');
-	let elementId = scheduleDate + '-' + uniqueId;
-
-	console.log(`${scheduleDate} - ${elementId}`)
-
-	addModSlider(scheduleDate,elementId);
-=======
 	console.log('We fired this event.');
 	event.stopPropagation();
 	let uniqueId = moment().format('x');
@@ -143,7 +133,6 @@ $('.collapsible-header .add-btn').on('click', function(event){
 	console.log(`${scheduleDate} - ${elementId}`);
 
 	
->>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
 
 	$(`[data-id=cb-${scheduleDate}`).append(`
 	<div class="row shift-item-row">
@@ -171,11 +160,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
                             <!-- Dropdown button structure -->
                         </div>
                         <div class="col s9">
-<<<<<<< HEAD
-                            <input id="range_16" />
-=======
                             <input id="range_${elementId}" />
->>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
                         </div>
                     </div>
                 </li>
@@ -184,11 +169,8 @@ $('.collapsible-header .add-btn').on('click', function(event){
         </div>
     </div>
 	`);
-<<<<<<< HEAD
-=======
 
 	
 
 	addModSlider(ionDate,elementId);
->>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
 });
