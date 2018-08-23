@@ -52,7 +52,7 @@ module.exports = function (app) {
         if (req.isAuthenticated()) {
             req.logout();
             req.flash('success_msg', 'You have logged out');
-            res.redirect('/auth/login');
+            res.redirect('/');
         }
     });
 
@@ -140,9 +140,9 @@ module.exports = function (app) {
     });
 
     // POST: /auth/login
-    app.post('/auth/login', passport.authenticate('local-signin', {
-        successRedirect: '/',
-        failureRedirect: '/auth/login',
+    app.post('/', passport.authenticate('local-signin', {
+        successRedirect: '/main',
+        failureRedirect: '/',
         failureFlash: true
     }
     ));

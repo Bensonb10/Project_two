@@ -8,13 +8,20 @@ module.exports = function (app) {
 			//req.isAuthenticated() will return true if user is logged in
 			next();
 		} else{
-			res.render('login', {error: 'You have to be sign in.'});
+			res.render('login', {layout: 'mainlogin', error: 'You have to be sign in.'});
 		}
 	}
+	
+	// GET: /auth/login
+	// Load Login
+	app.get('/', (req, res) => {
+		res.render('login', {layout: 'mainlogin'});
+	});
+
 
 	// GET: /
 	// Load index page
-	app.get('/', checkAuthentication, function (req, res) {
+	app.get('/main', checkAuthentication, function (req, res) {
 		db.ScheduleTable.findAll({include: db.EmployeeTable}).then((data) => {
 			var hbsObj = {
 				shifts: data
@@ -27,12 +34,6 @@ module.exports = function (app) {
 	// Load Reigster page if user is autheticated
 	app.get('/auth/register', checkAuthentication, (req, res) => {
 		res.render('register');
-	});
-
-	// GET: /auth/login
-	// Load Login
-	app.get('/auth/login', (req, res) => {
-		res.render('login');
 	});
 
 	app.get('/hello', function (req, res) {
@@ -48,68 +49,27 @@ module.exports = function (app) {
 	// GET: /create
 	// Load Create page if user is autheticated
 	app.get('/create', (req, res) => {
-		// db.ScheduleTable.findAll({ include: db.EmployeeTable }).then((dbScheduleTable) => {
-		// 	console.log(dbScheduleTable[0])
-
-		// 	if (dbScheduleTable.length !== 0) {
-		// 		// Send hbsobj to make a sliders for each schedule/shift   
-
-		// 		// Send hbsobj to "Select Employee" dropdown btn that contains list<employees> available for that shift
-		// 		let monday = dbScheduleTable.filter((x) => x.date === '2018-08-20');
-		// 		let tuesday = dbScheduleTable.filter((x) => x.date === '2018-08-21');
-		// 		let hbsObj = {
-		// 			monday: monday,
-		// 			tuesday: tuesday
-		// 		};
-		// 		res.render('create', hbsObj);
-		// 	} else {
-		// 		res.render('create');
-		// 	}
-
-		// })
-
 		db.AvailTable.findAll({include: db.EmployeeTable}).then((dbResult) => {
 			
 			let monday = dbResult.filter((x) => x.date === '2018-08-20' && x.avail);
-			console.log(monday[0].EmployeeTable);
+			// console.log(monday[0]);
 			let tuesday = dbResult.filter((x) => x.date === '2018-08-21' && x.avail);
+			let wednesday = dbResult.filter((x) => x.date === '2018-08-22' && x.avail);
+			let thursday = dbResult.filter((x) => x.date === '2018-08-23' && x.avail);
+			let friday = dbResult.filter((x) => x.date === '2018-08-24' && x.avail);
+			let saturday = dbResult.filter((x) => x.date === '2018-08-25' && x.avail);
+			let sunday = dbResult.filter((x) => x.date === '2018-08-26' && x.avail);
 			let hbsObj = {
 							monday: monday,
-							tuesday: tuesday
+							tuesday: tuesday,
+							wednesday: wednesday,
+							thursday: thursday,
+							friday: friday,
+							saturday: saturday,
+							sunday: sunday
 			};
 			res.render('create', hbsObj);
-			// for(AvailTables)
-			// if(date === (shift date) && isAvail)
-			// if(start >= (shift start time) && end <= (shift end time))
-			// show employee
-
-			
-
-			// console.log(hbsObj.employees[0].AvailTables[0].avail)
-
-			
 		})
-
-		// 	const Op = db.Sequelize.Op;
-		// 	// Find all employees available for that shift
-		// 	db.AvailTable.findAll({
-
-		// 	// , {where: {
-		// 	// 	date: {
-		// 	// 		[Op.between]: [20180819, 20180820]
-		// 	// 	}
-		// 	// 	}
-		// 	// }
-		// }).then((dbAvailTable) => {
-		// 		if (dbAvailTable.length !== 0) {
-		// 			// Populate the "Select Employee"  
-		// 			console.log(dbAvailTable)
-		// 			let hbsObj = {shifts: dbAvailTable};
-
-		// 		} else {
-		// 			res.render('create');
-		// 		}
-		// 	});
 	});
 
 	app.post('/create', checkAuthentication, (req, res) => {

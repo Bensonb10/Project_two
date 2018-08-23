@@ -109,50 +109,50 @@ function addModSlider(date, elementId) {
 
 }
 
-// //add button genertates and inserts the slider/employee block
-// $('.collapsible-header .add-btn').on('click', function(event){
-// 	event.stopPropagation();
-// 	let uniqueId = moment().format('x');
-// 	let scheduleDate = $(this).data('id');
-// 	let elementId = scheduleDate + '-' + uniqueId;
+//add button genertates and inserts the slider/employee block
+$('.collapsible-header .add-btn').on('click', function(event){
+	event.stopPropagation();
+	let uniqueId = moment().format('x');
+	let scheduleDate = $(this).data('id');
+	let elementId = scheduleDate + '-' + uniqueId;
 
-// 	console.log(`${scheduleDate} - ${elementId}`)
+	console.log(`${scheduleDate} - ${elementId}`)
 
-// 	addModSlider(scheduleDate,elementId);
+	addModSlider(scheduleDate,elementId);
 
-	// $(`[data-id=cb-${scheduleDate}`).append(`
-	// <div class="row shift-item-row">
-    //     <div class="col s12">
-    //         <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
-    //             <li class="collection-item" data-id="1">
-    //                 <div class="row valign-wrapper">
-    //                     <div class="col s3">
-    //                         <!-- Dropdown button -->
-    //                         <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-    //                             <li>
-    //                                 <div class="row valign-wrapper">
-    //                                     <div class="col s4">
-    //                                         <i class="material-icons medium">face</i>
-    //                                     </div>
-    //                                     <div class="col s5">
-    //                                         Ben B.
-    //                                     </div>
-    //                                     <div class="col s3">
-    //                                         [4hrs]
-    //                                     </div>
-    //                                 </div>
-    //                             </li>
-    //                         </ul>
-    //                         <!-- Dropdown button structure -->
-    //                     </div>
-    //                     <div class="col s9">
-    //                         <input id="range_16" />
-    //                     </div>
-    //                 </div>
-    //             </li>
+	$(`[data-id=cb-${scheduleDate}`).append(`
+	<div class="row shift-item-row">
+        <div class="col s12">
+            <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
+                <li class="collection-item" data-id="1">
+                    <div class="row valign-wrapper">
+                        <div class="col s3">
+                            <!-- Dropdown button -->
+                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                <li>
+                                    <div class="row valign-wrapper">
+                                        <div class="col s4">
+                                            <i class="material-icons medium">face</i>
+                                        </div>
+                                        <div class="col s5">
+                                            Ben B.
+                                        </div>
+                                        <div class="col s3">
+                                            [4hrs]
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- Dropdown button structure -->
+                        </div>
+                        <div class="col s9">
+                            <input id="range_16" />
+                        </div>
+                    </div>
+                </li>
                 
-    //         </ul>
-    //     </div>
-    // </div>
-	// `);
-// });
+            </ul>
+        </div>
+    </div>
+	`);
+});

@@ -20,7 +20,8 @@
                                     <input id="range_monday" />
                                     <div class="add-btn valign-wrapper" data-day="monday">
                                         <button class="waves-effect waves-light btn-small bg-theme">
-                                            <i class="material-icons left icon-white">add</i>add shift</a>
+                                            <a>
+                                                <i class="material-icons left icon-white">add</i>add shift</a>
                                     </div>
                                 </div>
                                 <div class="collapsible-body">
@@ -35,25 +36,26 @@
                                                                 <i class="material-icons white-text right">arrow_drop_down</i>
                                                             </a>
                                                             <ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                                                <li>
-                                                                    {{#if monday}} {{#each monday}}
+
+                                                                {{#if monday}} {{#each monday}}
                                                                 <li>
                                                                     <div class="row valign-wrapper">
                                                                         <div class="col s4">
                                                                             <i class="material-icons medium">face</i>
                                                                         </div>
-                                                                        <div class="col s5">
-                                                                            {{#each this.EmployeeTable}}
-                                                                            {{this.firstName}} {{this.lastName}}
-                                                                            {{/each}}
+                                                                        <div class="col s5" data-employeeId="{{this.EmployeeTable.id}}">
+
+                                                                            {{this.EmployeeTable.firstName}} {{this.EmployeeTable.lastName}}
+
                                                                         </div>
+                                                                        
                                                                         <div class="col s3">
-                                                                            {{#each this.AvailTables}} {{#if this.avail}} true {{else}} Hello {{/if}} {{/each}}
+                                                                            Available: {{this.date}}: {{this.startTime}} - {{this.endTime}}
                                                                         </div>
                                                                     </div>
                                                                 </li>
                                                                 {{/each}} {{/if}}
-                                                                </li>
+
                                                             </ul>
                                                             <!-- Dropdown button structure -->
                                                         </div>
@@ -77,9 +79,53 @@
                                             <i class="material-icons left icon-white">add</i>add shift</a>
                                     </div>
                                 </div>
-                                <div class="collapsible-body">
 
+                                <div class="collapsible-body">
+                                    {{!-- <div class="row shift-item-row">
+                                        <div class="col s12">
+                                            <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
+                                                <li class="collection-item" data-id="1">
+                                                    <div class="row valign-wrapper">
+                                                        <div class="col s3">
+                                                            <!-- Dropdown button -->
+                                                            <a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block">Select Employee
+                                                                <i class="material-icons white-text right">arrow_drop_down</i>
+                                                            </a>
+                                                            <ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+
+                                                                {{#if tuesday}} {{#each tuesday}}
+                                                                <li>
+                                                                    <div class="row valign-wrapper">
+                                                                        <div class="col s4">
+                                                                            <i class="material-icons medium">face</i>
+                                                                        </div>
+                                                                        <div class="col s5" data-employeeId="{{this.EmployeeTable.id}}">
+
+                                                                            {{this.EmployeeTable.firstName}} {{this.EmployeeTable.lastName}}
+
+                                                                        </div>
+                                                                        
+                                                                        <div class="col s3">
+                                                                            Available: {{this.date}}: {{this.startTime}} - {{this.endTime}}
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                {{/each}} {{/if}}
+
+                                                            </ul>
+                                                            <!-- Dropdown button structure -->
+                                                        </div>
+                                                        <div class="col s9">
+                                                            <input id="range_16" />
+                                                        </div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div> --}}
                                 </div>
+
                             </li>
                             <li class="day-header">
                                 <div class="collapsible-header">

@@ -61,7 +61,20 @@ module.exports = function(app) {
 		});
 	});
 			
-					
+	app.get('/api/getAll', function(req,res){
+		db.EmployeeTable.findAll({
+			include: [{
+				model: db.ScheduleTable
+			},{
+				model: db.AvailTable
+			}]
+		}).then(function(all){
+			var hbsObj = {
+				employees: all
+			};
+			res.json(all);
+		})
+	})
 
 	// Delete an employee by id
 	app.delete('/api/employees/:id', function(req, res) {
