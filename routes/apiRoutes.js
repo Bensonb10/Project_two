@@ -112,7 +112,7 @@ module.exports = function(app) {
 			var hbsObj = {
 				employees: all
 			};
-			res.json(all);
+			res.send(all);
 		})
 	})
 
