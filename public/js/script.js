@@ -184,7 +184,7 @@ function addModSlider(date, elementId) {
 							console.log('Emp is unavail equal to beginning of shift to before shift ends');
 						}
 						else {
-							console.log('This employee is able to work')
+							console.log(`ID of employee able to work: ${this.EmployeeTableId}`)
 						}
 					}
 				})
