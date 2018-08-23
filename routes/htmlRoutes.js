@@ -40,27 +40,7 @@ module.exports = function (app) {
 	});
 
 	app.get('/create', (req, res) => {
-		db.AvailTable.findAll({include: db.EmployeeTable}).then((dbResult) => {
-			
-			let monday = dbResult.filter((x) => x.date === '2018-08-20' && x.avail);
-			// console.log(monday[0].EmployeeTable);
-			let tuesday = dbResult.filter((x) => x.date === '2018-08-21' && x.avail);
-			let wednesday = dbResult.filter((x) => x.date === '2018-08-22' && x.avail);
-			let thursday = dbResult.filter((x) => x.date === '2018-08-23' && x.avail);
-			let friday = dbResult.filter((x) => x.date === '2018-08-24' && x.avail);
-			let saturday = dbResult.filter((x) => x.date === '2018-08-25' && x.avail);
-			let sunday = dbResult.filter((x) => x.date === '2018-08-26' && x.avail);
-			let hbsObj = {
-							monday: monday,
-							tuesday: tuesday,
-							wednesday: wednesday,
-							thursday: thursday,
-							friday: friday,
-							saturday: saturday,
-							sunday: sunday
-			};
-			res.render('create', hbsObj);
-		})
+			res.render('create');
 	});
 
 	app.post('/create', checkAuthentication, (req, res) => {

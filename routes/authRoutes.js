@@ -20,10 +20,7 @@ module.exports = function (app) {
 
 	// Local login
 	// When user.get() logs in, passport will check the form for an name attr of email and password
-	passport.use('local-signin', new LocalStrategy({
-		usernameField: 'email',
-	},
-	function (email, password, done) {
+	passport.use('local-signin', new LocalStrategy({usernameField: 'email'}, function (email, password, done) {
 		db.EmployeeTable.findOne({
 			where: {
 				email: email
@@ -139,7 +136,7 @@ module.exports = function (app) {
         };
     });
 
-    // POST: /auth/login
+    // POST: /
     app.post('/', passport.authenticate('local-signin', {
         successRedirect: '/main',
         failureRedirect: '/',
