@@ -183,12 +183,12 @@ function addModSlider(date, elementId) {
 							let employee = availArr[0].filter((x) => x.id === this.EmployeeTableId)
 							
 							$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
-							<li data-employee-id="${this.EmployeeTableId}">
-								<div class="row valign-wrapper">
+							<li>
+								<div data-employee-id="${this.EmployeeTableId}" class="row valign-wrapper select-employee">
 									<div class="col s4">
 										<i class="material-icons medium">face</i>
 									</div>
-									<div class="col s5">
+									<div class="col s5" style="width:100%;height:100%">
 										${employee[0].firstName} ${employee[0].lastName}
 									</div>
 								</div>
@@ -203,6 +203,17 @@ function addModSlider(date, elementId) {
 
 }
 
+$(document).on('click', '.select-employee', (event) => {
+	console.log("-----------------------");
+	console.log($(this).data('employee-id'));
+	console.log("-----------------------");
+	console.log(event);
+	console.log("-----------------------");
+	console.log(event.target);
+	console.log("-----------------------");
+})
+
+
 //add button genertates and inserts the slider/employee block
 $('.collapsible-header .add-btn').on('click', function(event){
 	console.log('We fired this event.');
@@ -212,7 +223,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
 	let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
 	let elementId = scheduleDate + '-' + uniqueId;
 
-	console.log("ionDate ========= "+ionDate);
+	console.log(ionDate);
 
 	console.log(`${scheduleDate} - ${elementId}`);
 
