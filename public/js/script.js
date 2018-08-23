@@ -161,18 +161,23 @@ function addModSlider(date, elementId) {
 
 			$.each(availArr[0], function(i, val){
 				$.each(this.AvailTables, function(index,value){
-					console.log(this);
 					if (this.dayOfWeek === dayOfWeek){
-						console.log('do math')
-						let shiftStart = data.from;
-						let shiftEnd = data.to;
-						let euStart = moment(this.startTime, 'HH:mm').format('x');
-						let euEnd = moment(this.endTime, 'HH:mm').format('x');
+						console.log(this);
+						// console.log('do math')
+						let shiftStart = moment(data.from, 'x').format('HHmm');
+						let shiftEnd = moment(data.to, 'x').format('HHmm');
+						let euStart = moment(this.startTime, 'HH:mm').format('HHmm');
+						let euEnd = moment(this.endTime, 'HH:mm').format('HHmm');
 							
-						if (shiftStart > euStart) {
-							console.log('greater')
+						console.log(`shiftStart: ${shiftStart}`)
+						console.log(`euStart: ${euStart}`)
+
+						// console.log(moment(shiftStart))
+						// console.log(moment(euStart))
+						if (moment(shiftStart).isBefore(euStart)) {
+							console.log('true')
 						} else {
-							console.log('less')
+							console.log('false')
 						}
 					}
 				})
