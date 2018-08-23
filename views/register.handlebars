@@ -56,7 +56,7 @@
                             </div>
                             <div class="input-field">
                                 <i class="material-icons prefix">phone</i>
-                                <input id="phone" type="tel" name="phone" class="validate" autocomplete="off" required>
+                                <input id="phone" type="tel" name="phone" class="validate" autocomplete="off" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" oninvalid="this.setCustomValidity('Please enter the correct format. (ex: 713-457-7468)')" required>
                                 <label for="phone">Phone Number</label>
                             </div>
                             <div class="input-field">
