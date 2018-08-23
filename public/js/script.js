@@ -125,6 +125,7 @@ function addModSlider(date, elementId) {
 		},
 		onFinish: function (data) {
 			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
+			let availEmp = [];
 
 			let existCheck = shiftsArr.findIndex(obj => obj.elemId == elementId);
 			console.log(existCheck);
@@ -155,49 +156,55 @@ function addModSlider(date, elementId) {
 			}
 
 			$.each(availArr[0], function(i, val){
+				let dayArr = [];
+
 				$.each(this.AvailTables, function(index,value){
-					if (this.dayOfWeek === dayOfWeek){
-						console.log(this);
-						// console.log('do math')
-						let shiftStart = moment(data.from, 'x').format('HHmm');
-						let shiftEnd = moment(data.to, 'x').format('HHmm');
-						let euStart = moment(this.startTime, 'HH:mm').format('HHmm');
-						let euEnd = moment(this.endTime, 'HH:mm').format('HHmm');
-							
-						console.log(`shiftStart: ${shiftStart}`)
-						console.log(`shiftEnd: ${shiftEnd}`)
-						console.log(`euStart: ${euStart}`)
-						console.log(`euEnd: ${euEnd}`)
-						// console.log(moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`));
-						// console.log(moment(shiftStart))
-						// console.log(moment(euStart))
-						if (moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true || moment(`'${shiftStart}'`).isBetween(`'${euStart}'`,`'${euEnd}'`) === true) {
-							console.log('This employee is unavailable at this time frame')
-						} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isSame(`'${shiftEnd}'`) === true) {
-							console.log('Employee is exactly unavail at this time frame');
-						} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true) {
-							console.log('Emp is unavail equal to beginning of shift to before shift ends');
+					dayArr.push(this.dayOfWeek);
+				});
+
+				if (dayArr.includes(dayOfWeek)) {
+					console.log(this);
+
+					let thisStart;
+					let thisEnd;
+
+					$.each(this.AvailTables, function(index,value){
+						if (this.dayOfWeek == dayOfWeek) {
+							thisStart = this.startTime;
+							thisEnd = this.endTime;
 						}
-						else {
-							console.log(`ID of employee able to work: ${this.EmployeeTableId}`)
-							let employee = availArr[0].filter((x) => x.id === this.EmployeeTableId)
-							
-							$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
-							<li data-employee-id="${this.EmployeeTableId}">
-								<div class="row valign-wrapper">
-									<div class="col s4">
-										<i class="material-icons medium">face</i>
-									</div>
-									<div class="col s5">
-										${employee[0].firstName} ${employee[0].lastName}
-									</div>
-								</div>
-							</li>`);
-							$('.dropdown-button').dropdown();
-						}
+					});
+
+					// console.log('do math')
+					let shiftStart = moment(data.from, 'x').format('HHmm');
+					let shiftEnd = moment(data.to, 'x').format('HHmm');
+					let euStart = moment(thisStart, 'HH:mm').format('HHmm');
+					let euEnd = moment(thisEnd, 'HH:mm').format('HHmm');
+						
+					console.log(`shiftStart: ${shiftStart}`)
+					console.log(`shiftEnd: ${shiftEnd}`)
+					console.log(`euStart: ${euStart}`)
+					console.log(`euEnd: ${euEnd}`)
+					// console.log(moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`));
+					// console.log(moment(shiftStart))
+					// console.log(moment(euStart))
+					if (moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true || moment(`'${shiftStart}'`).isBetween(`'${euStart}'`,`'${euEnd}'`) === true) {
+						console.log('This employee is unavailable at this time frame')
+					} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isSame(`'${shiftEnd}'`) === true) {
+						console.log('Employee is exactly unavail at this time frame');
+					} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true) {
+						console.log('Emp is unavail equal to beginning of shift to before shift ends');
 					}
-				})
+					else {
+						console.log(`ID of employee able to work: ${this.EmployeeTableId}`);
+						let employee = availArr[0].filter((x) => x.id === this.EmployeeTableId);
+						availEmp.push(this);
+					}
+				} else {
+					availEmp.push(this);
+				}
 			});
+			console.log(availEmp);
 		},
 	});
 
