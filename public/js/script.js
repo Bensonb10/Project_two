@@ -1,5 +1,5 @@
 let shiftsArr = [];
-
+let availArr = [];
 
 function sliderModify(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
@@ -92,9 +92,18 @@ $('.datepicker').datepicker({
 			method: "GET",
 			url: "/api/getAll"
 		}).then((result) => {
-			result.map((x) => {
-				
-			})
+			// console.log("----------------------")
+			// console.log(result);
+			// console.log("----------------------")
+
+			// let monday = result.map((x) => {
+			// 	x.AvailTables.filter((y) => {
+			// 		y.dayOfWeek === "Monday";
+			// 	})
+			// });
+
+			availArr.push(result);
+			// console.log(monday);
 			
 		})
 	}
@@ -145,6 +154,7 @@ function addModSlider(date, elementId) {
 			}
 
 			console.log(shiftsArr);
+			console.log(availArr);
 		},
 	});
 
