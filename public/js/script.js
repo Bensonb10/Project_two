@@ -114,6 +114,8 @@ function addModSlider(date, elementId) {
 	console.log('Called a new addModSlider');
 	moment.locale('en-GB');
 
+	console.log("hello" + date);
+
 	var $range = $('#range_'+elementId);
 	var start = moment(`${date} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${date} 22:00`, 'YYYY-MM-DD HH:mm');
@@ -208,7 +210,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 	console.log(`${scheduleDate} - ${elementId}`);
 
-	$(`[data-id=cb-${scheduleDate}`).append(`
+	$(`[data-id=cb-${scheduleDate}`).prepend(`
 	<div class="row shift-item-row">
         <div class="col s12">
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
