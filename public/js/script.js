@@ -205,6 +205,21 @@ function addModSlider(date, elementId) {
 				}
 			});
 			console.log(availEmp);
+			availEmp.forEach(function(element){
+
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
+					<li>
+						<div data-employee-id="${this.id}" class="row valign-wrapper select-employee">
+							<div class="col s4">
+								<i class="material-icons medium">face</i>
+							</div>
+							<div class="col s5">
+								${element.firstName} ${element.lastName}
+							</div>
+						</div>
+					</li>`);
+					$('.dropdown-button').dropdown();
+			})
 		},
 	});
 
