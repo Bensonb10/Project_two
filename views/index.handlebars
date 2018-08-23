@@ -166,7 +166,7 @@
                     {{/if}}
                     {{#unless open}}
                       <div class="shift-wednesday-closed">
-                        {{EmployeeTableId}}
+                        {{this.fistName}}
                         {{>rangeSlider/range-block}}
                       </div>
                     {{/unless}}
@@ -244,9 +244,6 @@
           </div>
         </div>
 
-              <div class="range-slider">
-                <input type="text" class="js-range-slider" value="" />
-              </div>
               <div class="extra-controls">
                 Placeholder for some buttons to change slider behavior
               </div>

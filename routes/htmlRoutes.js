@@ -52,7 +52,7 @@ module.exports = function (app) {
 		db.AvailTable.findAll({include: db.EmployeeTable}).then((dbResult) => {
 			
 			let monday = dbResult.filter((x) => x.date === '2018-08-20' && x.avail);
-			// console.log(monday[0]);
+			// console.log(monday[0].EmployeeTable);
 			let tuesday = dbResult.filter((x) => x.date === '2018-08-21' && x.avail);
 			let wednesday = dbResult.filter((x) => x.date === '2018-08-22' && x.avail);
 			let thursday = dbResult.filter((x) => x.date === '2018-08-23' && x.avail);

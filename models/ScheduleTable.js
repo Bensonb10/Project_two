@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
 				notEmpty: true
 			}
 		},
-		open: {
+		shiftAvail: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: '1'
 

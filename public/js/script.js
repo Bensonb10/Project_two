@@ -68,7 +68,7 @@ function modifyAccordion(date) {
 		$(this).find('.add-btn').attr('data-id', unixDay);
 		$(this).find('.collapsible-body').attr('data-id', 'cb-' + unixDay);
 
-		console.log(wdReadable)
+		console.log(wdReadable);
 		//add 1 day to the date before moving on to the next element
 		weekDay.add(1,'d');
 	});
@@ -78,19 +78,26 @@ function modifyAccordion(date) {
 	$('.sched-ul li.day-header.active .collapsible-header').addClass('active');
 	$('.sched-ul li.day-header.active .collapsible-body').attr('style','display: block;');
 }
-
-
+	
+$('.datepicker').datepicker({
+	onClose: function () {
+		let date = $('.datepicker').val();
+		let dbDateStart = moment(date).format('YYYY-MM-DD');
+		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
+		console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
+		modifyAccordion(date);
+	}
+});
 
 function addModSlider(date, elementId) {
+	console.log('Called a new addModSlider');
 	moment.locale('en-GB');
 
-	var selector = "#range_" + elementId;
-
-	var $range = $(selector);
+	var $range = $('#range_'+elementId);
 	var start = moment(`${date} 08:00`, 'YYYY-MM-DD HH:mm');
 	var end = moment(`${date} 22:00`, 'YYYY-MM-DD HH:mm');
 	let startFrom = moment(`${date} 12:00`, 'YYYY-MM-DD HH:mm');
-	let startTo = moment(`${date} 13:00`, 'YYYY-MM-DD HH:mm');
+	let startTo = moment(`${date} 16:00`, 'YYYY-MM-DD HH:mm');
 
 
 	
@@ -104,13 +111,17 @@ function addModSlider(date, elementId) {
 		step: 1800000, // 30 minutes in ms
 		prettify: function (num) {
 			return moment(num, 'x').format('h:mm A');
-		}
+		},
+		onFinish: function (data) {
+			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
+		},
 	});
 
 }
 
 //add button genertates and inserts the slider/employee block
 $('.collapsible-header .add-btn').on('click', function(event){
+<<<<<<< HEAD
 	event.stopPropagation();
 	let uniqueId = moment().format('x');
 	let scheduleDate = $(this).data('id');
@@ -119,6 +130,20 @@ $('.collapsible-header .add-btn').on('click', function(event){
 	console.log(`${scheduleDate} - ${elementId}`)
 
 	addModSlider(scheduleDate,elementId);
+=======
+	console.log('We fired this event.');
+	event.stopPropagation();
+	let uniqueId = moment().format('x');
+	let scheduleDate = $(this).data('id');
+	let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
+	let elementId = scheduleDate + '-' + uniqueId;
+
+	console.log(ionDate);
+
+	console.log(`${scheduleDate} - ${elementId}`);
+
+	
+>>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
 
 	$(`[data-id=cb-${scheduleDate}`).append(`
 	<div class="row shift-item-row">
@@ -146,7 +171,11 @@ $('.collapsible-header .add-btn').on('click', function(event){
                             <!-- Dropdown button structure -->
                         </div>
                         <div class="col s9">
+<<<<<<< HEAD
                             <input id="range_16" />
+=======
+                            <input id="range_${elementId}" />
+>>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
                         </div>
                     </div>
                 </li>
@@ -155,4 +184,11 @@ $('.collapsible-header .add-btn').on('click', function(event){
         </div>
     </div>
 	`);
+<<<<<<< HEAD
+=======
+
+	
+
+	addModSlider(ionDate,elementId);
+>>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
 });
