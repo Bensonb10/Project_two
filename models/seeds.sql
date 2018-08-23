@@ -10,19 +10,19 @@ INSERT INTO EmployeeTables(firstName, lastName, isAdmin, email, phone, picture, 
 );
 
 
-INSERT INTO AvailTables(dayOfWeek, startTime, endTime, avail, EmployeeTableId) VALUES 
-("Monday", "09:00", "12:00", true, "1"), 
-("Tuesday", "12:00", "15:00", true, "2"), 
-("Wednesday", "16:00", "20:00", true, "3"),
-("Thursday", null, null, false, "4"),
-("Friday", null, null, false, "5"),
-("Saturday", null, null, false, "6"),
-("Sunday", null, null, false, "1"),
-("Monday", "12:00", "21:00", true, "2"),
-("Tuesday", null, null, false, "3"),
-("Wednesday", null, null, false, "4"),
-("Thursday", null, null, false, "5"),
-("Friday", "09:00", "13:00", true, "6");
+INSERT INTO AvailTables(date, dayOfWeek, startTime, endTime, avail, EmployeeTableId) VALUES 
+(null, "Monday", "09:00", "12:00", true, "1"), 
+(null, "Tuesday", "12:00", "15:00", true, "2"), 
+(null, "Wednesday", "16:00", "20:00", true, "3"),
+(null, "Thursday", null, null, false, "4"),
+(null, "Friday", null, null, false, "5"),
+(null, "Saturday", null, null, false, "6"),
+(null, "Sunday", null, null, false, "1"),
+(null, "Monday", "12:00", "21:00", true, "2"),
+(null, "Tuesday", null, null, false, "3"),
+(null, "Wednesday", null, null, false, "4"),
+(null, "Thursday", null, null, false, "5"),
+(null, "Friday", "09:00", "13:00", true, "6");
 
 INSERT INTO ScheduleTables(date, dayOfWeek, start, end, EmployeeTableId) VALUES
 ("2018-08-27", "Monday", "09:00" , "16:00", 1),
@@ -37,7 +37,7 @@ INSERT INTO ScheduleTables(date, dayOfWeek, start, end, EmployeeTableId) VALUES
 ("2018-08-30", "Thursday", "09:00" , "16:00", 1),
 -- ("2018-08-30", "Thursday", "12:00" , "15:00", 1),
 -- ("2018-08-30", "Thursday", "16:00" , "21:00", 1),
-("2018-08-31", "Friday", "09:00" , "16:00", 1),
+("2018-08-31", "Friday", "09:00" , "16:00", 1);
 -- ("2018-08-31", "Friday", "12:00" , "15:00", 1), 
 -- ("2018-08-31", "Friday", "16:00" , "21:00", 1);
 
