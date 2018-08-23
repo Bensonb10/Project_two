@@ -137,11 +137,12 @@ function addModSlider(date, elementId) {
 
 			let existCheck = shiftsArr.findIndex(obj => obj.elemId == elementId);
 			console.log(existCheck);
+			let dayOfWeek = moment(elementId, 'X').format('dddd');
 			
 			if (existCheck === -1) {
 				shiftsArr.push({
 					date: moment(elementId, 'X').format('YYYY-MM-DD'),
-					dayOfWeek: moment(elementId, 'X').format('dddd'),
+					dayOfWeek: dayOfWeek,
 					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
 					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
 					employeeTableId: '',
@@ -155,6 +156,32 @@ function addModSlider(date, elementId) {
 
 			console.log(shiftsArr);
 			console.log(availArr);
+
+			console.log(dayOfWeek)
+
+			$.each(availArr[0], function(i, val){
+				$.each(this.AvailTables, function(index,value){
+					if (this.dayOfWeek === dayOfWeek){
+						console.log(this);
+						// console.log('do math')
+						let shiftStart = moment(data.from, 'x').format('HHmm');
+						let shiftEnd = moment(data.to, 'x').format('HHmm');
+						let euStart = moment(this.startTime, 'HH:mm').format('HHmm');
+						let euEnd = moment(this.endTime, 'HH:mm').format('HHmm');
+							
+						console.log(`shiftStart: ${shiftStart}`)
+						console.log(`euStart: ${euStart}`)
+
+						// console.log(moment(shiftStart))
+						// console.log(moment(euStart))
+						if (moment(shiftStart).isBefore(euStart)) {
+							console.log('true')
+						} else {
+							console.log('false')
+						}
+					}
+				})
+			});
 		},
 	});
 
