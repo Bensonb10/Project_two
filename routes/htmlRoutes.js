@@ -1,5 +1,4 @@
 var db = require('../models');
-var Sequelize = require('sequelize');
 
 module.exports = function (app) {
 	// Checks incoming request to see if user is logged in. If not it will redirect to login handlebars with a message
@@ -30,8 +29,7 @@ module.exports = function (app) {
 		});
 	});
 
-	// GET: /auth/register
-	// Load Reigster page if user is autheticated
+	
 	app.get('/auth/register', checkAuthentication, (req, res) => {
 		res.render('register');
 	});
@@ -41,13 +39,6 @@ module.exports = function (app) {
 		res.render('index', context);
 	});
 
-	// Render 404 page for any unmatched routes
-	// app.get('*', function (req, res) {
-	// 	res.render('404');
-	// });
-
-	// GET: /create
-	// Load Create page if user is autheticated
 	app.get('/create', (req, res) => {
 		db.AvailTable.findAll({include: db.EmployeeTable}).then((dbResult) => {
 			
@@ -73,9 +64,9 @@ module.exports = function (app) {
 	});
 
 	app.post('/create', checkAuthentication, (req, res) => {
-		let currentDate = "2018-08-22";
-		let startShift = "0900";
-		let endShift = "2100"
+		let currentDate = '2018-08-22';
+		let startShift = '0900';
+		let endShift = '2100';
 		db.ScheduleTable.create({
 			date: currentDate,
 			start: startShift,
@@ -83,6 +74,6 @@ module.exports = function (app) {
 		}).then((dbScheduleTable) => {
 			req.flash('success_msg', 'Created a new shift');
 			res.redirect('/create');
-		})
-	})
+		});
+	});
 };

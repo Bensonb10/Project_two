@@ -85,6 +85,7 @@ $('.datepicker').datepicker({
 	onClose: function () {
 		let date = $('.datepicker').val();
 		let dbDateStart = moment(date).format('YYYY-MM-DD');
+		console.log(dbDateStart);
 		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
 		// console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
 		modifyAccordion(date);
@@ -112,6 +113,8 @@ $('.datepicker').datepicker({
 function addModSlider(date, elementId) {
 	console.log('Called a new addModSlider');
 	moment.locale('en-GB');
+
+	console.log("hello" + date);
 
 	var $range = $('#range_'+elementId);
 	var start = moment(`${date} 08:00`, 'YYYY-MM-DD HH:mm');
@@ -207,7 +210,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 	console.log(`${scheduleDate} - ${elementId}`);
 
-	$(`[data-id=cb-${scheduleDate}`).append(`
+	$(`[data-id=cb-${scheduleDate}`).prepend(`
 	<div class="row shift-item-row">
         <div class="col s12">
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">

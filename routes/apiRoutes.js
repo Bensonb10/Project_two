@@ -25,7 +25,7 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/api/help', function(req,res){
+	app.get('/api/getAll', function(req,res){
 		db.EmployeeTable.findAll({
 			include: [{
 				model: db.ScheduleTable
@@ -139,9 +139,6 @@ module.exports = function(app) {
 	});
 
 
-
-
-
 	//UPDATE ROUTES
 
 
@@ -185,10 +182,6 @@ module.exports = function(app) {
 			res.json(availData);
 		});
 	});
-	
-
-
-
 
 	//update schedule table with an employees start and end shifts
 	app.put('/api/schedule/:id', function(req, res) {
