@@ -29,4 +29,8 @@ INSERT INTO ScheduleTables(date, dayOfWeek, start, end, EmployeeTableId) VALUES
 ("2018-08-20", "Tuesday", "12:00" , "15:00", null), 
 ("2018-08-20", "Wednesday", "16:00" , "20:00", null), 
 ("2018-08-21", "Thursday", "12:00" , "21:00", null), 
+<<<<<<< HEAD
+("2018-08-21", "Friday", "09:00", "14:00" ,null); 
+=======
 ("2018-08-21", "Friday", "09:00", "16:00", null); 
+>>>>>>> 5b170a3fd03f06b66695a6021db708674f0177f4
