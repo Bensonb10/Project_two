@@ -1,6 +1,9 @@
 var db = require('../models');
 
 module.exports = function(app) {
+
+	//GET ROUTES
+
 	// Get request to get all employees
 	app.get('/api/employees', function(req, res) {
 		db.EmployeeTable.findAll({}).then(function(dbEmployeeTable) {
@@ -33,18 +36,8 @@ module.exports = function(app) {
 		});
 	});
 
-	//query for one employee and find all of the start and end times that they are available
-	// app.get('/api/avail/:id', function(req, res) {
-	// 	db.AvailTable.findOne({where: {
-	// 		id: req.params.id
-	// 	},
-	// 	include: [db.EmployeeTable, as: {firstName: req.body.firstName}, {lastName: req.body.lastName}]
-	// 	}).then(function(dbAvailTable) {
-	// 		res.json(dbAvailTable);
-	// 	});
-	// });
-
-
+	
+	//POST ROUTES
 
 	
 	//post request to post user data to database
@@ -64,7 +57,7 @@ module.exports = function(app) {
 		});
 	});
 
-	//posting user data to Avail table 
+	//This will post new shifts to the avail table and will also contain an employees id
 	app.post('/api/avail', function(req, res){
 		console.log(req.body.id);
 		db.AvailTable.create({
@@ -81,7 +74,7 @@ module.exports = function(app) {
 
 	});
 
-	//posting user data to Schedule table (need a get not a post if the data in this table is the same as the data in the avail table)
+	//This will have all of the dates, start and end times for each shift
 	app.post('/api/schedule', function(req, res){
 		db.ScheduleTable.create({
 			date: req.body.date,
@@ -98,7 +91,7 @@ module.exports = function(app) {
 	
 
 
-
+	//DELETE ROUTES
 
 	// Delete an employee by id
 	app.delete('/api/employees/:id', function(req, res) {
@@ -126,21 +119,47 @@ module.exports = function(app) {
 
 
 
-
+	//UPDATE ROUTES
 
 
 	//update an employees info by id
 	app.put('/api/employees/:id', function(req, res) {
-		db.EmployeeTable.update({firstName: req.body.firstName},{
-			where: {id: req.params.id}}).then(function(dbEmployeeTable) {
-			res.json(dbEmployeeTable);
+		db.EmployeeTable.update(
+			{
+				firstName: req.body.firstName,
+				lastName: req.body.lastName,
+				isAdmin: req.body.isAdmin,
+				email: req.body.email,
+				phone: req.body.phone,
+				picture: req.body.picture
+			},
+			{
+				where: {
+					id: req.body.id
+				}
+			}
+		).then(function(employeeData) {
+			res.json(employeeData);
 		});
 	});
-	//update availability by id
-	app.put('/api/avail', function(req, res) {
-		db.AvailTable.update(req.body,{
-			where: {id: req.body.id}}).then(function(dbAvailTable) {
-			res.json(dbAvailTable);
+	
+
+
+	//update availability table with an employees start and end shifts 
+	app.put('/api/avail/:id', function(req, res) {
+		db.AvailTable.update(
+			{
+				startTime: req.body.startTime,
+				endTime: req.body.endTime,
+				avail: req.body.avail
+			},
+			{
+				where: {
+					id: req.body.id
+				}
+			}
+		).then(function(availData) {
+			res.json(availData);
 		});
 	});
 	
@@ -148,7 +167,7 @@ module.exports = function(app) {
 
 
 
-
+	//update schedule table with an employees start and end shifts
 	app.put('/api/schedule/:id', function(req, res) {
 		db.ScheduleTable.update(
 			{
