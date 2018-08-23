@@ -8,7 +8,7 @@ module.exports = function (app) {
 			//req.isAuthenticated() will return true if user is logged in
 			next();
 		} else{
-			res.render('login', {error: 'You have to be sign in.'});
+			res.render('login', {error: 'You have to be signed in.'});
 		}
 	}
 
