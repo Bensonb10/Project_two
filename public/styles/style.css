@@ -54,6 +54,11 @@
     position: relative;
 }
 
+.sched-create .collapsible-body {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 #schedule-container .collapsible-header .add-btn {
     position: absolute;
     right:10px;
@@ -75,4 +80,9 @@ i.icon-white {
 
 span.character-counter {
     display: none;
+}
+
+.shift-item-row {
+    margin-bottom: 0;
+    border-bottom: 1px solid #ddd;
 }
