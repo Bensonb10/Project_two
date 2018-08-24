@@ -8,64 +8,64 @@ $(window).on('load', function() { $('#prepage-loader').delay(400).fadeOut('slow'
 // write inside all jquery function
 $(function() {
 
-	$.get('/api/getAll', function (data) {
-		console.log(data);
+	// $.get('/api/getAll', function (data) {
+	// 	console.log(data);
 
 
 
-		$('.day-header').one('click', function(event){
-			var date = $(this).data('id');
+	// 	$('.day-header').one('click', function(event){
+	// 		var date = $(this).data('id');
 			
-			for(var i = 0; i < data.length; i++){
-				for (var j = 0; j < data[i].ScheduleTables.length; j++){
-					var scheduleDate = parseInt(moment(data[i].ScheduleTables[j].date).format('X'));
-						if(date === scheduleDate){
-							let uniqueId = moment().format('x');
-							let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
-							let elementId = scheduleDate + '-' + uniqueId;
-							console.log('hello');
-							$(`[data-id=cb-${scheduleDate}`).prepend(`
-	<div class="row shift-item-row">
-        <div class="col s12">
-            <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
-                <li class="collection-item" data-id="${elementId}">
-                    <div class="row valign-wrapper">
-                        <div class="col s3">
-                            <!-- Dropdown button -->
-                            <a class="dropdown-button waves-effect waves-light btn blue data-date="${ionDate}" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right ">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                <li>
-                                    <div class="row valign-wrapper">
-                                        <div class="col s4">
-                                            <i class="material-icons medium">face</i>
-                                        </div>
-                                        <div class="col s5">
-                                            Ben B.
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <!-- Dropdown button structure -->
-                        </div>
-                        <div class="col s9">
-                            <input id="range_${elementId}" />
-                        </div>
-                    </div>
-                </li>
+	// 		for(var i = 0; i < data.length; i++){
+	// 			for (var j = 0; j < data[i].ScheduleTables.length; j++){
+	// 				var scheduleDate = parseInt(moment(data[i].ScheduleTables[j].date).format('X'));
+	// 					if(date === scheduleDate){
+	// 						let uniqueId = moment().format('x');
+	// 						let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
+	// 						let elementId = scheduleDate + '-' + uniqueId;
+	// 						console.log('hello');
+	// 						$(`[data-id=cb-${scheduleDate}`).prepend(`
+	// <div class="row shift-item-row">
+    //     <div class="col s12">
+    //         <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
+    //             <li class="collection-item" data-id="${elementId}">
+    //                 <div class="row valign-wrapper">
+    //                     <div class="col s3">
+    //                         <!-- Dropdown button -->
+    //                         <a class="dropdown-button waves-effect waves-light btn blue data-date="${ionDate}" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right ">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+    //                             <li>
+    //                                 <div class="row valign-wrapper">
+    //                                     <div class="col s4">
+    //                                         <i class="material-icons medium">face</i>
+    //                                     </div>
+    //                                     <div class="col s5">
+    //                                         Ben B.
+    //                                     </div>
+    //                                 </div>
+    //                             </li>
+    //                         </ul>
+    //                         <!-- Dropdown button structure -->
+    //                     </div>
+    //                     <div class="col s9">
+    //                         <input id="range_${elementId}" />
+    //                     </div>
+    //                 </div>
+    //             </li>
                 
-            </ul>
-        </div>
-    </div>
-	`);
+    //         </ul>
+    //     </div>
+    // </div>
+	// `);
 
-							addModSlider(data[i].ScheduleTables[j].date, elementId);
-						}
+	// 						addModSlider(data[i].ScheduleTables[j].date, elementId);
+	// 					}
 					
-				}
-			}
-		})
+	// 			}
+	// 		}
+	// 	})
 			
-		// var shiftDay = moment(dateValue, 'X').format('X');
-	})
+	// 	// var shiftDay = moment(dateValue, 'X').format('X');
+	// })
     
 
 	/* Initialization variable for global use */
