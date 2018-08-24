@@ -211,7 +211,7 @@ function addModSlider(date, elementId) {
 			availEmp.forEach(function(element){
 
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
-					<option value="${optionValue}"> ${element.firstName} ${element.lastName} </option>	
+					<option value="${element.id}"> ${element.firstName} ${element.lastName} </option>	
 				`);
 				$('select').formSelect();
 					optionValue++;
@@ -234,14 +234,14 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 	console.log(`${scheduleDate} - ${elementId}`);
 
-	$(`[data-id=cb-${scheduleDate}]`).prepend(`
+	$(`[data-id=cb-${scheduleDate}]`).append(`
 	<div class="row shift-item-row">
         <div class="col s12">
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
                 <li class="collection-item" data-id="${elementId}">
                     <div class="row valign-wrapper">
-						<div class="col s3 input-field">
-							<select data-dropdown="${uniqueId}" data-date="${ionDate}">
+						<div class="col s3 input-field" data-dropdown="${elementId}">
+							<select id="${elementId}" data-date="${ionDate}">
                                 <option value="" disabled selected>Select Employee</option>
                             </select>
                         </div>
@@ -259,4 +259,16 @@ $('.collapsible-header .add-btn').on('click', function(event){
 	
 
 	addModSlider(ionDate,elementId);
+});
+
+$(document).on('change', 'select', function() {
+	console.log($(this).val());
+	console.log($(this).attr('id'));
+	let locateIndex = shiftsArr.findIndex(obj => obj.elemId == $(this).attr('id'));
+	console.log('shift found at index: ' + locateIndex);
+
+	shiftsArr[locateIndex].employeeTableId = $(this).val();
+	console.log(shiftsArr);
+
+
 });
