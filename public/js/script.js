@@ -85,7 +85,7 @@ function modifyAccordion(date) {
 
 $('.datepicker').datepicker({
 	onClose: function () {
-
+		
 		let date = $('.datepicker').val();
 		modifyAccordion(date);
 
@@ -93,8 +93,10 @@ $('.datepicker').datepicker({
 			method: 'GET',
 			url: `/api/getAll`
 		}).then((result) => {
-			availArr.push(result);
+			shiftsArr = [];
+			availArr = [];
 			appendShifts(unixArr, result);
+			availArr.push(result);
 		});
 	}
 });
@@ -130,19 +132,20 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 			console.log(existCheck);
 			let dayOfWeek = moment(elementId, 'X').format('dddd');
 			let date = moment(elementId, 'X').format('YYYY-MM-DD');
+			console.log("check date" + moment(data.from_pretty, 'hh:mm A').format('HH:mm'));
 			if (existCheck === -1) {
 				shiftsArr.push({
 					date: date,
 					dayOfWeek: dayOfWeek,
-					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
-					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
+					start: ishiftStart,
+					end: ishiftEnd,
 					employeeTableId: iemployeeTableId,
 					elemId: elementId
 				});
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -231,13 +234,13 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 					dayOfWeek: dayOfWeek,
 					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
 					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
-					employeeTableId: '',
+					employeeTableId: 1,
 					elemId: elementId
 				});
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -414,7 +417,7 @@ function addModSlider(date, elementId) {
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -503,13 +506,13 @@ function addModSlider(date, elementId) {
 					dayOfWeek: dayOfWeek,
 					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
 					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
-					employeeTableId: '',
+					employeeTableId: 1,
 					elemId: elementId
 				});
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -629,12 +632,11 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 $(document).on('change', 'select', function () {
 	console.log($(this).val());
-	console.log($(this).attr('id'));
+	console.log("monkey" + $(this).attr('id'));
 	let locateIndex = shiftsArr.findIndex(obj => obj.elemId == $(this).attr('id'));
 	console.log('shift found at index: ' + locateIndex);
 
-	shiftsArr[locateIndex].employeeTableId = parseInt($(this).val());
-	console.log(shiftsArr);
+	($(this).val() === '' || $(this).val() === null || $(this).val() === undefined) ? thisVal = 1 : thisVal = $(this).val();
 
-
+	shiftsArr[locateIndex].employeeTableId = parseInt(thisVal);
 });
