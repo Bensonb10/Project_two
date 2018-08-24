@@ -153,6 +153,8 @@ function addModSlider(date, elementId) {
 
 			if($(`[data-id="${elementId}"] [data-date="${date}"]`).length !== 0) {
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).empty();
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).append('<option value="" disabled selected>Select Employee</option>');
+
 			}
 
 			$.each(availArr[0], function(i, val){
@@ -205,20 +207,14 @@ function addModSlider(date, elementId) {
 				}
 			});
 			console.log(availEmp);
+			let optionValue = 1;
 			availEmp.forEach(function(element){
 
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
-					<li>
-						<div data-employee-id="${this.id}" class="row valign-wrapper select-employee">
-							<div class="col s4">
-								<i class="material-icons medium">face</i>
-							</div>
-							<div class="col s5">
-								${element.firstName} ${element.lastName}
-							</div>
-						</div>
-					</li>`);
-					$('.dropdown-button').dropdown();
+					<option value="${optionValue}"> ${element.firstName} ${element.lastName} </option>	
+				`);
+				$('select').formSelect();
+					optionValue++;
 			})
 		},
 	});
@@ -244,15 +240,10 @@ $('.collapsible-header .add-btn').on('click', function(event){
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
                 <li class="collection-item" data-id="${elementId}">
                     <div class="row valign-wrapper">
-                        <div class="col s3">
-                            <!-- Dropdown button -->
-							<a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block-${uniqueId}">
-								Select Employee<i class="material-icons white-text right ">arrow_drop_down</i>
-							</a>
-							<ul id="dropdown-block-${uniqueId}" data-date="${ionDate}" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                
-                            </ul>
-                            <!-- Dropdown button structure -->
+						<div class="col s3 input-field">
+							<select data-dropdown="${uniqueId}" data-date="${ionDate}">
+                                <option value="" disabled selected>Select Employee</option>
+                            </select>
                         </div>
                         <div class="col s9">
                             <input id="range_${elementId}" />
@@ -264,7 +255,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
         </div>
     </div>
 	`);
-
+	$('select').formSelect();
 	
 
 	addModSlider(ionDate,elementId);
