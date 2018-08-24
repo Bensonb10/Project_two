@@ -93,19 +93,7 @@ $('.datepicker').datepicker({
 			method: "GET",
 			url: "/api/getAll"
 		}).then((result) => {
-			// console.log("----------------------")
-			// console.log(result);
-			// console.log("----------------------")
-
-			// let monday = result.map((x) => {
-			// 	x.AvailTables.filter((y) => {
-			// 		y.dayOfWeek === "Monday";
-			// 	})
-			// });
-
 			availArr.push(result);
-			// console.log(monday);
-			
 		})
 	}
 });
@@ -137,14 +125,15 @@ function addModSlider(date, elementId) {
 		},
 		onFinish: function (data) {
 			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
+			let availEmp = [];
 
 			let existCheck = shiftsArr.findIndex(obj => obj.elemId == elementId);
 			console.log(existCheck);
 			let dayOfWeek = moment(elementId, 'X').format('dddd');
-			
+			let date = moment(elementId, 'X').format('YYYY-MM-DD')
 			if (existCheck === -1) {
 				shiftsArr.push({
-					date: moment(elementId, 'X').format('YYYY-MM-DD'),
+					date: date,
 					dayOfWeek: dayOfWeek,
 					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
 					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
@@ -162,36 +151,75 @@ function addModSlider(date, elementId) {
 
 			console.log(dayOfWeek)
 
+			if($(`[data-id="${elementId}"] [data-date="${date}"]`).length !== 0) {
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).empty();
+			}
+
 			$.each(availArr[0], function(i, val){
+				let dayArr = [];
+
 				$.each(this.AvailTables, function(index,value){
-					if (this.dayOfWeek === dayOfWeek){
-						console.log(this);
-						// console.log('do math')
-						let shiftStart = moment(data.from, 'x').format('HHmm');
-						let shiftEnd = moment(data.to, 'x').format('HHmm');
-						let euStart = moment(this.startTime, 'HH:mm').format('HHmm');
-						let euEnd = moment(this.endTime, 'HH:mm').format('HHmm');
-							
-						console.log(`shiftStart: ${shiftStart}`)
-						console.log(`shiftEnd: ${shiftEnd}`)
-						console.log(`euStart: ${euStart}`)
-						console.log(`euEnd: ${euEnd}`)
-						// console.log(moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`));
-						// console.log(moment(shiftStart))
-						// console.log(moment(euStart))
-						if (moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true || moment(`'${shiftStart}'`).isBetween(`'${euStart}'`,`'${euEnd}'`) === true) {
-							console.log('This employee is unavailable at this time frame')
-						} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isSame(`'${shiftEnd}'`) === true) {
-							console.log('Employee is exactly unavail at this time frame');
-						} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true) {
-							console.log('Emp is unavail equal to beginning of shift to before shift ends');
+					dayArr.push(this.dayOfWeek);
+				});
+
+				if (dayArr.includes(dayOfWeek)) {
+					console.log(this);
+
+					let thisStart;
+					let thisEnd;
+
+					$.each(this.AvailTables, function(index,value){
+						if (this.dayOfWeek == dayOfWeek) {
+							thisStart = this.startTime;
+							thisEnd = this.endTime;
 						}
-						else {
-							console.log(`ID of employee able to work: ${this.EmployeeTableId}`)
-						}
+					});
+
+					// console.log('do math')
+					let shiftStart = moment(data.from, 'x').format('HHmm');
+					let shiftEnd = moment(data.to, 'x').format('HHmm');
+					let euStart = moment(thisStart, 'HH:mm').format('HHmm');
+					let euEnd = moment(thisEnd, 'HH:mm').format('HHmm');
+						
+					console.log(`shiftStart: ${shiftStart}`)
+					console.log(`shiftEnd: ${shiftEnd}`)
+					console.log(`euStart: ${euStart}`)
+					console.log(`euEnd: ${euEnd}`)
+					// console.log(moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`));
+					// console.log(moment(shiftStart))
+					// console.log(moment(euStart))
+					if (moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true || moment(`'${shiftStart}'`).isBetween(`'${euStart}'`,`'${euEnd}'`) === true) {
+						console.log('This employee is unavailable at this time frame')
+					} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isSame(`'${shiftEnd}'`) === true) {
+						console.log('Employee is exactly unavail at this time frame');
+					} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true) {
+						console.log('Emp is unavail equal to beginning of shift to before shift ends');
 					}
-				})
+					else {
+						console.log(`ID of employee able to work: ${this.EmployeeTableId}`);
+						let employee = availArr[0].filter((x) => x.id === this.EmployeeTableId);
+						availEmp.push(this);
+					}
+				} else {
+					availEmp.push(this);
+				}
 			});
+			console.log(availEmp);
+			availEmp.forEach(function(element){
+
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
+					<li>
+						<div data-employee-id="${this.id}" class="row valign-wrapper select-employee">
+							<div class="col s4">
+								<i class="material-icons medium">face</i>
+							</div>
+							<div class="col s5">
+								${element.firstName} ${element.lastName}
+							</div>
+						</div>
+					</li>`);
+					$('.dropdown-button').dropdown();
+			})
 		},
 	});
 
@@ -206,11 +234,11 @@ $('.collapsible-header .add-btn').on('click', function(event){
 	let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
 	let elementId = scheduleDate + '-' + uniqueId;
 
-	console.log(ionDate);
+	console.log("ionDate ========= "+ionDate);
 
 	console.log(`${scheduleDate} - ${elementId}`);
 
-	$(`[data-id=cb-${scheduleDate}`).prepend(`
+	$(`[data-id=cb-${scheduleDate}]`).prepend(`
 	<div class="row shift-item-row">
         <div class="col s12">
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
@@ -218,17 +246,11 @@ $('.collapsible-header .add-btn').on('click', function(event){
                     <div class="row valign-wrapper">
                         <div class="col s3">
                             <!-- Dropdown button -->
-                            <a class="dropdown-button waves-effect waves-light btn blue data-date="${ionDate}" href="#" data-activates="dropdown-block">Select Employee<i class="material-icons white-text right ">arrow_drop_down</i></a><ul id="dropdown-block" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                <li>
-                                    <div class="row valign-wrapper">
-                                        <div class="col s4">
-                                            <i class="material-icons medium">face</i>
-                                        </div>
-                                        <div class="col s5">
-                                            Ben B.
-                                        </div>
-                                    </div>
-                                </li>
+							<a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block-${uniqueId}">
+								Select Employee<i class="material-icons white-text right ">arrow_drop_down</i>
+							</a>
+							<ul id="dropdown-block-${uniqueId}" data-date="${ionDate}" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
+                                
                             </ul>
                             <!-- Dropdown button structure -->
                         </div>
