@@ -2,29 +2,6 @@ let shiftsArr = [];
 let availArr = [];
 let unixArr = [];
 
-function sliderModify(timeIn, timeOut, shiftDate, elementId) {
-	moment.locale('en-GB');
-
-	var $range = $(elementId);
-	var start = moment(`${shiftDate} 08:00`, 'YYYY-MM-DD HH:mm');
-	var end = moment(`${shiftDate} 22:00`, 'YYYY-MM-DD HH:mm');
-	let startFrom = moment(`${shiftDate} ${timeIn}`, 'YYYY-MM-DD HH:mm');
-	let startTo = moment(`${shiftDate} ${timeOut}`, 'YYYY-MM-DD HH:mm');
-
-
-	$range.ionRangeSlider({
-		type: 'double',
-		grid: true,
-		min: start.format('x'),
-		max: end.format('x'),
-		from: startFrom.format('x'),
-		to: startTo.format('x'),
-		step: 1800000, // 30 minutes in ms
-		prettify: function (num) {
-			return moment(num, 'x').format('h:mm A');
-		}
-	});
-}
 
 function sliderStatic(timeIn, timeOut, shiftDate, elementId) {
 	moment.locale('en-GB');
@@ -76,6 +53,8 @@ function modifyAccordion(date) {
 		$(this).find('.add-btn').attr('data-id', unixDay);
 		$(this).find('.collapsible-body').attr('data-id', 'cb-' + unixDay);
 
+		$(this).find('.collapsible-body').html('');
+
 		// console.log(wdReadable);
 		//add 1 day to the date before moving on to the next element
 		weekDay.add(1,'d');
@@ -87,18 +66,32 @@ function modifyAccordion(date) {
 	$('.sched-ul li.day-header.active .collapsible-body').attr('style','display: block;');
 }
 	
+// $('.datepicker').datepicker({
+// 	onClose: function () {
+// 		let date = $('.datepicker').val();
+// 		let dbDateStart = moment(date).format('YYYY-MM-DD');
+// 		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
+// 		modifyAccordion(date);
+
+// 		$.ajax({
+// 			method: 'GET',
+// 			url: `/api/getAll/${dbDateStart}/${dbDateEnd}`
+// 		}).then((result) => {
+// 			availArr.push(result);
+// 			appendShifts(unixArr, result);
+// 		});
+// 	}
+// });
+
 $('.datepicker').datepicker({
 	onClose: function () {
+
 		let date = $('.datepicker').val();
-		let dbDateStart = moment(date).format('YYYY-MM-DD');
-		console.log(dbDateStart);
-		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
-		// console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
-		console.log(dbDateEnd);
 		modifyAccordion(date);
+
 		$.ajax({
 			method: 'GET',
-			url: `/api/getAll/${dbDateStart}/${dbDateEnd}`
+			url: `/api/getAll`
 		}).then((result) => {
 			availArr.push(result);
 			appendShifts(unixArr, result);
@@ -107,7 +100,6 @@ $('.datepicker').datepicker({
 });
 
 function appendedSlider(date, elementId, employeeTableId, ishiftStart, ishiftEnd){
-	console.log('Appended a new slider');
 	moment.locale('en-GB');
 
 	var $range = $('#range_' + elementId);
@@ -234,9 +226,6 @@ function appendShifts(unixArr, data) {
 			var scheduleDate = parseInt(moment(shiftData.date).format('X'));
 			for(var val in unixArr){
 				if(scheduleDate == unixArr[val]){
-					console.log(data[i]);
-
-					console.log('We appended shifts');
 					
 					let uniqueId = moment().format('x');
 					let ionDate = shiftData.date;
