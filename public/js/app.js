@@ -8,23 +8,23 @@ $(window).on('load', function() { $('#prepage-loader').delay(400).fadeOut('slow'
 // write inside all jquery function
 $(function() {
 
-	$.get('/api/getAll', function (data) {
-		console.log(data);
+	// $.get('/api/getAll', function (data) {
+	// 	console.log(data);
 
 
 
-	// 	$('.day-header').one('click', function(event){
-	// 		var date = $(this).data('id');
+		// $('.day-header').one('click', function(event){
+		// 	var date = $(this).data('id');
 			
-	// 		for(var i = 0; i < data.length; i++){
-	// 			for (var j = 0; j < data[i].ScheduleTables.length; j++){
-	// 				var scheduleDate = parseInt(moment(data[i].ScheduleTables[j].date).format('X'));
-	// 					if(date === scheduleDate){
-	// 						let uniqueId = moment().format('x');
-	// 						let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
-	// 						let elementId = scheduleDate + '-' + uniqueId;
-	// 						console.log('hello');
-	// 						$(`[data-id=cb-${scheduleDate}`).prepend(`
+			// for(var i = 0; i < data.length; i++){
+			// 	for (var j = 0; j < data[i].ScheduleTables.length; j++){
+			// 		var scheduleDate = parseInt(moment(data[i].ScheduleTables[j].date).format('X'));
+			// 			if(date === scheduleDate){
+			// 				let uniqueId = moment().format('x');
+			// 				let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
+			// 				let elementId = scheduleDate + '-' + uniqueId;
+			// 				console.log('hello');
+		// 					$(`[data-id=cb-${scheduleDate}`).prepend(`
 	// <div class="row shift-item-row">
     //     <div class="col s12">
     //         <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
@@ -64,8 +64,8 @@ $(function() {
 	// 		}
 	// 	})
 			
-		// var shiftDay = moment(dateValue, 'X').format('X');
-	})
+	// 	// var shiftDay = moment(dateValue, 'X').format('X');
+	// })
     
 
 	/* Initialization variable for global use */
@@ -354,27 +354,5 @@ $(function() {
 	/* index page */
 	// initialize ledt sidebar
 	$('.index-mobile-collapse').sideNav();
-
-	$('.delete-shift').on('click', function(event){
-		var id = $(this).data('del-id');
-
-		$.ajax({
-			method: 'DELETE',
-			url: '/api/schedule/' + id
-		}).then(location.reload());
-	});
-
-	function makeSlider() {
-		$.get('/api/schedule', function (data) {
-			for (var val in data) {
-				var s = data[val];
-				sliderStatic(s.start, s.end, s.date, s.id);
-			}
-		});
-	}
-
-		
-
-	makeSlider();
 
 }); // end of document ready

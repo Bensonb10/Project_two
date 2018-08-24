@@ -25,10 +25,31 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/api/getAll', function(req,res){
+	app.get('/api/getAll', function (req, res) {
+
 		db.EmployeeTable.findAll({
 			include: [{
-				model: db.ScheduleTable
+				model: db.ScheduleTable,
+			}, {
+				model: db.AvailTable
+			}]
+		}).then(function (all) {
+			res.json(all);
+		})
+	})
+
+	app.get('/api/getAll/:start/:end', function(req,res){
+		var start = req.params.start;
+		var end = req.params.end;
+
+		db.EmployeeTable.findAll({
+			include: [{
+				model: db.ScheduleTable,
+				where: {
+					date: {
+						"$between": [start, end]
+					}
+				}
 			},{
 				model: db.AvailTable
 			}]
