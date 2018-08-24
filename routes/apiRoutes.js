@@ -35,44 +35,14 @@ module.exports = function(app) {
 			}]
 		}).then(function (all) {
 			res.json(all);
-		})
-	})
-
-	app.get('/api/getAll/:start/:end', function(req,res){
-		var start = req.params.start;
-		var end = req.params.end;
-
-		db.EmployeeTable.findAll({
-			include: [{
-				model: db.ScheduleTable,
-				where: {
-					date: {
-						"$between": [start, end]
-					}
-				}
-			},{
-				model: db.AvailTable
-			}]
-		}).then(function(all){
-			var hbsObj = {
-				employees: all
-			};
-			res.json(all);
-		})
-	})
-	//query for one employee and find all of the start and end times that they are available
-	app.get('/api/employees/:id', function(req, res) {
-		db.EmployeeTable.findOne({where: {
-			id: req.params.id
-		},
-		include: [db.AvailTable]
-		}).then(function(dbEmployeeTable) {
-			res.json(dbEmployeeTable);
 		});
 	});
-
 	
 	//POST ROUTES
+
+	app.post('/api/schedule/update', function () {
+		console.log(req.body);
+	});
 
 	
 	//post request to post user data to database
@@ -109,18 +79,25 @@ module.exports = function(app) {
 
 	});
 
-	//This will have all of the dates, start and end times for each shift
-	app.post('/api/schedule', function(req, res){
-		db.ScheduleTable.create({
-			date: req.body.date,
-			start: req.body.start,
-			end: req.body.end,
-			EmployeeTableId: req.body.id	
-		}).then(function(dbScheduleTable){
-			console.log(dbScheduleTable.id);
-			res.json(dbScheduleTable);
-		});
-	});
+	app.put('/api/schedule/:id', function(req,res){
+		db.ScheduleTable.update(
+			{
+				date: req.body.date,
+				dayOfWeek: req.body.dayOfWeek,
+				start: req.body.start,
+				end: req.body.end,
+				EmployeeTableId: req.body.employeeTableId
+			},{
+				where: {
+					id: req.params.id
+				}
+			}
+		).then(function (result) {
+			res.json(result);
+		})
+	})
+
+
 			
 	app.get('/api/getAll', function(req,res){
 		db.EmployeeTable.findAll({
@@ -134,8 +111,8 @@ module.exports = function(app) {
 				employees: all
 			};
 			res.send(all);
-		})
-	})
+		});
+	});
 
 	// Delete an employee by id
 	app.delete('/api/employees/:id', function(req, res) {
@@ -152,9 +129,9 @@ module.exports = function(app) {
 		});
 	});
 
-	// Delete a schedule by id
+	// Delete a schedule by idShift
 	app.delete('/api/schedule/:id', function(req, res) {
-		db.ScheduleTable.destroy({ where: { id: req.params.id } }).then(function(dbScheduleTable) {
+		db.ScheduleTable.destroy({ where: {id: req.params.id} }).then(function(dbScheduleTable) {
 			res.json(dbScheduleTable);
 		});
 	});
@@ -205,20 +182,25 @@ module.exports = function(app) {
 	});
 
 	//update schedule table with an employees start and end shifts
-	app.put('/api/schedule/:id', function(req, res) {
-		db.ScheduleTable.update(
-			{
-				start: req.body.start,
-				end: req.body.end,
-			},
-			{
-				where: {
-					id: req.body.id
-				}
-			}
-		).then(function(schedData) {
-			console.log(schedData);
-			res.json(schedData);
+	// app.put('/api/schedule/', function(req, res) {
+	// 	console.log(req.body.EmployeeTableId);
+	// 	db.ScheduleTable.create({
+
+	// 	}).then(function(schedData) {
+	// 		console.log(schedData);
+	// 		res.json(schedData);
+	// 	});
+	// });
+
+	app.post('/api/schedule', (req, res) => {
+		db.ScheduleTable.create({
+			date: req.body.date,
+			dayOfWeek: req.body.dayOfWeek,
+			start: req.body.start,
+			end: req.body.end,
+			EmployeeTableId: req.body.employeeTableId
+		}).then((dbScheduleTable) => {
+			res.json(dbScheduleTable)
 		});
 	});
 
