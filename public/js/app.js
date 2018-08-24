@@ -13,18 +13,18 @@ $(function() {
 
 
 
-	// 	$('.day-header').one('click', function(event){
-	// 		var date = $(this).data('id');
+		// $('.day-header').one('click', function(event){
+		// 	var date = $(this).data('id');
 			
-	// 		for(var i = 0; i < data.length; i++){
-	// 			for (var j = 0; j < data[i].ScheduleTables.length; j++){
-	// 				var scheduleDate = parseInt(moment(data[i].ScheduleTables[j].date).format('X'));
-	// 					if(date === scheduleDate){
-	// 						let uniqueId = moment().format('x');
-	// 						let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
-	// 						let elementId = scheduleDate + '-' + uniqueId;
-	// 						console.log('hello');
-	// 						$(`[data-id=cb-${scheduleDate}`).prepend(`
+			// for(var i = 0; i < data.length; i++){
+			// 	for (var j = 0; j < data[i].ScheduleTables.length; j++){
+			// 		var scheduleDate = parseInt(moment(data[i].ScheduleTables[j].date).format('X'));
+			// 			if(date === scheduleDate){
+			// 				let uniqueId = moment().format('x');
+			// 				let ionDate = moment(scheduleDate, 'X').format('YYYY-MM-DD');
+			// 				let elementId = scheduleDate + '-' + uniqueId;
+			// 				console.log('hello');
+		// 					$(`[data-id=cb-${scheduleDate}`).prepend(`
 	// <div class="row shift-item-row">
     //     <div class="col s12">
     //         <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
