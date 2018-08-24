@@ -66,6 +66,7 @@ function modifyAccordion(date) {
 		let wdReadable = weekDay.format('dddd: MMM Do');
 		let unixDay = weekDay.format('X');
 
+
 		unixArr.push(unixDay);
 
 		//change the header text to the formatted date
@@ -93,10 +94,11 @@ $('.datepicker').datepicker({
 		console.log(dbDateStart);
 		let dbDateEnd = moment(dbDateStart).add(6, 'd').format('YYYY-MM-DD');
 		// console.log(`SELECT * FROM AvailTables WHERE date BETWEEN ${dbDateStart} AND ${dbDateEnd}`);
+		console.log(dbDateEnd);
 		modifyAccordion(date);
 		$.ajax({
 			method: 'GET',
-			url: '/api/getAll'
+			url: `/api/getAll/${dbDateStart}/${dbDateEnd}`
 		}).then((result) => {
 			availArr.push(result);
 			appendShifts(unixArr, result);
@@ -155,14 +157,16 @@ function appendedSlider(date, elementId, employeeTableId, ishiftStart, ishiftEnd
 
 			console.log(dayOfWeek);
 
-			if ($(`[data-id="${elementId}"] [data-date="${date}"]`).length !== 0) {
+			if($(`[data-id="${elementId}"] [data-date="${date}"]`).length !== 0) {
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).empty();
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).append('<option value="" disabled selected>Select Employee</option>');
+
 			}
 
-			$.each(availArr[0], function (i, val) {
+			$.each(availArr[0], function(i, val){
 				let dayArr = [];
 
-				$.each(this.AvailTables, function (index, value) {
+				$.each(this.AvailTables, function(index,value){
 					dayArr.push(this.dayOfWeek);
 				});
 
@@ -172,7 +176,7 @@ function appendedSlider(date, elementId, employeeTableId, ishiftStart, ishiftEnd
 					let thisStart;
 					let thisEnd;
 
-					$.each(this.AvailTables, function (index, value) {
+					$.each(this.AvailTables, function(index,value){
 						if (this.dayOfWeek == dayOfWeek) {
 							thisStart = this.startTime;
 							thisEnd = this.endTime;
@@ -184,7 +188,7 @@ function appendedSlider(date, elementId, employeeTableId, ishiftStart, ishiftEnd
 					let shiftEnd = moment(data.to, 'x').format('HHmm');
 					let euStart = moment(thisStart, 'HH:mm').format('HHmm');
 					let euEnd = moment(thisEnd, 'HH:mm').format('HHmm');
-
+						
 					console.log(`shiftStart: ${shiftStart}`);
 					console.log(`shiftEnd: ${shiftEnd}`);
 					console.log(`euStart: ${euStart}`);
@@ -192,11 +196,11 @@ function appendedSlider(date, elementId, employeeTableId, ishiftStart, ishiftEnd
 					// console.log(moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`));
 					// console.log(moment(shiftStart))
 					// console.log(moment(euStart))
-					if (moment(`'${euStart}'`).isBetween(`'${shiftStart}'`, `'${shiftEnd}'`) === true || moment(`'${shiftStart}'`).isBetween(`'${euStart}'`, `'${euEnd}'`) === true) {
+					if (moment(`'${euStart}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true || moment(`'${shiftStart}'`).isBetween(`'${euStart}'`,`'${euEnd}'`) === true) {
 						console.log('This employee is unavailable at this time frame');
 					} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isSame(`'${shiftEnd}'`) === true) {
 						console.log('Employee is exactly unavail at this time frame');
-					} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isBetween(`'${shiftStart}'`, `'${shiftEnd}'`) === true) {
+					} else if (moment(`'${euStart}'`).isSame(`'${shiftStart}'`) === true && moment(`'${euEnd}'`).isBetween(`'${shiftStart}'`,`'${shiftEnd}'`) === true) {
 						console.log('Emp is unavail equal to beginning of shift to before shift ends');
 					}
 					else {
@@ -209,16 +213,18 @@ function appendedSlider(date, elementId, employeeTableId, ishiftStart, ishiftEnd
 				}
 			});
 			console.log(availEmp);
-			availEmp.forEach(function (element) {
+			let optionValue = 1;
+			availEmp.forEach(function(element){
 
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
 					<option value="${optionValue}"> ${element.firstName} ${element.lastName} </option>	
 				`);
 				$('select').formSelect();
-				optionValue++;
-			});
+					optionValue++;
+			})
 		},
 	});
+
 }
 
 function appendShifts(unixArr, data) {
@@ -242,15 +248,10 @@ function appendShifts(unixArr, data) {
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
                 <li class="collection-item" data-id="${elementId}">
                     <div class="row valign-wrapper">
-                        <div class="col s3">
-                            <!-- Dropdown button -->
-							<a class="dropdown-button waves-effect waves-light btn blue" href="#" data-activates="dropdown-block-${uniqueId}">
-								${data[i].firstName} ${data[i].lastName}<i class="material-icons white-text right ">arrow_drop_down</i>
-							</a>
-							<ul id="dropdown-block-${uniqueId}" data-date="${ionDate}" class="dropdown-content" style="width: 170.672px; position: absolute; top: 741.812px; left: 45px; display: none; opacity: 1;">
-                                
-                            </ul>
-                            <!-- Dropdown button structure -->
+						<div class="col s3 input-field">
+							<select data-dropdown="${uniqueId}" data-date="${ionDate}">
+                                <option value="" disabled selected>${data[i].firstName} ${data[i].lastName}</option>
+                            </select>
                         </div>
                         <div class="col s9">
                             <input id="range_${elementId}" />
@@ -262,6 +263,7 @@ function appendShifts(unixArr, data) {
         </div>
     </div>
 	`);
+					$('select').formSelect();
 
 
 

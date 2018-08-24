@@ -25,10 +25,18 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/api/getAll', function(req,res){
+	app.get('/api/getAll/:start/:end', function(req,res){
+		var start = req.params.start;
+		var end = req.params.end;
+
 		db.EmployeeTable.findAll({
 			include: [{
-				model: db.ScheduleTable
+				model: db.ScheduleTable,
+				where: {
+					date: {
+						"$between": [start, end]
+					}
+				}
 			},{
 				model: db.AvailTable
 			}]
