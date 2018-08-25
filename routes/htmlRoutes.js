@@ -11,14 +11,14 @@ module.exports = function (app) {
 		}
 	}
 	
-	// GET: /auth/login
+	// GET: /
 	// Load Login
 	app.get('/', (req, res) => {
 		res.render('login', {layout: 'mainlogin'});
 	});
 
 
-	// GET: /
+	// GET: /main
 	// Load index page
 	app.get('/main', checkAuthentication, function (req, res) {
 		db.ScheduleTable.findAll({include: db.EmployeeTable}).then((data) => {
@@ -29,8 +29,9 @@ module.exports = function (app) {
 		});
 	});
 
-	
-	app.get('/auth/register', checkAuthentication, (req, res) => {
+	// GET: /auth/register
+	// Load register page
+	app.get('/auth/register', (req, res) => {
 		res.render('register');
 	});
 
@@ -39,21 +40,9 @@ module.exports = function (app) {
 		res.render('index', context);
 	});
 
-	app.get('/create', (req, res) => {
+	// GET: /create
+	// Load create page
+	app.get('/create', checkAuthentication, (req, res) => {
 			res.render('create');
-	});
-
-	app.post('/create', checkAuthentication, (req, res) => {
-		let currentDate = '2018-08-22';
-		let startShift = '0900';
-		let endShift = '2100';
-		db.ScheduleTable.create({
-			date: currentDate,
-			start: startShift,
-			end: endShift
-		}).then((dbScheduleTable) => {
-			req.flash('success_msg', 'Created a new shift');
-			res.redirect('/create');
-		});
 	});
 };
