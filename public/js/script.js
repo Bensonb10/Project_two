@@ -577,14 +577,14 @@ function addModSlider(date, elementId) {
 				}
 			});
 			console.log(availEmp);
-			let optionValue = 1;
+			
 			availEmp.forEach(function(element){
 
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
-					<option value="${optionValue}"> ${element.firstName} ${element.lastName} </option>	
+					<option value="${element.id}"> ${element.firstName} ${element.lastName} </option>	
 				`);
 				$('select').formSelect();
-				optionValue++;
+				
 			});
 		},
 	});
