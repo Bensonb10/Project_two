@@ -2,6 +2,7 @@ let shiftsArr = [];
 let availArr = [];
 let unixArr = [];
 
+
 function modifyAccordion(date) {
 	//take the date value from the date picker and turn it into a moment object
 	let weekDay = moment(date);
@@ -38,23 +39,24 @@ function modifyAccordion(date) {
 
 $('.datepicker').datepicker({
 	onClose: function () {
-
+		
 		let date = $('.datepicker').val();
 		modifyAccordion(date);
 
 		$.ajax({
 			method: 'GET',
-			url: `/api/getAll`
+			url: '/api/getAll'
 		}).then((result) => {
 			shiftsArr = [];
-			availArr.push(result);
+			updateShifts = [];
+			availArr = [];
 			appendShifts(unixArr, result);
-
+			availArr.push(result);
 		});
 	}
 });
 
-function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEnd){
+function appendedSlider(ishiftId, date, elementId, iemployeeTableId, iEmpFirstName, iEmpLastName, ishiftStart, ishiftEnd){
 	moment.locale('en-GB');
 
 	var input = `#range_${elementId}`;
@@ -77,7 +79,6 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 			return moment(num, 'x').format('h:mm A');
 		},
 		onStart: function(data){
-
 			console.log(`Shift id: ${elementId} - ${moment(elementId, 'X').format('dddd: MMM Do')}, from ${data.from_pretty} - ${data.to_pretty}`);
 			let availEmp = [];
 
@@ -85,19 +86,21 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 			console.log(existCheck);
 			let dayOfWeek = moment(elementId, 'X').format('dddd');
 			let date = moment(elementId, 'X').format('YYYY-MM-DD');
+			console.log('check date' + moment(data.from_pretty, 'hh:mm A').format('HH:mm'));
 			if (existCheck === -1) {
 				shiftsArr.push({
+					shiftId: ishiftId,
 					date: date,
 					dayOfWeek: dayOfWeek,
-					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
-					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
+					start: ishiftStart,
+					end: ishiftEnd,
 					employeeTableId: iemployeeTableId,
 					elemId: elementId
 				});
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -105,11 +108,11 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 
 			console.log(dayOfWeek);
 
-			// if ($(`[data-id="${elementId}"] [data-date="${date}"]`).length !== 0) {
-			// 	$(`[data-id="${elementId}"] [data-date="${date}"]`).empty();
-			// 	$(`[data-id="${elementId}"] [data-date="${date}"]`).append('<option value="" disabled selected>Select Employee</option>');
+			if ($(`[data-id="${elementId}"] [data-date="${date}"]`).length !== 0) {
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).empty();
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`<option value="${iemployeeTableId}" disabled selected>${iEmpFirstName} ${iEmpLastName}</option>`);
 
-			// }
+			}
 
 			$.each(availArr[0], function (i, val) {
 				let dayArr = [];
@@ -169,7 +172,7 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 				`);
 				$('select').formSelect();
 				optionValue++;
-			})
+			});
 
 		},
 		onFinish: function (data) {
@@ -182,17 +185,18 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 			let date = moment(elementId, 'X').format('YYYY-MM-DD');
 			if (existCheck === -1) {
 				shiftsArr.push({
+					shiftId: ishiftId,
 					date: date,
 					dayOfWeek: dayOfWeek,
 					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
 					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
-					employeeTableId: '',
+					employeeTableId: 1,
 					elemId: elementId
 				});
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -202,7 +206,7 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 
 			if($(`[data-id="${elementId}"] [data-date="${date}"]`).length !== 0) {
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).empty();
-				$(`[data-id="${elementId}"] [data-date="${date}"]`).append('<option value="" disabled selected>Select Employee</option>');
+				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`<option value="${iemployeeTableId}" disabled selected>${iEmpFirstName} ${iEmpLastName}</option>`);
 
 			}
 
@@ -263,8 +267,8 @@ function appendedSlider(date, elementId, iemployeeTableId, ishiftStart, ishiftEn
 					<option value="${optionValue}"> ${element.firstName} ${element.lastName} </option>	
 				`);
 				$('select').formSelect();
-					optionValue++;
-			})
+				optionValue++;
+			});
 		},
 	});
 
@@ -290,7 +294,7 @@ function appendShifts(unixArr, data) {
                     <div class="row valign-wrapper">
 						<div class="col s3 input-field">
 							<select id="${elementId}" data-dropdown="${uniqueId}" data-date="${ionDate}">
-                                <option value="" disabled selected>${data[i].firstName} ${data[i].lastName}</option>
+                                <option value="${data[i].id}" disabled selected>${data[i].firstName} ${data[i].lastName}</option>
                             </select>
                         </div>
                         <div class="col s9">
@@ -307,7 +311,7 @@ function appendShifts(unixArr, data) {
 
 
 
-					appendedSlider(ionDate, elementId, shiftData.EmployeeTableId, shiftData.start, shiftData.end);
+					appendedSlider(shiftData.id, ionDate, elementId, shiftData.EmployeeTableId, data[i].firstName, data[i].lastName, shiftData.start, shiftData.end);
 				}
 			}
 		}
@@ -320,10 +324,55 @@ function appendShifts(unixArr, data) {
 // 	}
 // })
 
-$('.material-icons').on('click', function(event){
-	console.log('SHIFTS ARRAY');
-	console.log(shiftsArr);
-})
+$('.schedule-submit').on('click', function(event){
+	
+	function deleteUpdate(data) {
+		console.log(data.shiftId);
+		$.ajax({
+			method: 'DELETE',
+			url: `/api/schedule/${data.shiftId}`,
+			data: data
+		}).then(function(){
+			window.location.href = '/create';
+		});
+	}
+
+	function shiftUpdate(data) {
+		console.log(data)
+		$.ajax({
+			method: 'PUT',
+			url: '/api/schedule/' + data.shiftId,
+			data: data
+		}).then(function(){
+			window.location.href = '/create';
+		})
+	}
+
+	function createUpdate(data) {
+		console.log(data.employeeTableId);
+		// console.log(data.employeeTableId);
+		$.ajax({
+			method: 'POST',
+			url: '/api/schedule',
+			data: data
+		}).then(function(){
+			window.location.href = '/create';
+		});
+	}
+
+	for(var i = 0; i<shiftsArr.length; i++){
+		if(shiftsArr[i].shiftId){
+			shiftUpdate(shiftsArr[i]);
+			// deleteUpdate(shiftsArr[i]);
+			// createUpdate(shiftsArr[i]);
+		} else {
+			createUpdate(shiftsArr[i]);
+		}
+	}
+});
+
+
+// updateShifts("monkey");
 
 function addModSlider(date, elementId) {
 	console.log('Called a new addModSlider');
@@ -369,7 +418,7 @@ function addModSlider(date, elementId) {
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -441,7 +490,7 @@ function addModSlider(date, elementId) {
 				`);
 				$('select').formSelect();
 				optionValue++;
-			})
+			});
 
 		},
 		onFinish: function (data) {
@@ -458,13 +507,13 @@ function addModSlider(date, elementId) {
 					dayOfWeek: dayOfWeek,
 					start: moment(data.from_pretty, 'hh:mm A').format('HH:mm'),
 					end: moment(data.to_pretty, 'hh:mm A').format('HH:mm'),
-					employeeTableId: '',
+					employeeTableId: 1,
 					elemId: elementId
 				});
 			} else {
 				shiftsArr[existCheck].start = moment(data.from_pretty, 'hh:mm A').format('HH:mm');
 				shiftsArr[existCheck].end = moment(data.to_pretty, 'hh:mm A').format('HH:mm');
-				shiftsArr[existCheck].employeeTableId = '';
+				shiftsArr[existCheck].employeeTableId = 1;
 			}
 
 			console.log(shiftsArr);
@@ -532,11 +581,11 @@ function addModSlider(date, elementId) {
 			availEmp.forEach(function(element){
 
 				$(`[data-id="${elementId}"] [data-date="${date}"]`).append(`
-					<option value="${element.id}"> ${element.firstName} ${element.lastName} </option>	
+					<option value="${optionValue}"> ${element.firstName} ${element.lastName} </option>	
 				`);
 				$('select').formSelect();
-					optionValue++;
-			})
+				optionValue++;
+			});
 		},
 	});
 
@@ -555,7 +604,7 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 	console.log(`${scheduleDate} - ${elementId}`);
 
-	$(`[data-id=cb-${scheduleDate}]`).append(`
+	$(`[data-id=cb-${scheduleDate}]`).prepend(`
 	<div class="row shift-item-row">
         <div class="col s12">
             <ul id="create-page-schedule" class="collection sched-creation-collection" style="overflow: visible">
@@ -584,15 +633,11 @@ $('.collapsible-header .add-btn').on('click', function(event){
 
 $(document).on('change', 'select', function () {
 	console.log($(this).val());
-	console.log($(this).attr('id'));
-	let thisVal;
+	console.log('monkey' + $(this).attr('id'));
 	let locateIndex = shiftsArr.findIndex(obj => obj.elemId == $(this).attr('id'));
 	console.log('shift found at index: ' + locateIndex);
 
 	($(this).val() === '' || $(this).val() === null || $(this).val() === undefined) ? thisVal = 1 : thisVal = $(this).val();
 
-	shiftsArr[locateIndex].employeeTableId = parseInt($(this).val());
-	console.log(shiftsArr);
-
-
+	shiftsArr[locateIndex].employeeTableId = parseInt(thisVal);
 });
