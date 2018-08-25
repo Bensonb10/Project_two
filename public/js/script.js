@@ -116,7 +116,7 @@ function appendedSlider(ishiftId, date, elementId, iemployeeTableId, iEmpFirstNa
 
 			$.each(availArr[0], function (i, val) {
 				let dayArr = [];
-
+				
 				$.each(this.AvailTables, function (index, value) {
 					dayArr.push(this.dayOfWeek);
 				});

@@ -25,7 +25,7 @@ module.exports = function (app) {
 			var hbsObj = {
 				shifts: data
 			};
-			res.render('index', hbsObj);
+			res.render('create');
 		});
 	});
 
